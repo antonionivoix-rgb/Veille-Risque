@@ -1,0 +1,19 @@
+{
+  "name": "riskveille",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:feeds": "node scripts/extract-feeds.mjs",
+    "check": "node --check worker.js && node scripts/check-html.mjs",
+    "test:ui": "playwright test tests --reporter=line --workers=1",
+    "deploy:cloudflare": "powershell -NoProfile -ExecutionPolicy Bypass -File ./deploy-cloudflare.ps1"
+  },
+  "dependencies": {
+    "@flaticon/flaticon-uicons": "^3.3.1",
+    "fast-xml-parser": "^5.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "wrangler": "^4.111.0"
+  }
+}

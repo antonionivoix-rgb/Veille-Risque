@@ -1,0 +1,332 @@
+[
+  {
+    "id": "insee",
+    "name": "INSEE Conjoncture",
+    "url": "https://news.google.com/rss/search?q=INSEE+consommation+m%C3%A9nages+indice+prix+alimentaire+commerce+d%C3%A9tail&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "bdf",
+    "name": "Banque de France",
+    "url": "https://news.google.com/rss/search?q=%22Banque+de+France%22+conjoncture+OR+inflation+OR+commerce+d%C3%A9tail&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "ecb",
+    "name": "BCE Communiqués",
+    "url": "https://www.ecb.europa.eu/rss/press.html"
+  },
+  {
+    "id": "un-econ",
+    "name": "ONU — Développement économique",
+    "url": "https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml"
+  },
+  {
+    "id": "imf",
+    "name": "FMI — Actualités",
+    "url": "https://news.google.com/rss/search?q=site%3Aimf.org+global+economy+OR+inflation+OR+growth&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "world-bank",
+    "name": "Banque Mondiale — Actualités",
+    "url": "https://news.google.com/rss/search?q=site%3Aworldbank.org+global+economy+OR+growth+OR+trade&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "mckinsey",
+    "name": "McKinsey — Macro & risques",
+    "url": "https://www.mckinsey.com/insights/rss"
+  },
+  {
+    "id": "economist-finance",
+    "name": "The Economist — Finance & Economics",
+    "url": "https://www.economist.com/finance-and-economics/rss.xml"
+  },
+  {
+    "id": "ft-global-economy",
+    "name": "Financial Times — Global Economy",
+    "url": "https://www.ft.com/rss/global-economy"
+  },
+  {
+    "id": "bis-macro",
+    "name": "Banque des règlements internationaux (BRI)",
+    "url": "https://www.bis.org/doclist/rss_all_categories.rss"
+  },
+  {
+    "id": "ecfr-geoeconomics",
+    "name": "ECFR — Geoeconomics",
+    "url": "https://ecfr.eu/category/geoeconomics/feed/"
+  },
+  {
+    "id": "politico-eu-risk",
+    "name": "Politico Europe — Macro & risques",
+    "url": "https://www.politico.eu/feed/"
+  },
+  {
+    "id": "wsj-world-risk",
+    "name": "Wall Street Journal — World Risk",
+    "url": "https://news.google.com/rss/search?q=site%3Awsj.com+(%22global+economy%22+OR+tariffs+OR+trade+OR+%22supply+chain%22+OR+inflation+OR+geopolitical)&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "foreign-affairs-risk",
+    "name": "Foreign Affairs — Global Risk",
+    "url": "https://www.foreignaffairs.com/rss.xml"
+  },
+  {
+    "id": "bloomberg-economics",
+    "name": "Bloomberg Economics",
+    "url": "https://feeds.bloomberg.com/economics/news.rss"
+  },
+  {
+    "id": "oecd-macro",
+    "name": "OCDE — Perspectives économiques",
+    "url": "https://news.google.com/rss/search?q=site%3Aoecd.org+economic+outlook+OR+inflation+OR+consumer+OR+trade&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "wto-trade",
+    "name": "OMC — Commerce mondial",
+    "url": "https://news.google.com/rss/search?q=site%3Awto.org+trade+outlook+OR+tariffs+OR+supply+chains&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "unctad-trade",
+    "name": "CNUCED — Commerce & investissement",
+    "url": "https://news.google.com/rss/search?q=site%3Aunctad.org+trade+OR+shipping+OR+global+economy&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "eurostat-retail",
+    "name": "Eurostat — Inflation & commerce",
+    "url": "https://news.google.com/rss/search?q=site%3Aec.europa.eu%2Feurostat+inflation+OR+retail+trade+OR+unemployment&hl=en&gl=EU&ceid=EU:en"
+  },
+  {
+    "id": "franceinfo-eco",
+    "name": "Franceinfo — Économie",
+    "url": "https://www.francetvinfo.fr/economie.rss"
+  },
+  {
+    "id": "bbc-business",
+    "name": "BBC Business",
+    "url": "https://feeds.bbci.co.uk/news/business/rss.xml"
+  },
+  {
+    "id": "bde-macro",
+    "name": "Banco de España — Actualidad",
+    "url": "https://www.bde.es/wbe/es/inicio/rss/rss-noticias/"
+  },
+  {
+    "id": "elpais-economia",
+    "name": "El País — Economía",
+    "url": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/economia/portada"
+  },
+  {
+    "id": "ibge-macro",
+    "name": "IBGE — Conjoncture Brésil",
+    "url": "https://news.google.com/rss/search?q=site%3Aibge.gov.br+varejo+OR+infla%C3%A7%C3%A3o+OR+consumo+OR+desemprego&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  },
+  {
+    "id": "agencia-brasil-eco",
+    "name": "Agência Brasil — Economia",
+    "url": "https://agenciabrasil.ebc.com.br/rss/economia/feed.xml"
+  },
+  {
+    "id": "lsa",
+    "name": "LSA Commerce",
+    "url": "https://news.google.com/rss/search?q=site%3Alsa-conso.fr+grande+distribution&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "lineaires",
+    "name": "Linéaires",
+    "url": "https://news.google.com/rss/search?q=site%3Alineaires.com+(%22grande+distribution%22+OR+enseigne+OR+magasins+OR+fusion+OR+acquisition+OR+r%C3%A9glementation+OR+canicule+OR+n%C3%A9gociations)&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "ria",
+    "name": "RIA / Process Alimentaire",
+    "url": "https://news.google.com/rss/search?q=site%3Aria.fr+OR+site%3Aprocessalimentaire.com+distribution+alimentaire&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "iri-circana",
+    "name": "IRI / Circana parts marché",
+    "url": "https://news.google.com/rss/search?q=Circana+OR+%22IRI%22+%22parts+de+march%C3%A9%22+grande+distribution&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "kantar",
+    "name": "Kantar Worldpanel",
+    "url": "https://news.google.com/rss/search?q=Kantar+%22parts+de+march%C3%A9%22+supermercados+OR+grande+distribution&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "franceagrimer",
+    "name": "FranceAgriMer",
+    "url": "https://news.google.com/rss/search?q=FranceAgriMer+r%C3%A9colte+OR+production+OR+filiere+OR+prix&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "fao-markets",
+    "name": "FAO Food Price Index",
+    "url": "https://news.google.com/rss/search?q=FAO+%22food+price+index%22+OR+%22cereal%22+OR+%22dairy%22&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "usda",
+    "name": "USDA Marchés agricoles",
+    "url": "https://news.google.com/rss/search?q=site%3Ausda.gov+wheat+OR+corn+OR+soybean+OR+commodity+prices&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "sp-commodities",
+    "name": "S&P Global Commodity Insights",
+    "url": "https://news.google.com/rss/search?q=%22S%26P+Global+Commodity+Insights%22+OR+Platts+prix+mati%C3%A8res+premi%C3%A8res&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "iea-energy",
+    "name": "AIE — Marchés de l’énergie",
+    "url": "https://news.google.com/rss/search?q=site%3Aiea.org+energy+prices+OR+oil+market+OR+electricity&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "gn-dgccrf",
+    "name": "DGCCRF Contrôles & sanctions",
+    "url": "https://news.google.com/rss/search?q=DGCCRF+sanction+OR+amende+distribution+alimentaire&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "gn-autorite-concurrence",
+    "name": "Autorité de la concurrence",
+    "url": "https://www.autoritedelaconcurrence.fr/fr/rss.xml"
+  },
+  {
+    "id": "dares",
+    "name": "DARES Travail",
+    "url": "https://news.google.com/rss/search?q=DARES+OR+%22Code+du+travail%22+grande+distribution+OR+commerce&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "novethic",
+    "name": "Novethic ESG",
+    "url": "https://www.novethic.fr/feed"
+  },
+  {
+    "id": "ademe",
+    "name": "ADEME Transition énergétique",
+    "url": "https://news.google.com/rss/search?q=ADEME+OR+%22efficacit%C3%A9+%C3%A9nerg%C3%A9tique%22+OR+%22d%C3%A9carbonation%22+retail+OR+distribution&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "anses",
+    "name": "ANSES",
+    "url": "https://www.anses.fr/fr/rss.xml"
+  },
+  {
+    "id": "rappelconso",
+    "name": "RappelConso (FR)",
+    "url": "https://news.google.com/rss/search?q=rappel+produit+site%3Arappelconso.gouv.fr&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "efsa",
+    "name": "EFSA Sécurité alim.",
+    "url": "https://news.google.com/rss/search?q=site%3Aefsa.europa.eu+food+safety+OR+recall+OR+contamination&hl=en&gl=FR&ceid=FR:en"
+  },
+  {
+    "id": "gn-rasff",
+    "name": "RASFF Alertes UE",
+    "url": "https://news.google.com/rss/search?q=RASFF+food+alert+OR+recall&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "gn-fda-recall",
+    "name": "FDA Food Recalls",
+    "url": "https://news.google.com/rss/search?q=site%3Afda.gov+food+recall&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "who",
+    "name": "OMS — Actualités sanitaires",
+    "url": "https://www.who.int/rss-feeds/news-english.xml"
+  },
+  {
+    "id": "certfr",
+    "name": "CERT-FR Alertes",
+    "url": "https://www.cert.ssi.gouv.fr/alerte/feed/"
+  },
+  {
+    "id": "anssi",
+    "name": "ANSSI",
+    "url": "https://news.google.com/rss/search?q=ANSSI+cybers%C3%A9curit%C3%A9+OR+vuln%C3%A9rabilit%C3%A9+OR+alerte&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "enisa-eu",
+    "name": "ENISA (cyber UE)",
+    "url": "https://news.google.com/rss/search?q=ENISA+threat+landscape+OR+cyber+retail&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "bleeping",
+    "name": "BleepingComputer Retail",
+    "url": "https://www.bleepingcomputer.com/feed/"
+  },
+  {
+    "id": "meteo-fr",
+    "name": "MeteoAlarm France",
+    "url": "https://feeds.meteoalarm.org/feeds/meteoalarm-legacy-atom-france"
+  },
+  {
+    "id": "vigicrues",
+    "name": "Vigicrues (inondations FR)",
+    "url": "https://news.google.com/rss/search?q=Vigicrues+OR+inondation+OR+crue+France&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "inmet-br",
+    "name": "INMET Avisos (Brésil)",
+    "url": "https://apiprevmet3.inmet.gov.br/avisos/rss"
+  },
+  {
+    "id": "copernicus-ems",
+    "name": "Copernicus EMS (urgences UE)",
+    "url": "https://news.google.com/rss/search?q=%22Copernicus+Emergency%22+OR+%22Copernicus+EMS%22+flood+OR+wildfire+OR+storm&hl=en&gl=US&ceid=US:en"
+  },
+  {
+    "id": "gn-meteo-es",
+    "name": "Alertes météo Espagne",
+    "url": "https://news.google.com/rss/search?q=AEMET+aviso+OR+ola+de+calor+OR+inundaci%C3%B3n+Espa%C3%B1a&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "gn-surete-fr",
+    "name": "Sûreté commerces (FR)",
+    "url": "https://news.google.com/rss/search?q=braquage+supermarch%C3%A9+OR+vol+%C3%A0+main+arm%C3%A9e+magasin+OR+agression+magasin&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "gn-attentat",
+    "name": "Sécurité / menace terroriste",
+    "url": "https://news.google.com/rss/search?q=attentat+OR+alerte+attentat+OR+menace+terroriste+France&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "gn-rating",
+    "name": "Notations crédit (S&P/Moody's/Fitch)",
+    "url": "https://news.google.com/rss/search?q=%22S%26P%22+OR+Moody%27s+OR+Fitch+Carrefour+OR+retail+rating&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "cf-newsroom",
+    "name": "Carrefour Newsroom",
+    "url": "https://news.google.com/rss/search?q=site%3Acarrefour.com+OR+site%3Afinance.carrefour.com&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "amf",
+    "name": "AMF Décisions",
+    "url": "https://news.google.com/rss/search?q=AMF+Carrefour+OR+%22grande+distribution%22+sanction+OR+d%C3%A9cision&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "reuters-retail",
+    "name": "Reuters Retail EU",
+    "url": "https://news.google.com/rss/search?q=Reuters+retail+supermarket+Europe+Carrefour+earnings&hl=en&gl=FR&ceid=FR:en"
+  },
+  {
+    "id": "lemonde",
+    "name": "Le Monde",
+    "url": "https://www.lemonde.fr/rss/une.xml"
+  },
+  {
+    "id": "lefigaro",
+    "name": "Le Figaro",
+    "url": "https://www.lefigaro.fr/rss/figaro_actualites.xml"
+  },
+  {
+    "id": "lesechos",
+    "name": "Les Échos",
+    "url": "https://news.google.com/rss/search?q=site%3Alesechos.fr+%C3%A9conomie+OR+entreprises+OR+distribution&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "gn-politique-fr",
+    "name": "Politique France (veille légère)",
+    "url": "https://news.google.com/rss/search?q=%22motion+de+censure%22+OR+dissolution+assembl%C3%A9e+OR+%22%C3%A9tat+d%27urgence%22+OR+d%C3%A9mission+gouvernement+France&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "gn-politique-monde",
+    "name": "Géopolitique mondiale (veille légère)",
+    "url": "https://news.google.com/rss/search?q=coup+d%27%C3%A9tat+OR+guerre+OR+invasion+OR+sanctions+internationales+OR+embargo&hl=fr&gl=FR&ceid=FR:fr"
+  }
+]
