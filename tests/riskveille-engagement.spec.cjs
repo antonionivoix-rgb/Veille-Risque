@@ -10,7 +10,9 @@ async function login(page, name) {
     await page.locator('#loginPwd').fill(password);
     await page.locator('#loginBtn').click();
   }
+  await expect(page.locator('#loginOverlay')).toBeHidden({ timeout: 20000 });
   await expect(page.locator('#viewRisks')).toHaveClass(/active/);
+  await expect(page.locator('#nc-MON')).not.toHaveText('—', { timeout: 20000 });
 }
 
 test('archives, recommandations, commentaires et votes persistent', async ({ page }) => {
