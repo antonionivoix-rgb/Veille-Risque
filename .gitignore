@@ -11,3 +11,4 @@ node_modules/
 .cloudflare-package/
 browser-check-*
 *.log
+test-results/

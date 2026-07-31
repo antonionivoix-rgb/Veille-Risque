@@ -42,5 +42,5 @@ if ($LASTEXITCODE -ne 0) {
 
 & npx.cmd wrangler pages deploy $publicDirectory --project-name riskveillecrf --branch main --commit-dirty=true
 if ($LASTEXITCODE -ne 0) {
-  throw "Le déploiement de l'interface riskveillecrf.pages.dev a échoué avec le code $LASTEXITCODE."
+  throw "Le déploiement de l'interface riskveillecrf-824.pages.dev a échoué avec le code $LASTEXITCODE."
 }

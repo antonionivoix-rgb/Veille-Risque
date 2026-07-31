@@ -59,51 +59,39 @@ RiskVeille propose un point d'entrée unique pour rendre cette matière plus lis
 
 ### Comprendre rapidement la situation
 
-L'entrée « Vue globale », placée dans le menu latéral gauche juste sous « Articles ajoutés »,
-rassemble le centre de situation, « Cadence des signaux » et « Familles sous surveillance ». Elle
-présente un brief automatique, le
-signal prioritaire, les volumes critiques, élevés et recoupés, ainsi que l'état d'accessibilité des
-sources. Le graphique répartit les articles des sept derniers jours selon les quatre niveaux de
-priorité. Dans « Familles sous surveillance », le nombre affiché à droite d'une famille correspond
-au nombre d'articles qui lui sont rattachés sur les sept derniers jours, après application des
-filtres actifs dans le menu latéral. Il s'agit d'un volume d'articles et non d'une note de risque.
-Ce nombre peut être inférieur au compteur de la même famille dans le menu latéral, car ce dernier
-porte sur toute la profondeur de veille disponible, soit jusqu'à trente-cinq jours.
-
-Dans le menu « Risques », un bandeau « État du monde » complète cette synthèse avec les
+Dans le menu « Risques », un bandeau « État du monde » présente les
 publications récentes des institutions et de la presse économique internationale. Ces contenus
 restent intégrés à la même veille : ils ne constituent ni une catégorie ni un filtre distinct.
 
 ### Explorer et filtrer la veille risques
 
 Les articles sont rapprochés des onze grandes familles A à K du référentiel de risques Carrefour.
-Ils peuvent être filtrés par niveau de priorité, famille, pays, présence d'un ajout manuel ou
-mot-clé. Plusieurs familles peuvent être cochées ou décochées simultanément, puis combinées avec
-un autre filtre. L'état de la sélection reste visible au-dessus de la liste.
+Ils peuvent être filtrés par famille, pays, présence d'un ajout manuel, archivage ou mot-clé.
+Les familles et géographies peuvent être cochées ou décochées, puis combinées avec le filtre
+d'articles. La vue Monde est sélectionnée par défaut et l'état de la sélection reste visible.
 
-Les résultats peuvent être ordonnés par pertinence, date récente ou priorité. Chaque article
+Les résultats peuvent être ordonnés par nombre de votes ou date récente. Chaque article
 affiche sa source, sa date et renvoie vers la publication originale. RiskVeille s'arrête
 volontairement au niveau des familles A à K afin de conserver une lecture simple et cohérente dans
 toute la plateforme.
 
 ### Travailler à plusieurs
 
-Un utilisateur peut commenter un article, corriger sa famille de risques, modifier son évaluation
-ou ajouter manuellement un article. Lors de l'ajout, il renseigne le lien, le titre, la description,
-la famille, l'exposition de Carrefour, la temporalité et le niveau de priorité. Le filtre
-« Articles ajoutés » permet ensuite de retrouver uniquement ces contributions.
+Un utilisateur peut commenter un article, corriger sa famille de risques, choisir une recommandation
+de lecture, voter ou ajouter manuellement un article. Lors de l'ajout, il renseigne le lien, le titre,
+la famille et, s'il le souhaite, un commentaire initial. Le filtre « Articles ajoutés » permet
+ensuite de retrouver uniquement ces contributions.
 
-Dans le cadran détaillé, la famille n'apparaît qu'une fois et constitue le classement modifiable.
-L'évaluation se concentre sur trois informations : l'exposition de Carrefour, la temporalité et le
-niveau. L'auteur d'un article ajouté peut aussi corriger sa description après publication.
+Dans le cadran détaillé, la famille reste modifiable. La recommandation de lecture utilise trois
+valeurs simples : « À lire », « Recommandé » et « Incontournable ». Chaque utilisateur peut ajouter
+un vote positif ; les articles les plus votés remontent dans la liste.
 
 Les commentaires peuvent être corrigés ou supprimés par leur auteur. Tout utilisateur connecté
 peut supprimer un article ajouté manuellement, quel que soit son auteur. Ces changements sont
 enregistrés dans un espace commun et apparaissent sur les autres ordinateurs en moins de cinq
-secondes. Les familles et évaluations choisies pour les articles ajoutés manuellement sont
-conservées sans être recalculées lors de l'actualisation des flux. Pour les articles collectés
-automatiquement, une correction manuelle de l'évaluation peut être annulée pour revenir à
-l'évaluation automatique.
+secondes. Les familles, recommandations et votes sont conservés sans être recalculés lors de
+l'actualisation des flux. Un article archivé est enregistré avec un instantané durable afin de
+rester disponible dans « Articles archivés », même après sa disparition des flux courants.
 
 ### Conserver une couverture mondiale
 
@@ -126,8 +114,8 @@ l'enseigne concernée depuis cet espace. L'ajout apparaît sur les autres ordina
 cinq secondes et peut être supprimé par tout utilisateur connecté.
 
 Chaque actualité concurrentielle ouvre le même cadran d'analyse que la veille risques, sur le côté
-droit de l'écran. L'équipe peut y préciser la famille de risques, l'exposition de Carrefour, la
-temporalité et le niveau, puis échanger dans les commentaires. Ces corrections et commentaires
+droit de l'écran. L'équipe peut y préciser la famille de risques et la recommandation de lecture,
+voter, archiver, puis échanger dans les commentaires. Ces corrections et commentaires
 apparaissent sur les autres ordinateurs en moins de cinq secondes.
 
 ### Lire les contenus espagnols et portugais
@@ -267,35 +255,25 @@ La collecte centrale recherche de nouvelles publications toutes les cinq minutes
 à jour est disponible, la liste évolue discrètement en arrière-plan : la page ne se vide pas,
 aucun message répétitif n'interrompt la lecture et l'utilisateur conserve ses filtres, sa page de
 résultats et l'article qu'il consulte. La synchronisation des commentaires, classements,
-évaluations et ajouts reste indépendante et continue de les faire apparaître sur les autres
+recommandations, votes, archives et ajouts reste indépendante et continue de les faire apparaître sur les autres
 ordinateurs en moins de cinq secondes. Le bouton d'actualisation reste disponible lorsqu'un
 utilisateur souhaite demander immédiatement une nouvelle collecte.
 
 ## Comment les articles sont ordonnés
 
-RiskVeille ne repose plus sur une note unique difficile à expliquer. Chaque article est présenté
-au moyen de trois champs simples dans sa fiche :
-
-- **l'exposition de Carrefour**, indirecte ou directe ;
-- **la temporalité**, cette année, d'ici cinq ans ou au-delà de cinq ans ;
-- **le niveau**, faible, modéré, élevé ou critique.
-
-Le mode « Pertinence » cherche à faire remonter les articles les plus utiles à l'analyse. Le niveau
-de priorité, l'exposition et la temporalité participent à cet ordre, puis la date départage les
-articles comparables. Les modes « Récents » et « Priorité » permettent de changer cette lecture.
-Un recoupement enrichit l'information affichée, mais ne transforme jamais à lui seul un article en
-contenu critique.
+RiskVeille utilise un mécanisme collectif lisible. Un utilisateur choisit une recommandation de
+lecture et peut voter une fois pour un article. Le mode « Plus recommandés » classe d'abord les
+articles par nombre de votes, puis par recommandation et par date. Le mode « Récents » conserve
+une lecture strictement chronologique.
 
 ## Parcours conseillé pour une démonstration
 
-1. Ouvrir « Vue globale » sous « Articles ajoutés » dans le menu de gauche pour présenter le brief,
-   la santé des sources et la cadence des signaux.
-2. Passer à « Risques » et combiner plusieurs familles avec un niveau de priorité ou une zone
-   géographique.
-3. Ouvrir un article pour présenter la source, le classement et l'évaluation modifiables, puis
+1. Ouvrir « Risques » et combiner plusieurs familles avec une ou plusieurs zones géographiques.
+2. Ouvrir un article pour présenter la source, le classement et la recommandation modifiables, puis
    déclencher volontairement le résumé en quatre points si l'article n'en possède pas encore.
-4. Ajouter un article ou afficher uniquement les articles ajoutés par l'équipe.
-5. Passer à la veille concurrentielle et ouvrir la fiche d'une enseigne en Espagne ou au Brésil.
+3. Voter pour un article et montrer son repositionnement dans la liste.
+4. Archiver un article puis le retrouver dans « Articles archivés ».
+5. Ajouter un article avec un commentaire initial ou passer à la veille concurrentielle.
 
 Ce parcours prend trois à cinq minutes et montre à la fois la couverture mondiale, la profondeur
 d'analyse et l'utilité collective de l'outil.
@@ -304,8 +282,8 @@ d'analyse et l'utilité collective de l'outil.
 
 La crédibilité du projet repose aussi sur ses limites :
 
-- la priorité affichée est une aide au tri, pas une évaluation officielle de l'impact pour
-  Carrefour ;
+- une recommandation ou un vote reflète l'intérêt de lecture de l'équipe, pas une évaluation
+  officielle de l'impact pour Carrefour ;
 - une information importante doit toujours être relue dans sa source originale et recoupée ;
 - le filtrage réduit le bruit mais ne peut supprimer tous les faux positifs ni garantir qu'aucun
   signal ne sera manqué ;

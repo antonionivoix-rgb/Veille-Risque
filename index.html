@@ -73,7 +73,6 @@ body.dark .login-input:focus{border-color:var(--blue)}
 body.dark ::-webkit-scrollbar-thumb{background:var(--bd2)}
 body.dark .cp-hero{background:linear-gradient(135deg,rgba(29,78,216,.1) 0%,var(--surf) 100%)}
 body.dark .ov{background:rgba(0,0,0,.82)}
-body.dark .spot{background:linear-gradient(135deg,rgba(220,38,38,.07),var(--surf) 70%)}
 body.dark .skel::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent)}
 body.dark .cpanel-backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
 /* Dark theme toggle button */
@@ -157,19 +156,8 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 .ncnt.h{background:rgba(234,88,12,.18);color:#FDBA74}
 .ncnt.m{background:rgba(37,99,235,.22);color:#BFDBFE}
 .ncnt.l{background:rgba(22,163,74,.18);color:#86EFAC}
-.priority-dot{width:10px;height:10px;border-radius:50%;display:block;margin:auto;background:var(--low);box-shadow:0 0 0 3px color-mix(in srgb,var(--low) 18%,transparent)}
-.priority-dot.critical{background:var(--crit);box-shadow:0 0 0 3px color-mix(in srgb,var(--crit) 18%,transparent)}
-.priority-dot.high{background:var(--high);box-shadow:0 0 0 3px color-mix(in srgb,var(--high) 18%,transparent)}
-.priority-dot.moderate{background:var(--mod);box-shadow:0 0 0 3px color-mix(in srgb,var(--mod) 18%,transparent)}
 .nav.active .ncnt{background:rgba(29,78,216,.5);color:rgba(255,255,255,.92)}
 .filter-check{width:14px;height:14px;flex:0 0 14px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.28);border-radius:3px;color:transparent;font-size:.6rem;font-weight:800;transition:background var(--ease),border-color var(--ease),color var(--ease)}
-.nav-priority.active{font-weight:700;color:#fff;border-top:1px solid transparent;border-bottom:1px solid transparent}
-.nav-priority.active::before{width:5px;top:3px;bottom:3px;background:currentColor}
-.nav-priority[data-f="critical"].active{background:rgba(220,38,38,.3);border-color:rgba(248,113,113,.35)}
-.nav-priority[data-f="high"].active{background:rgba(234,88,12,.3);border-color:rgba(251,146,60,.35)}
-.nav-priority[data-f="moderate"].active{background:rgba(37,99,235,.34);border-color:rgba(96,165,250,.42)}
-.nav-priority[data-f="low"].active{background:rgba(22,163,74,.3);border-color:rgba(74,222,128,.35)}
-.nav-priority.active .ncnt{background:rgba(255,255,255,.18);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.2)}
 .sdiv{height:1px;background:var(--sbbd);margin:4px 12px}
 .tga{padding:12px 16px}
 .tgal{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:8px}
@@ -194,6 +182,8 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 .nav-cat.active:hover{background:rgba(255,255,255,.065);color:var(--sbth)}
 .nav-cat.active .filter-check,.nav-cat.partial .filter-check{background:var(--blue);border-color:#60A5FA;color:#fff}
 .nav-cat[aria-checked="false"]{color:rgba(255,255,255,.34)}
+.nav-article.active .filter-check,.nav-geo.active .filter-check{background:var(--blue);border-color:#60A5FA;color:#fff}
+.nav-article[aria-checked="false"],.nav-geo[aria-checked="false"]{color:rgba(255,255,255,.5)}
 
 /* Badge catégorie A→K d'un article */
 .ccat{position:relative}
@@ -326,12 +316,6 @@ body.dark .comp-seg{background:rgba(96,165,250,.15);color:#93C5FD;border-color:r
 .cp-cl:hover{background:#fff;color:var(--t1);border-color:var(--bd2)}
 .cp-cl img,.dpcl img{display:block;width:14px;height:14px;object-fit:contain;opacity:.68}
 body.dark .dpcl img{filter:invert(1);opacity:.86}
-.cp-risk-banner{margin:14px 22px 0;padding:10px 14px;border-radius:10px;display:flex;align-items:center;gap:10px;font-size:.76rem;font-weight:600}
-.cp-risk-banner.critical{background:#FEF2F2;color:#DC2626;border:1px solid #FECACA}
-.cp-risk-banner.high{background:#FFF7ED;color:#EA580C;border:1px solid #FED7AA}
-.cp-risk-banner.moderate{background:#FFFBEB;color:#D97706;border:1px solid #FDE68A}
-.cp-risk-banner.none{background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0}
-.cp-risk-icon{font-size:1.1rem;flex-shrink:0}
 .cp-section{padding:16px 22px 0}
 .cp-section-lbl{font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t4);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .cp-section-lbl::after{content:'';flex:1;height:1px;background:var(--bd)}
@@ -365,11 +349,6 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .filter-state-label{font-size:.56rem;font-weight:800;text-transform:uppercase;color:var(--t4)}
 .filter-pill{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1px solid var(--bd);border-radius:999px;background:var(--surf2);color:var(--t2);font-size:.61rem;font-weight:700}
 .filter-pill.primary{border-color:rgba(29,78,216,.35);background:var(--blue-l);color:var(--blue)}
-.filter-pill.priority{padding:4px 11px;border-width:2px;font-size:.66rem;box-shadow:0 2px 8px color-mix(in srgb,currentColor 16%,transparent)}
-.filter-pill.priority.critical{border-color:var(--crit);background:var(--crit-bg);color:var(--crit)}
-.filter-pill.priority.high{border-color:var(--high);background:var(--high-bg);color:var(--high)}
-.filter-pill.priority.moderate{border-color:var(--mod);background:var(--mod-bg);color:var(--mod)}
-.filter-pill.priority.low{border-color:var(--low);background:var(--low-bg);color:var(--low)}
 .sgrp{display:flex;gap:2px;background:var(--surf3);padding:2px;border-radius:8px;border:1px solid var(--bd)}
 .sbtn{padding:5px 12px;border-radius:6px;font-size:.66rem;font-weight:500;cursor:pointer;border:none;color:var(--t3);background:transparent;font-family:var(--sans);transition:background var(--ease),color var(--ease)}
 .sbtn:hover{color:var(--blue)}
@@ -385,32 +364,20 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .eban.show{display:flex}
 .fa{flex:1;padding:16px 24px}
 
-/* SPOTLIGHT */
 @keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.spot{background:linear-gradient(135deg,var(--crit-bg),var(--surf) 70%);border:1.5px solid var(--crit-bd);border-left:4px solid var(--crit);border-radius:var(--rlg);padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:transform var(--ease),box-shadow var(--ease);animation:cardIn .24s ease both}
-.spot:hover{box-shadow:var(--s2);transform:translateX(4px)}
-.spb{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--crit);margin-bottom:7px;display:flex;align-items:center;gap:5px}
-.spt{font-family:var(--serif);font-size:1.05rem;color:var(--t1);line-height:1.38;margin-bottom:7px}
-.spm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 /* CARD */
-.card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px 12px 0;display:grid;grid-template-columns:4px 1fr auto;gap:13px;align-items:start;cursor:pointer;transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease),background var(--ease);box-shadow:var(--s1);margin-bottom:6px;will-change:transform;animation:cardIn .22s ease both}
+.card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:13px;align-items:start;cursor:pointer;transition:transform var(--ease),box-shadow var(--ease),border-color var(--ease),background var(--ease);box-shadow:var(--s1);margin-bottom:6px;will-change:transform;animation:cardIn .22s ease both}
 .card:hover{box-shadow:var(--s2);border-color:var(--bd2);transform:translateY(-2px);background:var(--surf2)}
-.cb{border-radius:3px 0 0 3px;align-self:stretch;min-width:4px}
-.cb.c{background:var(--crit)}.cb.h{background:var(--high)}.cb.m{background:var(--mod)}.cb.l{background:var(--bd2)}
 .cm{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
 .csrc{font-size:.6rem;font-weight:700;color:var(--blue);letter-spacing:.05em;text-transform:uppercase}
 .ccat{font-size:.58rem;padding:2px 7px;border-radius:4px;background:var(--blue-l);color:var(--blue);font-weight:500}
 .cflag{font-size:.72rem}
 .clng{font-size:.57rem;padding:1px 6px;border-radius:4px;background:#EFF6FF;color:#3B82F6;font-weight:600}
-.csc{font-size:.57rem;font-weight:700;padding:2px 7px;border-radius:4px}
-.csc.critical{background:var(--crit-bg);color:var(--crit)}
-.csc.high{background:var(--high-bg);color:var(--high)}
-.csc.moderate{background:var(--mod-bg);color:var(--mod)}
-.csc.low{background:var(--low-bg);color:var(--low)}
-.csc.macro-watch{background:var(--high-bg);color:var(--high)}
-.csc.macro-important{background:var(--mod-bg);color:var(--mod)}
-.csc.macro-context{background:var(--blue-l);color:var(--blue)}
+.recommendation-badge,.archive-badge{font-size:.57rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surf3);color:var(--t3);border:1px solid var(--bd)}
+.recommendation-badge.recommended{background:#ECFDF5;color:#047857;border-color:#A7F3D0}.recommendation-badge.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}.archive-badge{background:#F3F4F6;color:#4B5563}
+.vote-button{border:1px solid var(--bd);background:var(--surf2);color:var(--t3);border-radius:7px;cursor:pointer;font-family:var(--sans);transition:color var(--ease),border-color var(--ease),background var(--ease)}
+.vote-button:hover,.vote-button.active{color:#C2410C;border-color:#FDBA74;background:#FFF7ED}.card-vote{width:40px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.68rem}.card-vote strong{font-size:.76rem}.vote-arrow{font-size:.8rem;line-height:1}
 .ctfr{font-size:.7rem;color:var(--t4);line-height:1.4;margin:2px 0 4px;font-style:italic;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .cti{font-size:.85rem;font-weight:500;color:var(--t1);line-height:1.48;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cde{font-size:.74rem;color:var(--t3);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -442,10 +409,6 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .backbtn img{display:block;width:16px;height:16px;object-fit:contain;opacity:.72}
 body.dark .backbtn img{filter:invert(1);opacity:.86}
 .dpchip{font-size:.63rem;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase}
-.dpchip.critical{background:var(--crit-bg);color:var(--crit);border:1px solid var(--crit-bd)}
-.dpchip.high{background:var(--high-bg);color:var(--high);border:1px solid var(--high-bd)}
-.dpchip.moderate{background:var(--mod-bg);color:var(--mod);border:1px solid var(--mod-bd)}
-.dpchip.low{background:var(--low-bg);color:var(--low)}
 .dpcl{width:32px;height:32px;background:var(--surf3);border:1px solid var(--bd);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--t3);transition:background var(--ease),color var(--ease),border-color var(--ease)}
 .dpcl:hover{background:var(--bd);color:var(--t1)}
 .dptitle{font-family:var(--serif);font-size:1.35rem;line-height:1.32;color:var(--t1);font-weight:400;margin-bottom:8px}
@@ -458,21 +421,8 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 .dpsc{background:var(--surf3);border:1px solid var(--bd);border-radius:var(--r);padding:13px 16px;margin-top:18px;margin-bottom:16px}
 .dpscttl{font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t4);margin-bottom:10px}
 .dpsc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.dpsc-head .dpscttl{margin-bottom:0}
-.dp-eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:11px}.dp-eval-grid label{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:700;color:var(--t3)}
-.dpscrow{display:flex;align-items:center;justify-content:space-between;font-size:.72rem;color:var(--t2);margin-bottom:6px;gap:10px}
-/* Nouveau breakdown : valeur signée à droite, libellé à gauche, code couleur par type */
-.dpscrow-val{font-family:var(--serif);font-style:italic;font-variant-numeric:tabular-nums;font-size:.82rem;min-width:36px;text-align:right;font-weight:600;flex-shrink:0}
-.dpscrow-base{color:var(--t1);font-weight:500}
-.dpscrow-base .dpscrow-val{color:var(--blue)}
-.dpscrow-plus{color:var(--t2)}
-.dpscrow-plus .dpscrow-val{color:var(--green)}
-.dpscrow-minus{color:var(--t3)}
-.dpscrow-minus .dpscrow-val{color:var(--red)}
-.dpscrow-cap{color:var(--t4);font-style:italic;font-size:.66rem}
-.dpscrow-cap .dpscrow-val{display:none}
-.dpbar{width:88px;height:4px;background:var(--bd);border-radius:2px;overflow:hidden}
-.dpbarf{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),#60A5FA)}
-.dpsctot{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--bd);margin-top:6px;font-size:.76rem;font-weight:600;color:var(--t1)}
+.dp-engagement-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;margin-bottom:11px}.dp-engagement-grid>label:first-child{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:700;color:var(--t3)}.archive-option{display:flex;align-items:center;gap:8px;min-height:34px;font-size:.72rem;font-weight:700;color:var(--t2);cursor:pointer}.archive-option input{width:17px;height:17px;accent-color:var(--blue)}.detail-vote{min-height:32px;padding:5px 10px;display:inline-flex;align-items:center;gap:5px;font-size:.67rem;font-weight:700}
+.dpchip.recommendation{background:var(--surf3);color:var(--t2);border:1px solid var(--bd)}.dpchip.recommendation.recommended{background:#ECFDF5;color:#047857;border-color:#A7F3D0}.dpchip.recommendation.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
 .dpdesc{font-size:.86rem;color:var(--t2);line-height:1.72;margin-bottom:16px}
 .dpdesc.unavailable{padding:12px 14px;background:var(--high-bg);color:var(--high);border:1px solid var(--high-bd);border-radius:6px}
 .dp-ai-summary{display:flex;flex-direction:column;gap:9px;margin:0;padding-left:20px}.dp-ai-summary li{padding-left:3px;line-height:1.62}.dp-ai-summary li::marker{color:var(--blue)}
@@ -505,7 +455,6 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 .addart-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.1)}
 .addart-err{font-size:.72rem;color:var(--crit);margin-top:6px}
 .addart-section-label{margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t4)}
-.addart-eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.addart-eval-grid label{display:flex;flex-direction:column}
 .addart-ai-option{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--surf2);font-size:.72rem;font-weight:700;color:var(--t2);cursor:pointer}.addart-ai-option input{width:16px;height:16px;flex:0 0 auto;margin-top:1px;accent-color:var(--blue)}.addart-ai-option .rv-fi{color:var(--blue);font-size:.9rem}
 
 /* TOASTS */
@@ -516,7 +465,7 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 
 /* ===== GLOBAL INTERACTION POLISH ===== */
 /* Touch optimisation — removes 300ms delay on mobile */
-button,a,[role="button"],.nav,.card,.spot,.pg,.tgc,.cp-alert-card,.sbtn{
+button,a,[role="button"],.nav,.card,.pg,.tgc,.cp-alert-card,.sbtn{
   touch-action:manipulation;cursor:pointer;
 }
 /* Reduced motion — respect user preference */
@@ -569,11 +518,8 @@ button,a,[role="button"],.nav,.card,.spot,.pg,.tgc,.cp-alert-card,.sbtn{
 .prog{height:3px;border-radius:999px;margin-bottom:14px}
 .eban{border:1px solid var(--high-bd);border-radius:12px;padding:10px 12px;margin-bottom:14px}
 .fa{padding:0}
-.card{padding:14px 16px 14px 0;border-radius:16px;background:linear-gradient(180deg,var(--surf) 0%,var(--surf2) 100%)}
-.spot{padding:16px 18px;border-radius:16px;box-shadow:var(--s1);background:linear-gradient(135deg,var(--crit-bg),var(--surf) 72%)}
-.spot:hover{transform:translateY(-2px);box-shadow:var(--s2)}
-.spt{font-size:1.08rem}
-.csc,.ccat,.clng{border-radius:999px}
+.card{padding:14px 16px;border-radius:16px;background:linear-gradient(180deg,var(--surf) 0%,var(--surf2) 100%)}
+.ccat,.clng{border-radius:999px}
 .empty{padding:84px 20px;border:1px dashed var(--bd);background:linear-gradient(180deg,var(--surf) 0%,var(--surf2) 100%);border-radius:16px}
 .pager{padding:22px 0 6px}
 .pg{border-radius:10px}
@@ -583,30 +529,6 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 @media(max-width:900px){.ops-shell{padding:16px}.ops-overview-head,.ops-panel{border-radius:16px}.krow{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.ops-overview-name{font-size:1.6rem}.krow{grid-template-columns:1fr}.cmd{gap:10px}.ops-jumps{width:100%}}
 
-/* Situation room - synthese operationnelle */
-.sr-room{--sr-bg:#090d12;--sr-panel:#10161d;--sr-panel2:#0c1218;--sr-line:#27313b;--sr-muted:#8d9aa7;--sr-text:#edf4f7;--sr-cyan:#22d3c5;--sr-green:var(--low);--sr-low:var(--low);--sr-moderate:var(--mod);--sr-amber:var(--high);--sr-red:var(--crit);background:var(--sr-bg);border:1px solid #202a34;border-radius:8px;color:var(--sr-text);overflow:hidden;box-shadow:0 18px 45px rgba(6,10,14,.2);margin-bottom:16px;width:100%;max-width:100%;min-width:0}
-.sr-head{min-height:52px;padding:10px 14px;border-bottom:1px solid var(--sr-line);display:flex;align-items:center;justify-content:space-between;gap:14px;background:#0b1016}
-.sr-title{display:flex;align-items:center;gap:10px;min-width:0}
-.sr-brand-dot{width:9px;height:9px;border-radius:50%;background:var(--sr-green);box-shadow:0 0 0 5px color-mix(in srgb,var(--sr-green) 10%,transparent),0 0 18px color-mix(in srgb,var(--sr-green) 65%,transparent);flex:0 0 auto}
-.sr-kicker{font-family:var(--sans);font-size:.58rem;font-weight:700;color:var(--sr-cyan);text-transform:uppercase;letter-spacing:0}
-.sr-heading{font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sr-head-meta{display:flex;align-items:center;justify-content:flex-end;gap:10px;font-size:.62rem;color:var(--sr-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.sr-live{display:inline-flex;align-items:center;gap:6px;color:var(--sr-green);font-weight:700;text-transform:uppercase}
-.sr-live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:srPulse 1.8s ease-out infinite}
-@keyframes srPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sr-green) 48%,transparent)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.sr-grid{width:100%;max-width:100%;min-width:0;overflow:hidden}
-.sr-rail{display:grid;grid-template-columns:1.45fr 1fr 1fr;background:var(--sr-panel)}
-.sr-module{padding:16px 17px;border-right:1px solid var(--sr-line)}.sr-module:last-child{border-right:0}
-.sr-module-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.sr-module-title{font-size:.58rem;font-weight:800;text-transform:uppercase;color:var(--sr-muted)}.sr-module-state{font-size:.54rem;color:var(--sr-green);font-weight:700}
-.sr-brief{font-family:var(--serif);font-size:.93rem;line-height:1.55;color:#f5f8fa;margin-bottom:12px}
-.sr-brief strong{color:var(--sr-cyan);font-weight:600}.sr-focus{padding-left:11px;border-left:2px solid var(--sr-red)}.sr-focus-label{font-size:.52rem;color:var(--sr-red);font-weight:800;text-transform:uppercase;margin-bottom:5px}.sr-focus-title{font-size:.72rem;font-weight:600;line-height:1.4;color:#eaf0f3}
-.sr-metrics{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--sr-line);border-radius:4px;overflow:hidden}.sr-metric{padding:9px 7px;text-align:center;border-right:1px solid var(--sr-line)}.sr-metric:last-child{border-right:0}.sr-metric-value{font-family:var(--display);font-size:1.05rem;font-weight:700}.sr-metric-value.red{color:var(--sr-red)}.sr-metric-value.amber{color:var(--sr-amber)}.sr-metric-value.green{color:var(--sr-green)}.sr-metric-label{font-size:.48rem;color:var(--sr-muted);text-transform:uppercase;margin-top:2px}
-.sr-health-bar{height:5px;border-radius:2px;background:#26313b;overflow:hidden;margin:8px 0}.sr-health-fill{height:100%;width:0;background:var(--sr-green);transition:width .35s ease}.sr-health-copy{display:flex;justify-content:space-between;gap:8px;color:#aebbc4;font-size:.58rem}.sr-source-errors{margin-top:8px;font-size:.55rem;color:var(--sr-amber);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.sr-ticker{height:34px;border-top:1px solid var(--sr-line);display:flex;align-items:center;overflow:hidden;background:#090e13;min-width:0;max-width:100%}.sr-ticker-label{align-self:stretch;display:flex;align-items:center;gap:6px;padding:0 12px;background:var(--sr-red);color:#fff;font-size:.54rem;font-weight:800;text-transform:uppercase;white-space:nowrap;z-index:2}.sr-ticker-window{overflow:hidden;min-width:0;width:0;flex:1 1 0}.sr-ticker-track{width:max-content;display:flex;align-items:center;animation:srTicker 42s linear infinite}.sr-ticker-item{color:#c5d0d7;font-size:.59rem;white-space:nowrap;padding-right:42px}.sr-ticker-item strong{color:#fff;margin-right:6px}.sr-ticker-sep{color:var(--sr-cyan);margin-right:7px}@keyframes srTicker{to{transform:translateX(-50%)}}
-.sr-analytics{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(270px,.65fr);gap:12px;margin-bottom:16px}.sr-analytic-panel{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:14px 16px;min-width:0}.sr-analytic-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.sr-analytic-title{font-size:.72rem;font-weight:700;color:var(--t1)}.sr-analytic-sub{font-size:.56rem;color:var(--t4);margin-top:2px}.sr-timeline{height:108px;display:flex;align-items:flex-end;gap:5px;border-bottom:1px solid var(--bd);padding:0 2px 20px}.sr-time-col{height:100%;flex:1;display:flex;align-items:flex-end;position:relative;min-width:0}.sr-time-bar{width:100%;height:2px;min-height:2px;background:#22a89f;border-radius:2px 2px 0 0;transition:height .3s ease}.sr-time-bar.hot{background:#e0525a}.sr-time-label{position:absolute;left:50%;bottom:-16px;transform:translateX(-50%);font-size:.46rem;color:var(--t4);white-space:nowrap}.sr-watch-list{display:flex;flex-direction:column;gap:7px}.sr-watch-item{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;font-size:.61rem;color:var(--t2)}.sr-watch-dot{width:7px;height:7px;border-radius:50%;background:var(--mod)}.sr-watch-dot.critical{background:var(--crit)}.sr-watch-dot.high{background:var(--high)}.sr-watch-count{font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums}
-body.dark .sr-analytic-panel{background:#10161d;border-color:#29333d}body.dark .sr-analytic-title{color:#fff}body.dark .sr-time-bar{background:#22d3c5}body.dark .sr-analytic-sub,body.dark .sr-time-label{color:#83919e}body.dark .sr-watch-item{color:#c3cdd4}body.dark .sr-watch-count{color:#fff}
-.sr-watch-dot.moderate{background:var(--mod)}.sr-watch-dot.low{background:var(--low)}
-@media(max-width:1180px){.sr-rail{grid-template-columns:1fr 1fr}.sr-module:first-child{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--sr-line)}.sr-analytics{grid-template-columns:1fr}}
 @media(max-width:760px){
   :root{--hh:100px}
   header{align-items:flex-start}
@@ -615,8 +537,7 @@ body.dark .sr-analytic-panel{background:#10161d;border-color:#29333d}body.dark .
   .h-center{width:100%;flex:none;padding:48px 8px 8px}.srch{display:none}
   .view-tabs{width:100%;overflow-x:auto;scrollbar-width:none}.view-tabs::-webkit-scrollbar{display:none}.view-tab{flex:0 0 auto;padding:6px 12px}
   .h-right{position:absolute;right:7px;top:5px;padding:0}.h-right .upt{display:none}.h-right .live{font-size:.55rem}
-  .sr-room{margin-left:-8px;margin-right:-8px}.sr-head{align-items:flex-start}.sr-head-meta{display:none}.sr-rail{display:block}.sr-module,.sr-module:first-child{border-right:0;border-bottom:1px solid var(--sr-line)}.sr-module:last-child{border-bottom:0}.sr-analytics{grid-template-columns:1fr}.sr-ticker-label{padding:0 8px}
-  .dp-class-grid,.dp-eval-grid,.addart-eval-grid{grid-template-columns:1fr}.dp-comment-compose{align-items:stretch;flex-direction:column}.dp-comment-compose .sbtn{width:100%}
+  .dp-class-grid,.dp-engagement-grid{grid-template-columns:1fr}.dp-comment-compose{align-items:stretch;flex-direction:column}.dp-comment-compose .sbtn{width:100%}
 }
 @media(max-width:900px){
   .main{margin-left:0;width:100%;max-width:100%}
@@ -626,18 +547,6 @@ body.dark .sr-analytic-panel{background:#10161d;border-color:#29333d}body.dark .
   .sidebar-backdrop.open{display:block;position:fixed;inset:var(--hh) 0 0 0;z-index:90;background:rgba(4,8,16,.62);backdrop-filter:blur(2px)}
   .mobile-filter-btn{display:inline-flex}
 }
-@media(prefers-reduced-motion:reduce){.sr-live::before{animation:none}.sr-ticker-track{animation:none;transform:none}.sr-ticker-window{overflow-x:auto}}
-
-/* Cadence : synthèse et barres empilées par niveau de criticité */
-.sr-cadence-summary{display:flex;flex-wrap:wrap;gap:5px 12px;margin:-4px 0 11px;font-size:.55rem;color:var(--t3)}
-.sr-cadence-summary strong{color:var(--t1);font-variant-numeric:tabular-nums}.sr-cadence-summary .critical strong{color:var(--crit)}.sr-cadence-summary .high strong{color:var(--high)}.sr-cadence-summary .moderate strong{color:var(--mod)}.sr-cadence-summary .low strong{color:var(--low)}
-.sr-time-stack{width:100%;min-height:2px;display:flex;flex-direction:column-reverse;justify-content:flex-start;overflow:hidden;border-radius:2px 2px 0 0;transition:height .3s ease;background:var(--surf3)}
-.sr-time-segment{width:100%;min-height:1px}.sr-time-segment.critical{background:var(--crit)}.sr-time-segment.high{background:var(--high)}.sr-time-segment.moderate{background:var(--mod)}.sr-time-segment.low{background:var(--low)}.sr-time-segment.macro{background:#22a89f}
-
-/* Le centre de situation suit le mode jour. */
-body:not(.dark) .sr-room{--sr-bg:#f5f8fa;--sr-panel:#fff;--sr-panel2:#f2f5f7;--sr-line:#d7e0e6;--sr-muted:#63727e;--sr-text:#17212a;background:var(--sr-bg);border-color:#cbd5dc;color:var(--sr-text);box-shadow:0 12px 30px rgba(15,23,42,.09)}
-body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#fff}body:not(.dark) .sr-brief,body:not(.dark) .sr-focus-title{color:#1f2933}body:not(.dark) .sr-health-copy{color:#52616c}
-
 </style>
 </head>
 <body>
@@ -690,29 +599,21 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
     <button class="sidebar-close" id="sidebarClose" title="Fermer les filtres" aria-label="Fermer les filtres">✕</button>
     <div class="sbg">
       <div class="sbl">Articles</div>
-      <div class="nav" data-f="added"><span class="nico" aria-hidden="true"><i class="rv-fi rv-added"></i></span><span class="nlbl">Articles ajoutés</span><span class="ncnt" id="nc-added">—</span></div>
-      <div class="nav nav-view" id="sidebarGlobal" role="button" tabindex="0"><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Vue globale</span></div>
+      <div class="nav nav-article" data-scope="added" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-added"></i></span><span class="nlbl">Articles ajoutés</span><span class="ncnt" id="nc-added">—</span></div>
+      <div class="nav nav-article" data-scope="archived" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Articles archivés</span><span class="ncnt" id="nc-archived">—</span></div>
     </div>
     <div class="sdiv"></div>
-    <div class="sbg">
-      <div class="sbl">Niveau de priorité</div>
-      <div class="nav nav-priority" data-f="critical"><span class="nico"><span class="priority-dot critical"></span></span><span class="nlbl">Critique</span><span class="ncnt c" id="nc-crit">—</span></div>
-      <div class="nav nav-priority" data-f="high"><span class="nico"><span class="priority-dot high"></span></span><span class="nlbl">Élevé</span><span class="ncnt h" id="nc-high">—</span></div>
-      <div class="nav nav-priority" data-f="moderate"><span class="nico"><span class="priority-dot moderate"></span></span><span class="nlbl">Modéré</span><span class="ncnt m" id="nc-mod">—</span></div>
-      <div class="nav nav-priority" data-f="low"><span class="nico"><span class="priority-dot low"></span></span><span class="nlbl">Faible</span><span class="ncnt l" id="nc-low">—</span></div>
+    <div class="sbg" id="geoNavWrap">
+      <div class="sbl">Géographie</div>
+      <div class="nav nav-geo active" data-geo="MONDE" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-macro"></i></span><span class="nlbl">Monde / Union européenne</span><span class="ncnt" id="nc-MON">—</span></div>
+      <div class="nav nav-geo" data-geo="FR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/fr.png" alt=""></span><span class="nlbl">France</span><span class="ncnt" id="nc-FR">—</span></div>
+      <div class="nav nav-geo" data-geo="ES" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/es.png" alt=""></span><span class="nlbl">Espagne</span><span class="ncnt" id="nc-ES">—</span></div>
+      <div class="nav nav-geo" data-geo="BR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/br.png" alt=""></span><span class="nlbl">Brésil</span><span class="ncnt" id="nc-BR">—</span></div>
     </div>
     <div class="sdiv"></div>
     <div class="sbg" id="catNavWrap">
       <div class="sbl">Familles de risques · Référentiel Carrefour</div>
       <!-- Les 11 familles A à K sont injectées ici par JavaScript. -->
-    </div>
-    <div class="sdiv"></div>
-    <div class="sbg">
-      <div class="sbl">Géographie</div>
-      <div class="nav" data-f="pays-FR"><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/fr.png" alt=""></span><span class="nlbl">France</span><span class="ncnt" id="nc-FR">—</span></div>
-      <div class="nav" data-f="pays-ES"><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/es.png" alt=""></span><span class="nlbl">Espagne</span><span class="ncnt" id="nc-ES">—</span></div>
-      <div class="nav" data-f="pays-BR"><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/br.png" alt=""></span><span class="nlbl">Brésil</span><span class="ncnt" id="nc-BR">—</span></div>
-      <div class="nav" data-f="pays-MONDE"><span class="nico" aria-hidden="true"><i class="rv-fi rv-macro"></i></span><span class="nlbl">Monde / Union européenne</span><span class="ncnt" id="nc-MON">—</span></div>
     </div>
     <div class="sbfoot">
       <p><strong>RiskVeille v14</strong> · référentiel de risques Carrefour<br>11 familles A→K<br>66 sources sélectionnées · 4 langues<br>Analyse automatisée</p>
@@ -721,88 +622,6 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <main class="main">
-    <!-- ====== GLOBAL VIEW ====== -->
-    <div class="view-content" id="viewGlobal">
-      <div class="ops-shell ops-shell-global">
-        <section class="sr-room" id="situationRoom" aria-label="Situation globale des risques">
-          <div class="sr-head">
-            <div class="sr-title">
-              <span class="sr-brand-dot" aria-hidden="true"></span>
-              <div>
-                <div class="sr-kicker">RiskVeille · Centre de situation</div>
-                <div class="sr-heading">Exposition globale des risques Carrefour</div>
-              </div>
-            </div>
-            <div class="sr-head-meta">
-              <span class="sr-live" id="srDataState">Connexion aux sources</span>
-              <span id="srAsOf">—</span>
-              <span id="srWindowCount">0 signal</span>
-            </div>
-          </div>
-
-          <div class="sr-grid">
-            <aside class="sr-rail" aria-label="Synthèse opérationnelle">
-              <section class="sr-module">
-                <div class="sr-module-head">
-                  <span class="sr-module-title">Brief de situation</span>
-                  <span class="sr-module-state">Synthèse automatique</span>
-                </div>
-                <p class="sr-brief" id="srBrief">Analyse des signaux en cours…</p>
-                <div class="sr-focus">
-                  <div class="sr-focus-label">Signal prioritaire</div>
-                  <div class="sr-focus-title" id="srFocusTitle">En attente des premières alertes.</div>
-                </div>
-              </section>
-              <section class="sr-module">
-                <div class="sr-module-head">
-                  <span class="sr-module-title">Niveau d'attention</span>
-                  <span class="sr-module-state" id="srAttentionLabel">INITIALISATION</span>
-                </div>
-                <div class="sr-metrics">
-                  <div class="sr-metric"><div class="sr-metric-value red" id="srCritCount">0</div><div class="sr-metric-label">Critiques</div></div>
-                  <div class="sr-metric"><div class="sr-metric-value amber" id="srHighCount">0</div><div class="sr-metric-label">Élevées</div></div>
-                  <div class="sr-metric"><div class="sr-metric-value green" id="srCrossCount">0</div><div class="sr-metric-label">Recoupées</div></div>
-                </div>
-              </section>
-              <section class="sr-module">
-                <div class="sr-module-head">
-                  <span class="sr-module-title">Santé du dispositif</span>
-                  <span class="sr-module-state" id="srHealthState">CONNEXION</span>
-                </div>
-                <div class="sr-health-copy"><span id="srHealthCopy">Connexion aux sources</span><span id="srHealthPct">0%</span></div>
-                <div class="sr-health-bar"><div class="sr-health-fill" id="srHealthFill"></div></div>
-                <div class="sr-source-errors" id="srSourceErrors">Vérification des flux premium en cours.</div>
-              </section>
-            </aside>
-          </div>
-        </section>
-
-        <div class="sr-analytics">
-          <section class="sr-analytic-panel">
-            <div class="sr-analytic-head">
-              <div><div class="sr-analytic-title">Cadence des signaux</div><div class="sr-analytic-sub" id="srTimelineSub">Répartition sur les 7 derniers jours</div></div>
-              <span class="sr-analytic-sub" id="srPeakLabel">Pic : —</span>
-            </div>
-            <div class="sr-cadence-summary" aria-label="Synthèse des signaux">
-              <span><strong id="cadTotal">0</strong> signaux</span>
-              <span class="critical"><strong id="cadCritical">0</strong> critiques</span>
-              <span class="high"><strong id="cadHigh">0</strong> élevées</span>
-              <span class="moderate"><strong id="cadModerate">0</strong> modérées</span>
-              <span class="low"><strong id="cadLow">0</strong> faibles</span>
-              <span><strong id="cadSources">0/66</strong> sources accessibles</span>
-            </div>
-            <div class="sr-timeline" id="srTimeline" aria-label="Chronologie des alertes"></div>
-          </section>
-          <section class="sr-analytic-panel">
-            <div class="sr-analytic-head">
-              <div><div class="sr-analytic-title">Familles sous surveillance</div><div class="sr-analytic-sub">Nombre d'articles sur 7 jours · filtres latéraux actifs</div></div>
-            </div>
-            <div class="sr-watch-list" id="srWatchList"><span class="sr-analytic-sub">Analyse en cours…</span></div>
-          </section>
-        </div>
-      </div>
-    </div>
-
     <!-- ====== RISKS VIEW ====== -->
     <div class="view-content active" id="viewRisks">
       <div class="ops-shell ops-shell-risks">
@@ -821,9 +640,8 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
               <span class="sttl" id="secTtl">Alertes risques + Signaux macro</span>
               <span class="rcnt" id="resCnt"></span>
               <div class="sgrp">
-                <button class="sbtn active" data-sort="pertinence">Pertinence ↓</button>
+                <button class="sbtn active" data-sort="votes">Plus recommandés</button>
                 <button class="sbtn" data-sort="recent">Récents</button>
-              <button class="sbtn" data-sort="priority">Priorité</button>
               </div>
               <button class="sbtn mobile-filter-btn" id="btnFilters" aria-controls="sidebar-risks" aria-expanded="false">Filtres</button>
               <button class="sbtn article-add-action" id="btnAddArticle" style="margin-left:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter un article</span></button>
@@ -928,18 +746,17 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
       </div>
       <div class="dp-shared-meta" id="dpClassMeta"></div>
     </section>
-    <section class="dpsc" id="dpAssessment">
-      <div class="dpsc-head"><div class="dpscttl">Évaluation</div><span class="dpchip" id="dpChip">—</span></div>
-      <div class="dp-eval-grid">
-        <label>Exposition Carrefour<select class="dpti" id="dpEvalExposure"></select></label>
-        <label>Temporalité<select class="dpti" id="dpEvalTiming"></select></label>
-        <label>Niveau<select class="dpti" id="dpEvalLevel"></select></label>
+    <section class="dpsc" id="dpEngagement">
+      <div class="dpsc-head"><div class="dpscttl">Recommandation de lecture</div><span class="dpchip recommendation" id="dpChip">À lire</span></div>
+      <div class="dp-engagement-grid">
+        <label>Recommandation<select class="dpti" id="dpRecommendation"></select></label>
+        <label class="archive-option"><input type="checkbox" id="dpArchived"><span>Archiver cet article</span></label>
       </div>
       <div class="dp-shared-actions">
-        <button class="sbtn active" id="dpEvalSave">Enregistrer</button>
-        <button class="sbtn" id="dpEvalReset">Revenir à l'évaluation automatique</button>
+        <button class="sbtn active" id="dpEngagementSave">Enregistrer</button>
+        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false"><span class="vote-arrow">▲</span><span id="dpVoteCount">0</span><span>vote</span></button>
       </div>
-      <div class="dp-shared-meta" id="dpEvalMeta"></div>
+      <div class="dp-shared-meta" id="dpEngagementMeta"></div>
     </section>
     <section class="dp-shared-section">
       <div class="dpsection-label">Commentaires</div>
@@ -961,23 +778,20 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
 <!-- AJOUTER UN ARTICLE -->
 <div class="ov" id="addArticleOv">
   <div class="dp" style="max-width:640px">
-    <div class="dptop"><span class="dpchip low">Ajouter un article</span><button class="dpcl" id="addArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
+    <div class="dptop"><span class="dpchip recommendation">Ajouter un article</span><button class="dpcl" id="addArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
     <div class="addart-form">
       <label class="addart-lbl">URL de l'article *</label>
       <input type="url" id="addArtUrl" class="addart-input" placeholder="https://…" required>
       <label class="addart-lbl">Titre *</label>
       <input type="text" id="addArtTitle" class="addart-input" placeholder="Titre de l'article" required>
-      <label class="addart-lbl">Description (optionnel)</label>
-      <textarea id="addArtDesc" class="addart-input" rows="2" placeholder="Résumé rapide…"></textarea>
+      <label class="addart-lbl">Commentaire (optionnel)</label>
+      <textarea id="addArtComment" class="addart-input" rows="2" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…"></textarea>
       <label class="addart-ai-option"><input type="checkbox" id="addArtAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer un résumé par IA après l'ajout</span></label>
       <label class="addart-lbl">Famille de risques</label>
       <select id="addArtCat" class="addart-input"></select>
-      <div class="addart-section-label">Évaluation initiale</div>
-      <div class="addart-eval-grid">
-        <label><span class="addart-lbl">Exposition Carrefour</span><select id="addArtExposure" class="addart-input"></select></label>
-        <label><span class="addart-lbl">Temporalité</span><select id="addArtTiming" class="addart-input"></select></label>
-        <label><span class="addart-lbl">Niveau</span><select id="addArtLevel" class="addart-input"></select></label>
-      </div>
+      <label class="addart-lbl">Recommandation de lecture</label>
+      <select id="addArtRecommendation" class="addart-input"></select>
+      <label class="addart-ai-option"><input type="checkbox" id="addArtArchived"><span>Archiver dès l'ajout</span></label>
       <div class="addart-err" id="addArtErr" style="display:none"></div>
       <button class="sbtn active article-add-action" id="addArtSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter l'article</span></button>
     </div>
@@ -987,7 +801,7 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
 <!-- AJOUTER UNE ACTUALITE CONCURRENTIELLE -->
 <div class="ov" id="addCompArticleOv">
   <div class="dp" style="max-width:600px">
-    <div class="dptop"><span class="dpchip low">Veille concurrentielle</span><button class="dpcl" id="addCompArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
+    <div class="dptop"><span class="dpchip recommendation">Veille concurrentielle</span><button class="dpcl" id="addCompArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
     <h2 class="dptitle" style="font-size:1.35rem;margin-bottom:18px">Ajouter une actualité d’enseigne</h2>
     <div class="addart-form">
       <label class="addart-lbl">Enseigne *</label>
@@ -996,8 +810,11 @@ body:not(.dark) .sr-head{background:#fff}body:not(.dark) .sr-rail{background:#ff
       <input type="url" id="addCompArticleUrl" class="addart-input" placeholder="https://…" required>
       <label class="addart-lbl">Titre *</label>
       <input type="text" id="addCompArticleTitle" class="addart-input" placeholder="Titre de l'article" required>
-      <label class="addart-lbl">Description (optionnel)</label>
-      <textarea id="addCompArticleDesc" class="addart-input" rows="3" placeholder="Résumé rapide…"></textarea>
+      <label class="addart-lbl">Commentaire (optionnel)</label>
+      <textarea id="addCompArticleComment" class="addart-input" rows="3" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…"></textarea>
+      <label class="addart-lbl">Recommandation de lecture</label>
+      <select id="addCompArticleRecommendation" class="addart-input"></select>
+      <label class="addart-ai-option"><input type="checkbox" id="addCompArticleArchived"><span>Archiver dès l'ajout</span></label>
       <label class="addart-ai-option"><input type="checkbox" id="addCompArticleAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer un résumé par IA après l'ajout</span></label>
       <div class="addart-err" id="addCompArticleErr" style="display:none"></div>
       <button class="sbtn active article-add-action" id="addCompArticleSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter l'article</span></button>
@@ -1283,148 +1100,13 @@ function detectRisks(text, srcCatCode){
 }
 
 /* =========================================
-   SCORING — Tables de base alignées taxonomie A→K
-   ─────────────────────────────────────────
-   Le score d'un article = gravité de base du risque détecté + modificateurs.
-   On ne calcule plus avec des "tiers" de mots-clés globaux, on part du risque
-   officiel identifié par detectRisks() et on l'ajuste avec le contexte.
-
-   Avantages :
-   - Rappels produits (49.0) ne sont plus systématiquement critiques (gravité 25)
-   - Cyber (51.0), corruption (8.0), droits humains (13.0) sont prioritaires
-   - Articles "routine" (résultats trimestriels, communiqués annuels) ne polluent plus
-   - Mentions Carrefour dans le titre = vraie remontée du score
-   ========================================= */
-
-/** Gravité de base de chaque risque officiel (1.0 → 72.0).
- *  Échelle 15-50 : 15 = signal de surveillance, 50 = risque majeur.
- *  Le score final = base + modificateurs ; pas de bonus automatique.  */
-const RISK_GRAVITY = {
-  // A — Environnement des affaires
-  '1.0':25, // Situation économique
-  '2.0':25, // Pression concurrentielle
-  '3.0':30, // Disponibilité matières premières
-  '4.0':35, // Image Carrefour
-  // B — Lois & réglementations
-  '5.0':35, // Réglementations retail
-  '8.0':45, // Anti-corruption — sensible
-  '9.0':40, // Données personnelles / IA — sensible
-  '10.0':30,// Fiscal
-  '11.0':30,// Réglementation sociale
-  '12.0':30,// RSE / CSRD
-  '13.0':45,// Droits de l'Homme — sensible
-  // C — Stratégie & organisation
-  '17.0':30,// Négociations achats
-  '18.0':20,// Achats non-marchands
-  '20.0':25,// Innovation tech
-  '21.0':25,// Franchise
-  '22.0':35,// M&A
-  '23.0':30,// Efficience organisation
-  // D — Modèle commercial & expérience clients
-  '24.0':25,// Modèle hyper
-  '25.0':20,// Prix / promo / fidélité
-  '26.0':25,// Assortiments
-  '27.0':25,// E-commerce
-  '28.0':20,// Non-alimentaire
-  '29.0':30,// Impacts écologiques produits
-  '30.0':25,// Données clients
-  '31.0':25,// Franchisés
-  // E — Maîtrise des actifs et de l'expansion immobiliers
-  '35.0':25,// Parc immobilier
-  '36.0':30,// Énergie / GES
-  '37.0':25,// Biodiversité
-  // F — Supply chain
-  '40.0':30,// Durabilité matières premières
-  '41.0':35,// Dépendance fournisseur
-  '43.0':35,// Logistique
-  '44.0':35,// Disponibilité produits
-  '45.0':25,// Performance e-commerce
-  // G — Qualité, conformité & sécurité des produits
-  '46.0':25,// Dév. MDC
-  '47.0':25,// Référentiel produit
-  '48.0':35,// Hygiène
-  '49.0':25,// Rappels — gravité MODÉRÉE par défaut (on ajuste au contexte)
-  // H — SI / Cyber
-  '50.0':30,// Performance SI
-  '51.0':50,// Cyber criminalité — TRÈS sensible
-  '52.0':30,// Prestataires IT
-  // I — Sécurité des personnes / produits / propriétés
-  '53.0':30,// Intrusions
-  '54.0':35,// Sécurité clients
-  '55.0':20,// Démarque
-  '56.0':35,// Fraude interne
-  '57.0':40,// Incendie
-  '58.0':30,// Climat extrême (gravité par défaut, ajustée par mots "rouge"/"grave")
-  '59.0':25,// Gestion de crise
-  // J — RH
-  '60.0':25,// Recrutement
-  '61.0':40,// Santé & sécurité — sensible
-  '62.0':40,// Discrimination — sensible
-  '63.0':30,// Climat social
-  // K — Finance
-  '66.0':35,// Trésorerie
-  '71.0':25,// Reporting financier (routinier sauf signal fort)
-  '72.0':40,// Guidance / profit warning — sensible
-};
-function gravityOf(riskId){
-  return RISK_GRAVITY[riskId] || 20;
-}
-
-/** Sources d'autorité élevée — leurs articles bénéficient d'un bonus +10
- *  (régulateurs, ministères, organismes officiels). */
-const HIGH_AUTHORITY_SRC = new Set([
-  'amf','anssi','certfr','dares','ademe','franceagrimer','anses',
-  'ecb','efsa','enisa-eu','who','cnmc-es','aepd-es','aesan-es','ine-es',
-  'ibge-br','anvisa-br','anpd-br','inpe-br','fao-markets','rappelconso',
-  'usda','inmet-br','copernicus-ems',
-]);
-
-/** Phrases routine / non-événementielles : −15 (atténuent le score)
- *  Les bornes ' ' évitent les matches partiels. */
-const ROUTINE_PHRASES = [
-  ' publication ',' communiqué ',' communique ',' communicado ',' comunicado ',
-  ' rapport annuel ',' rapport semestriel ',' rapport trimestriel ',
-  ' agenda financier ',' calendrier financier ',
-  ' point d\'étape ',' point detape ',
-  ' chronique ',' tribune ',' interview ',' itw ',
-  ' opinion ',' éditorial ',' editorial ',
-  ' analyse hebdo ',' analyse mensuelle ',
-];
-
-/** Phrases de gravité élevée : +15 (amplifient le score)
- *  Indiquent qu'un événement est en cours ou aggravé. */
-const GRAVITY_PHRASES = [
-  ' urgent ',' urgence ',' grave ',' gravissime ',' critique ',
-  ' victime ',' victimes ',' mort ',' morts ',' décès ',' decedé ',' fallecido ',
-  ' alerte rouge ',' niveau rouge ',' rojo ',' nivel rojo ',
-  ' immédiat ',' immediato ',' inmediato ',
-  ' amende ',' multa ',' multado ',' multado ',
-  ' condamné ',' condamnée ',' condenado ',' condenada ',
-  ' interdiction ',' interdit ',' prohibición ',' proibição ',
-  ' enquête ouverte ',' investigation ouverte ',' investigación abierta ',
-  ' fermeture immédiate ',' cierre inmediato ',' fechamento imediato ',
-  ' évacuation ',' évacué ',' evacuación ',' evacuação ',
-];
-
-/** Phrases sur le périmètre Carrefour : amplifient nettement.
- *  Distinguer "Carrefour" (le mot dans un titre) de "marque distributeur" qui peut
- *  apparaître sans concerner Carrefour directement. */
-const CARREFOUR_DIRECT_PHRASES = [
-  'carrefour',' atacadão ',' atacadao ',
-  'alexandre bompard','matthieu malige',
-  'carrefour brasil','carrefour france','carrefour españa','carrefour espana',
-];
-
-/** Modificateur pondéré par la position : titre > description.
- *  Les mots dans le TITRE comptent ×2 (le titre est l'info principale). */
-/* =========================================
    AUTH
    ========================================= */
 const API_ORIGIN = ['riskveille.riskveille-antonionivoix.workers.dev','localhost','127.0.0.1'].includes(location.hostname)
   ? ''
   : 'https://riskveille.riskveille-antonionivoix.workers.dev';
 const SESSION_KEY = 'rv_shared_session_v1';
-const SHARED = { token:'', displayName:'', comments:new Map(), overrides:new Map(), assessments:new Map(), aiSummaries:new Map(), aiSummaryVersions:new Map(), articles:[], feedRevision:null, signature:'', syncTimer:null, syncing:false };
+const SHARED = { token:'', displayName:'', comments:new Map(), overrides:new Map(), engagements:new Map(), votes:new Map(), aiSummaries:new Map(), aiSummaryVersions:new Map(), articles:[], feedRevision:null, signature:'', syncTimer:null, syncing:false };
 let appStarted = false;
 
 function readSession(){
@@ -1457,7 +1139,6 @@ function startApplication(){
   appStarted=true;
   set('currentUser',SHARED.displayName);
   $('loginOverlay').classList.add('hidden');
-  scheduleSituationRefresh();
   syncSharedData(true);
   loadAll();
   SHARED.syncTimer=setInterval(()=>syncSharedData(false),5000);
@@ -1518,13 +1199,11 @@ async function bootstrapAuth() {
    VIEW SWITCHING
    ========================================= */
 function switchView(view){
-  const selected=['global','concurrence','risks'].includes(view)?view:'risks';
+  const selected=['concurrence','risks'].includes(view)?view:'risks';
   document.querySelectorAll('.view-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.view===selected));
-  $('sidebarGlobal')?.classList.toggle('active',selected==='global');
   document.querySelectorAll('.view-content').forEach(node=>node.classList.remove('active'));
-  const viewMap={global:'viewGlobal',concurrence:'viewConcurrence',risks:'viewRisks'};
+  const viewMap={concurrence:'viewConcurrence',risks:'viewRisks'};
   $(viewMap[selected]).classList.add('active');
-  if(selected==='global'||selected==='risks')scheduleSituationRefresh();
   if(selected==='concurrence'){
     renderConcurrence();
     // Lance le chargement des flux Google News dédiés en arrière-plan.
@@ -1745,8 +1424,6 @@ function canonicalUrlKey(url){
   } catch(e) { return String(url).toLowerCase(); }
 }
 
-function plbl(p){return{critical:'CRITIQUE',high:'ÉLEVÉ',moderate:'MODÉRÉ',low:'FAIBLE'}[p]||p;}
-function macroLevelLabel(level){return {watch:'À SURVEILLER',important:'CONTEXTE IMPORTANT',context:'CONTEXTE GÉNÉRAL'}[level]||'SIGNAL MACRO';}
 function corroborationHtml(it){
   if (!it.corroboration || it.corroboration < 2) return '';
   const by = Array.isArray(it.corroboratedBy) ? it.corroboratedBy.join(', ') : '';
@@ -2489,198 +2166,6 @@ const COMPETITOR_REGISTRY = [
 
 const COMPETITORS_BY_ID = Object.fromEntries(COMPETITOR_REGISTRY.map(c => [c.id, c]));
 
-/* =========================================
-   SCORING — Aligné taxonomie A→K (refonte)
-   ─────────────────────────────────────────
-   Formule : score = gravité_de_base_du_risque + Σ modificateurs (bornés 0-100)
-   - Gravité de base : RISK_GRAVITY[riskId] (15-50)
-   - Modificateurs :
-     * Mention Carrefour dans le TITRE       : +20
-     * Mention Carrefour dans la DESCRIPTION : +10
-     * Phrase de gravité (urgent/grave/...)  : +15 (×1.5 si dans le titre)
-     * Source d'autorité élevée              : +10
-     * Source pays Carrefour (FR/ES/BR)      : +5
-     * Phrase routine (publication/agenda)   : -15
-     * Source transversale (mentions CF *)   : -10 (pour atténuer le bruit)
-     * Climatique sans signal de gravité     : -10
-
-   Le breakdown renvoyé est lisible : chaque ligne = une contribution chiffrée.
-   ========================================= */
-function scoreItem(item, src, det){
-  const lcTitle = ' ' + (item.title || '').toLowerCase() + ' ';
-  const lcDesc  = ' ' + (item.desc  || '').toLowerCase() + ' ';
-  const lcAll   = lcTitle + ' ' + lcDesc;
-
-  // 1. Gravité de base à partir du PREMIER risque détecté.
-  //    Si rien détecté, on prend une base modérée selon la catégorie source.
-  const primaryRisk = det && det.riskIds && det.riskIds[0];
-  let baseGravity = primaryRisk ? gravityOf(primaryRisk) : 20;
-  // Si plusieurs risques détectés, petit bonus (signal plus dense)
-  const riskMultiHit = det && det.riskIds && det.riskIds.length > 1 ? 5 : 0;
-
-  // 2. Carrefour direct (titre vs description)
-  let carrefourTitle = 0, carrefourDesc = 0;
-  if (CARREFOUR_DIRECT_PHRASES.some(p => lcTitle.includes(p))) carrefourTitle = 20;
-  else if (CARREFOUR_DIRECT_PHRASES.some(p => lcDesc.includes(p))) carrefourDesc = 10;
-
-  // 3. Gravité contextuelle (urgent / grave / amende / victime / ...)
-  let gravityTitle = 0, gravityDesc = 0;
-  if (GRAVITY_PHRASES.some(p => lcTitle.includes(p))) gravityTitle = 22;
-  else if (GRAVITY_PHRASES.some(p => lcDesc.includes(p))) gravityDesc = 12;
-
-  // 4. Autorité de la source
-  const authorityBonus = HIGH_AUTHORITY_SRC.has(src.id) ? 10 : 0;
-
-  // 5. Pertinence géographique
-  let geoBonus = 0;
-  if (src.pays === 'FR') geoBonus = 5;
-  else if (src.pays === 'ES' || src.pays === 'BR') geoBonus = 4;
-  else geoBonus = 2;
-
-  // 6. Pénalités
-  let routinePenalty = 0;
-  if (ROUTINE_PHRASES.some(p => lcAll.includes(p))) routinePenalty = -15;
-  let transversalPenalty = 0;
-  if (src.catCode === '*') transversalPenalty = -10;
-  // Climatique sans signal de gravité = signal faible, on baisse
-  let climateLowPenalty = 0;
-  if (primaryRisk === '58.0' && gravityTitle === 0 && gravityDesc === 0) climateLowPenalty = -10;
-
-  // 7. Cas particulier : rappels produits sans signal de danger fort = priorité modérée
-  // Les rappels sont fréquents et la plupart sont des précautions, pas des urgences.
-  // Sans mots comme "urgent", "danger", "victime", "noyade", "décès" → on cap à 60.
-  let recallCap = null;
-  if (primaryRisk === '49.0' && gravityTitle === 0 && gravityDesc === 0){
-    // Mots de danger spécifiques aux rappels
-    const dangerWords = [' danger ',' victime ',' victimes ',' mort ',' décès ',' deces ',' noyade ',' brûlure ',' brulure ',' blessé ',' blessée ',' blessure ',' hospitalisé ',' hospitalisée '];
-    const hasDanger = dangerWords.some(w => lcAll.includes(w));
-    if (!hasDanger) recallCap = 55;
-  }
-
-  // 8. Cas particulier : sources transversales doivent IMPÉRATIVEMENT toucher
-  // Carrefour pour mériter un bon score (sinon c'est du bruit)
-  let transversalCarrefourBoost = 0;
-  if (src.catCode === '*' && (carrefourTitle || carrefourDesc)) transversalCarrefourBoost = 8;
-
-  // 9. Priorisation Google sur Microsoft (cat H — SI/Cyber)
-  // Carrefour utilise Google Cloud (partenariat stratégique) → un incident Google
-  // est plus impactant qu'un incident Microsoft/Azure/AWS pour le Groupe.
-  let googleBoost = 0;
-  let microsoftPenalty = 0;
-  const hasGoogle = lcAll.includes(' google cloud ') || lcAll.includes(' gcp ') || lcAll.includes(' google workspace ') || lcAll.includes(' google drive ') || lcAll.includes(' vertex ai ') || lcAll.includes(' bigquery ') || (lcAll.includes(' google ') && (lcAll.includes(' cloud ') || lcAll.includes(' carrefour ')));
-  const hasMicrosoft = lcAll.includes(' microsoft ') || lcAll.includes(' azure ') || lcAll.includes(' office 365 ') || lcAll.includes(' microsoft 365 ') || lcAll.includes(' m365 ');
-  // Bonus +15 si Google mentionné (sur risque 52.0 ou catCode H)
-  if (hasGoogle && (primaryRisk === '52.0' || src.catCode === 'H')) googleBoost = 15;
-  // Pénalité -8 si l'article ne parle QUE de Microsoft/Azure (pas Google) sur cat H
-  if (!hasGoogle && hasMicrosoft && src.catCode === 'H' && primaryRisk === '52.0') microsoftPenalty = -8;
-
-  // Compose
-  let total =
-    baseGravity + riskMultiHit
-    + carrefourTitle + carrefourDesc
-    + gravityTitle + gravityDesc
-    + authorityBonus + geoBonus
-    + routinePenalty + transversalPenalty + climateLowPenalty
-    + transversalCarrefourBoost
-    + googleBoost + microsoftPenalty;
-
-  if (recallCap !== null) total = Math.min(total, recallCap);
-  total = Math.max(0, Math.min(100, Math.round(total)));
-
-  // Priorités recalibrées : plus on monte, plus c'est rare
-  const priority = total >= 75 ? 'critical'
-                 : total >= 55 ? 'high'
-                 : total >= 35 ? 'moderate'
-                 : 'low';
-
-  // Breakdown lisible pour le panneau de détail
-  const breakdown = {
-    // Format compatible legacy {impact, source, geo} pour les anciennes UI
-    impact: baseGravity + riskMultiHit + carrefourTitle + carrefourDesc + gravityTitle + gravityDesc,
-    source: authorityBonus + 20, // pseudo-score "source × pertinence" pour la barre
-    geo: geoBonus,
-    // Nouveau format détaillé
-    rows: [
-      { label: 'Gravité de base du risque' + (primaryRisk ? ` (n°${primaryRisk})` : ''), value: baseGravity, kind: 'base' },
-      riskMultiHit ? { label: 'Plusieurs risques détectés', value: riskMultiHit, kind: 'plus' } : null,
-      carrefourTitle ? { label: 'Carrefour dans le titre', value: carrefourTitle, kind: 'plus' } : null,
-      carrefourDesc ? { label: 'Carrefour dans la description', value: carrefourDesc, kind: 'plus' } : null,
-      gravityTitle ? { label: 'Signal de gravité dans le titre', value: gravityTitle, kind: 'plus' } : null,
-      gravityDesc ? { label: 'Signal de gravité dans la description', value: gravityDesc, kind: 'plus' } : null,
-      authorityBonus ? { label: 'Source d\'autorité (régulateur / officiel)', value: authorityBonus, kind: 'plus' } : null,
-      geoBonus ? { label: 'Marché Carrefour (' + (src.pays || 'MONDE') + ')', value: geoBonus, kind: 'plus' } : null,
-      transversalCarrefourBoost ? { label: 'Mention Carrefour sur source transversale', value: transversalCarrefourBoost, kind: 'plus' } : null,
-      googleBoost ? { label: 'Google Cloud (partenaire stratégique Carrefour)', value: googleBoost, kind: 'plus' } : null,
-      microsoftPenalty ? { label: 'Microsoft/Azure (impact moindre — Carrefour est sur GCP)', value: microsoftPenalty, kind: 'minus' } : null,
-      routinePenalty ? { label: 'Article de routine (publication / agenda)', value: routinePenalty, kind: 'minus' } : null,
-      transversalPenalty ? { label: 'Source transversale (mentions large spectre)', value: transversalPenalty, kind: 'minus' } : null,
-      climateLowPenalty ? { label: 'Risque climatique sans signal de gravité', value: climateLowPenalty, kind: 'minus' } : null,
-      recallCap !== null ? { label: 'Rappel sans signal de danger (plafonné à ' + recallCap + ')', value: 0, kind: 'cap' } : null,
-    ].filter(Boolean),
-  };
-
-  return { score: total, priority, breakdown };
-}
-
-function assessEditorialItem(item, src, det){
-  const text = ' ' + srNormalize((item.title || '') + ' ' + (item.desc || '')) + ' ';
-  const title = ' ' + srNormalize(item.title || '') + ' ';
-  const primaryRisk = det?.riskIds?.[0] || null;
-  const riskGravity = primaryRisk ? gravityOf(primaryRisk) : 20;
-  const direct = CARREFOUR_DIRECT_PHRASES.some(term => title.includes(' ' + srNormalize(term) + ' '));
-  const severeSignal = GRAVITY_PHRASES.some(term => text.includes(' ' + srNormalize(term) + ' '));
-  const immediateTerms = ['urgent','urgence','emergency','en cours','attaque','attack','outage','panne','grève','huelga','greve','rappel','recall','sanction','invasion','incendie','explosion','alerte rouge'];
-  const immediate = immediateTerms.some(term => text.includes(' ' + srNormalize(term) + ' '));
-  const contentLane = src.macro && !direct ? 'macro' : 'alert';
-
-  const exposure = direct ? 'Directe' : 'Indirecte';
-  const exposureRank = direct ? 3 : 1;
-  const impact = riskGravity >= 40 || severeSignal ? 'Majeur' : riskGravity >= 30 ? 'Significatif' : 'Limité';
-  const impactRank = riskGravity >= 40 || severeSignal ? 3 : riskGravity >= 30 ? 2 : 1;
-  const timing = immediate ? 'Immédiate' : severeSignal ? 'Émergente' : 'Structurelle';
-  const timingRank = immediate ? 3 : severeSignal ? 2 : 1;
-  const confidence = 'Source unique';
-  const confidenceRank = 1;
-
-  if (contentLane === 'macro') {
-    const shockTerms = ['recession','sanctions','trade war','tariff','oil prices','energy prices','armed conflict','war','invasion','financial stability','sovereign risk','economic coercion','supply chain'];
-    const shock = shockTerms.some(term => text.includes(' ' + srNormalize(term) + ' '));
-    const macroLevel = shock ? 'watch' : (impactRank >= 2 || det?.riskIds?.length > 1) ? 'important' : 'context';
-    return {
-      contentLane,
-      priority:'low',
-      macroLevel,
-      editorialRank:macroLevel === 'watch' ? 3 : macroLevel === 'important' ? 2 : 1,
-      assessment:{ impact, impactRank, exposure, exposureRank, timing, timingRank, confidence, confidenceRank }
-    };
-  }
-
-  let priority = 'low';
-  if (impactRank === 3 && exposureRank === 3 && timingRank >= 2) priority = 'critical';
-  else if ((impactRank === 3 && exposureRank >= 2 && timingRank >= 2) || (exposureRank === 3 && impactRank >= 2)) priority = 'high';
-  else if (impactRank >= 2 || exposureRank >= 2 || timingRank >= 2) priority = 'moderate';
-  return {
-    contentLane,
-    priority,
-    macroLevel:null,
-    editorialRank:{critical:4,high:3,moderate:2,low:1}[priority],
-    assessment:{ impact, impactRank, exposure, exposureRank, timing, timingRank, confidence, confidenceRank }
-  };
-}
-
-function refreshEditorialConfidence(item){
-  if (!item.assessment) return;
-  if (item.custom) return;
-  if (item.assessmentOverride) return;
-  if (item.corroboration >= 2) {
-    item.assessment.confidence = 'Plusieurs sources concordantes';
-    item.assessment.confidenceRank = 2;
-  } else {
-    item.assessment.confidence = 'Source unique';
-    item.assessment.confidenceRank = 1;
-  }
-}
-
 const REL_WORDS = ['carrefour','atacadão','carrefour market','grande distribution','hypermarché','supermarché','supermercado','varejo','distribution alimentaire','approvisionnement','fournisseur','rupture stock','supply chain','logistique','rappel produit','contamination','listeria','salmonelle','e.coli','intoxication alimentaire','EFSA','rgpd','CNIL','directive européenne','loi alimentation','CSRD','réglementation','inflation alimentaire','pouvoir achat','prix alimentaires','indice prix','cyberattaque','ransomware','violation données','data breach','inondation','enchente','seca','sequía','perturbation logistique','grève','huelga','plan social','licenciement','parts de marché','consommation ménages','INSEE','Circana'];
 const TRUSTED_PUBLISHER_DOMAINS = [
   // Institutions, régulateurs et organismes publics
@@ -2734,7 +2219,7 @@ function isRelevant(item, src) {
 const CACHE = new Map();
 const TTL = 20 * 60 * 1000;
 const RISK_CATEGORY_CODES = Object.keys(RISK_CATEGORIES);
-const ST = { all:[], filtered:[], filter:'all', categories:new Set(RISK_CATEGORY_CODES), sort:'pertinence', search:'', page:1, perPage:20, loading:false, online:0, errors:[] };
+const ST = { all:[], filtered:[], articleScope:'all', geographies:new Set(['MONDE']), categories:new Set(RISK_CATEGORY_CODES), sort:'votes', search:'', page:1, perPage:20, loading:false, online:0, errors:[] };
 
 function sharedArticleKey(item){ return String(item?.id || item?.link || ''); }
 
@@ -2759,54 +2244,32 @@ function applySharedClassification(item){
   }
 }
 
-const ASSESSMENT_OPTIONS = {
-  exposure:['Indirecte','Directe'],
-  timing:["Cette année","D’ici 5 ans","Plus de 5 ans"],
-  level:[['low','Faible'],['moderate','Modéré'],['high','Élevé'],['critical','Critique']],
-};
-const ASSESSMENT_RANKS = {
-  exposure:{'Indirecte':1,'Directe':3},
-  timing:{"Cette année":3,"D’ici 5 ans":2,"Plus de 5 ans":1},
-};
+const RECOMMENDATION_OPTIONS = [
+  ['standard','À lire'],
+  ['recommended','Recommandé'],
+  ['essential','Incontournable'],
+];
+const RECOMMENDATION_LABELS = Object.fromEntries(RECOMMENDATION_OPTIONS);
+const RECOMMENDATION_RANKS = {standard:1,recommended:2,essential:3};
 
 function srNormalize(value){
   return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-function rememberAutomaticAssessment(item){
-  if(item._autoAssessment)return;
-  item._autoAssessment={
-    contentLane:item.contentLane,priority:item.priority,macroLevel:item.macroLevel,editorialRank:item.editorialRank,
-    assessment:{...(item.assessment||{})},
-  };
-}
-
-function applySharedAssessment(item){
-  rememberAutomaticAssessment(item);
-  const override=(item.custom&&item.manualAssessment)||SHARED.assessments.get(sharedArticleKey(item));
-  if(override){
-    const exposure=ASSESSMENT_OPTIONS.exposure.includes(override.exposure)?override.exposure:'Indirecte';
-    item.assessment={
-      exposure,exposureRank:ASSESSMENT_RANKS.exposure[exposure]||1,
-      timing:override.timing,timingRank:ASSESSMENT_RANKS.timing[override.timing]||1,
-    };
-    item.contentLane=item._autoAssessment.contentLane;
-    item.priority=['low','moderate','high','critical'].includes(override.level)?override.level:item._autoAssessment.priority;
-    item.editorialRank={low:1,moderate:2,high:3,critical:4}[item.priority]||1;
-    item.assessmentOverride=override;
-  }else{
-    item.contentLane=item._autoAssessment.contentLane;
-    item.priority=item._autoAssessment.priority;
-    item.macroLevel=item._autoAssessment.macroLevel;
-    item.editorialRank=item._autoAssessment.editorialRank;
-    item.assessment={...item._autoAssessment.assessment};
-    item.assessmentOverride=null;
-  }
+function applySharedEngagement(item){
+  const articleId=sharedArticleKey(item);
+  const engagement=SHARED.engagements.get(articleId);
+  const vote=SHARED.votes.get(articleId);
+  item.recommendation=RECOMMENDATION_RANKS[engagement?.recommendation]?engagement.recommendation:'standard';
+  item.archived=Number(engagement?.archived)===1;
+  item.engagement=engagement||null;
+  item.voteCount=Number(vote?.vote_count||0);
+  item.votedByMe=Number(vote?.voted_by_me)===1;
 }
 
 function applySharedOverrides(item){
   applySharedClassification(item);
-  applySharedAssessment(item);
+  applySharedEngagement(item);
   applySharedAiSummary(item);
 }
 
@@ -2815,42 +2278,46 @@ function manualClassificationFromRecord(record){
   return {article_id:record.id,cat_code:record.saved_cat_code,updated_by:record.classification_updated_by,updated_at:record.classification_updated_at};
 }
 
-function manualAssessmentFromRecord(record){
-  if(!['low','moderate','high','critical'].includes(record?.saved_level))return null;
-  return {article_id:record.id,exposure:record.saved_exposure,timing:record.saved_timing,level:record.saved_level,updated_by:record.assessment_updated_by,updated_at:record.assessment_updated_at};
-}
-
 function sharedRecordToItem(record){
-  const saved=manualAssessmentFromRecord(record)||SHARED.assessments.get(String(record.id));
   const savedClassification=manualClassificationFromRecord(record)||SHARED.overrides.get(String(record.id));
-  const priority=['low','moderate','high','critical'].includes(saved?.level)?saved.level:'moderate';
-  const exposure=ASSESSMENT_OPTIONS.exposure.includes(saved?.exposure)?saved.exposure:'Indirecte';
-  const timing=ASSESSMENT_OPTIONS.timing.includes(saved?.timing)?saved.timing:'Cette année';
   return {
     id:record.id,title:record.title,link:record.url,desc:record.summary||'',date:new Date(record.created_at),
     source:`Ajouté par ${record.author}`,sourceId:'shared',cat:'custom',catCode:savedClassification?.cat_code||record.cat_code,
     riskIds:[],sustainability:false,pays:'MONDE',lang:'fr',
     label:`${record.cat_code} · ${RISK_CATEGORIES[record.cat_code]?.label||''}`,macro:false,
-    corroboration:1,corroboratedBy:[record.author],score:40,priority,contentLane:'alert',
-    macroLevel:null,editorialRank:{low:1,moderate:2,high:3,critical:4}[priority],custom:true,shared:true,addedBy:record.author,
-    manualClassification:savedClassification,manualAssessment:saved,
-    assessment:{exposure,exposureRank:ASSESSMENT_RANKS.exposure[exposure]||1,timing,timingRank:ASSESSMENT_RANKS.timing[timing]||1}
+    corroboration:1,corroboratedBy:[record.author],
+    custom:true,shared:true,addedBy:record.author,manualClassification:savedClassification,
   };
+}
+
+function archivedSnapshotToItem(engagement){
+  try{
+    const snapshot=JSON.parse(engagement.snapshot_json||'null');
+    if(!snapshot?.id||!snapshot?.title||!snapshot?.link)return null;
+    return {
+      ...snapshot,date:new Date(snapshot.date),cat:snapshot.cat||'archive',riskIds:[],sustainability:false,
+      corroboration:1,corroboratedBy:[],_archiveSnapshot:true,
+    };
+  }catch{return null;}
 }
 
 function mergeSharedArticles(){
   const riskArticles=SHARED.articles.filter(record=>!record.competitor_id);
   const records=new Map(riskArticles.map(record=>[record.id,record]));
-  ST.all=ST.all.filter(item=>!item.shared||records.has(item.id));
+  ST.all=ST.all.filter(item=>(!item.shared||records.has(item.id))&&!item._archiveSnapshot);
   for(const record of riskArticles){
     let item=ST.all.find(entry=>entry.id===record.id);
     if(item){
       item.title=record.title;item.link=record.url;item.desc=record.summary||'';item.addedBy=record.author;
       item.manualClassification=manualClassificationFromRecord(record)||SHARED.overrides.get(String(record.id));
-      item.manualAssessment=manualAssessmentFromRecord(record)||SHARED.assessments.get(String(record.id));
     }
     else{item=sharedRecordToItem(record);ST.all.unshift(item);}
     applySharedOverrides(item);
+  }
+  for(const engagement of SHARED.engagements.values()){
+    if(Number(engagement.archived)!==1||ST.all.some(item=>sharedArticleKey(item)===engagement.article_id))continue;
+    const item=archivedSnapshotToItem(engagement);
+    if(item){applySharedOverrides(item);ST.all.unshift(item);}
   }
 }
 
@@ -2873,7 +2340,7 @@ function applySharedState(){
       }else if(expectedVersion!==localVersion)void loadCachedArticleAiSummary(curItem);
       if($('dpDescEditor')?.hidden&&$('dpAiEditor')?.hidden)renderDetailDescription(curItem);
       renderClassificationEditor(curItem);
-      renderAssessmentEditor(curItem);
+      renderEngagementEditor(curItem);
       renderSharedComments(curItem);
     }
   }
@@ -2888,7 +2355,7 @@ async function syncSharedData(initial=false){
   SHARED.syncing=true;
   try{
     const data=await apiFetch('/api/shared');
-    const signature=JSON.stringify([data.comments||[],data.overrides||[],data.assessments||[],data.articles||[],data.aiSummaryVersions||[]]);
+    const signature=JSON.stringify([data.comments||[],data.overrides||[],data.engagements||[],data.votes||[],data.articles||[],data.aiSummaryVersions||[]]);
     const nextFeedRevision=data.feedRevision||null;
     const sharedChanged=signature!==SHARED.signature;
     const feedChanged=nextFeedRevision!==SHARED.feedRevision;
@@ -2900,7 +2367,8 @@ async function syncSharedData(initial=false){
         SHARED.comments.get(comment.article_id).push(comment);
       });
       SHARED.overrides=new Map((data.overrides||[]).map(item=>[item.article_id,item]));
-      SHARED.assessments=new Map((data.assessments||[]).map(item=>[item.article_id,item]));
+      SHARED.engagements=new Map((data.engagements||[]).map(item=>[item.article_id,item]));
+      SHARED.votes=new Map((data.votes||[]).map(item=>[item.article_id,item]));
       SHARED.aiSummaryVersions=new Map((data.aiSummaryVersions||[]).map(item=>[item.article_id,item]));
       SHARED.articles=data.articles||[];
       applySharedState();
@@ -2912,171 +2380,6 @@ async function syncSharedData(initial=false){
     if(error.status===401){clearSession();location.reload();return;}
     if(initial)toast('Synchronisation temporairement indisponible.','warn');
   }finally{SHARED.syncing=false;}
-}
-
-/* =========================================
-   CENTRE DE SITUATION - ANALYSE
-   ========================================= */
-const SR = { range:'7d', refreshFrame:null };
-
-function srRangeMs(){
-  return { '1d':86400000, '7d':7*86400000, '30d':30*86400000, all:Infinity }[SR.range] || 7*86400000;
-}
-
-function signalLane(item){
-  return item.contentLane === 'macro' ? 'macro' : 'alert';
-}
-
-function matchesCategoryFilter(item){
-  return ST.categories.size === RISK_CATEGORY_CODES.length || ST.categories.has(item.catCode);
-}
-
-function matchesContextFilter(item){
-  const f = ST.filter;
-  if (['critical','high','moderate','low'].includes(f)) return item.priority === f;
-  if (f === 'added') return item.shared === true;
-  if (f?.startsWith('pays-')) return item.pays === f.slice(5);
-  return true;
-}
-
-function matchesActiveFilters(item){
-  return matchesCategoryFilter(item) && matchesContextFilter(item);
-}
-
-function srMatchesActiveFilter(item){
-  return matchesActiveFilters(item);
-}
-
-function srItems(){
-  const cutoff = Date.now() - srRangeMs();
-  return ST.all.filter(item => {
-    const time = item.date instanceof Date ? item.date.getTime() : new Date(item.date).getTime();
-    if (!Number.isFinite(time) || time < cutoff) return false;
-    if (!srMatchesActiveFilter(item)) return false;
-    return true;
-  });
-}
-
-function srPriorityRank(priority){ return { critical:4, high:3, moderate:2, low:1 }[priority] || 0; }
-
-function srRenderBrief(items){
-  const crit = items.filter(item => item.priority === 'critical').length;
-  const high = items.filter(item => item.priority === 'high').length;
-  const crossed = items.filter(item => Number(item.corroboration) > 1).length;
-  const catCounts = {};
-  items.forEach(item => {
-    const cat = item.catCode && RISK_CATEGORIES[item.catCode] ? item.catCode : 'A';
-    catCounts[cat] = (catCounts[cat] || 0) + 1;
-  });
-  const topCatCode = Object.entries(catCounts).sort((a,b) => b[1] - a[1])[0]?.[0];
-  const topCat = topCatCode ? RISK_CATEGORIES[topCatCode] : null;
-  const focus = [...items].sort((a,b) => srPriorityRank(b.priority) - srPriorityRank(a.priority) || b.date - a.date)[0];
-
-  set('srCritCount', crit); set('srHighCount', high); set('srCrossCount', crossed);
-  set('srWindowCount', `${items.length} signal${items.length > 1 ? 's' : ''}`);
-  set('srFocusTitle', focus ? focus.title : 'Aucun signal sur la période sélectionnée.');
-  if (!items.length) {
-    $('srBrief').textContent = ST.loading ? 'Connexion aux sources premium et qualification des premiers signaux.' : 'Aucun signal qualifié sur la période sélectionnée.';
-  } else {
-    const danger = crit + high;
-    $('srBrief').innerHTML = `<strong>${items.length} signaux</strong> observés, dont <strong>${danger} prioritaires</strong>. ${topCat ? `La famille ${esc(topCatCode)} · ${esc(topCat.short)} concentre l'activité.` : ''}`;
-  }
-  const attention = crit >= 3 ? ['CRITIQUE','var(--crit)'] : (crit || high >= 4) ? ['RENFORCÉE','var(--high)'] : items.length ? ['SURVEILLANCE','var(--low)'] : ['STABLE','var(--t4)'];
-  const attentionEl = $('srAttentionLabel');
-  attentionEl.textContent = attention[0]; attentionEl.style.color = attention[1];
-}
-
-function srRenderHealth(){
-  const total = SOURCES.length;
-  const pct = total ? Math.round((ST.online / total) * 100) : 0;
-  const state = ST.loading ? 'ACTUALISATION' : pct >= 75 ? 'OPÉRATIONNEL' : pct >= 40 ? 'DÉGRADÉ' : 'PARTIEL';
-  set('srHealthState', state);
-  set('srHealthCopy', `${ST.online} / ${total} sources accessibles`);
-  set('srHealthPct', `${pct}%`);
-  $('srHealthFill').style.width = `${pct}%`;
-  $('srHealthFill').style.background = pct >= 75 ? 'var(--low)' : pct >= 40 ? 'var(--mod)' : 'var(--crit)';
-  const errorNames = ST.errors.slice(0,3).map(value => String(value).split(':')[0]);
-  set('srSourceErrors', errorNames.length ? `Indisponibles : ${errorNames.join(', ')}` : ST.loading ? 'Vérification des flux en cours.' : 'Aucune anomalie détectée sur les sources accessibles.');
-  set('srDataState', ST.loading ? 'Synchronisation' : 'Sources en direct');
-  set('srAsOf', new Date().toLocaleString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}));
-}
-
-function srTimelineConfig(){
-  if (SR.range === '1d') return { bins:12, span:86400000, sub:'Répartition sur les dernières 24 heures' };
-  if (SR.range === '30d') return { bins:10, span:30*86400000, sub:'Répartition sur les 30 derniers jours' };
-  if (SR.range === 'all') return { bins:12, span:35*86400000, sub:'Répartition sur toute la profondeur de veille' };
-  return { bins:7, span:7*86400000, sub:'Répartition sur les 7 derniers jours' };
-}
-
-function srRenderTimeline(items){
-  const cfg = srTimelineConfig(), now = Date.now(), start = now - cfg.span, binMs = cfg.span / cfg.bins;
-  const bins = Array.from({length:cfg.bins}, (_,i) => ({ count:0, critical:0, high:0, moderate:0, low:0, macro:0, start:start + i*binMs }));
-  items.forEach(item => {
-    const time = item.date instanceof Date ? item.date.getTime() : new Date(item.date).getTime();
-    const index = Math.max(0, Math.min(cfg.bins - 1, Math.floor((time - start) / binMs)));
-    if (Number.isFinite(time) && time >= start) {
-      const level = ['critical','high','moderate','low'].includes(item.priority) ? item.priority : 'low';
-      bins[index].count++;
-      bins[index][level]++;
-    }
-  });
-  const max = Math.max(1, ...bins.map(bin => bin.count));
-  const labelFor = (bin, index) => {
-    const date = new Date(bin.start);
-    if (SR.range === '1d') return index % 3 === 0 ? date.toLocaleTimeString('fr-FR',{hour:'2-digit'}) : '';
-    if (SR.range === '7d') return date.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','');
-    return index % 2 === 0 ? date.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}) : '';
-  };
-  const levels = ['critical','high','moderate','low'];
-  $('srTimeline').innerHTML = bins.map((bin,index) => {
-    const height = Math.max(2,Math.round((bin.count/max)*86));
-    const segments = levels.filter(level => bin[level]).map(level => `<span class="sr-time-segment ${level}" style="height:${(bin[level]/bin.count)*100}%"></span>`).join('');
-    const details = levels.filter(level => bin[level]).map(level => `${plbl(level).toLowerCase()} : ${bin[level]}`).join(' · ');
-    return `<div class="sr-time-col" title="${bin.count} signal(s)${details ? ' · '+esc(details) : ''}"><div class="sr-time-stack" style="height:${height}px">${segments}</div><span class="sr-time-label">${esc(labelFor(bin,index))}</span></div>`;
-  }).join('');
-  const peak = bins.reduce((best,bin,index) => bin.count > best.count ? { ...bin,index } : best, { count:-1,index:0 });
-  set('srTimelineSub', cfg.sub);
-  set('srPeakLabel', peak.count > 0 ? `Pic : ${peak.count} signal${peak.count > 1 ? 's' : ''}` : 'Pic : —');
-}
-
-function srRenderWatchList(items){
-  const groups = {};
-  items.forEach(item => {
-    const code = item.catCode && RISK_CATEGORIES[item.catCode] ? item.catCode : 'A';
-    if (!groups[code]) groups[code] = { count:0, priority:'low' };
-    groups[code].count++;
-    if (srPriorityRank(item.priority) > srPriorityRank(groups[code].priority)) groups[code].priority = item.priority;
-  });
-  const rows = Object.entries(groups).sort((a,b) => b[1].count - a[1].count).slice(0,4);
-  $('srWatchList').innerHTML = rows.length ? rows.map(([code,data]) => `<div class="sr-watch-item" title="${data.count} article${data.count>1?'s':''} sur les 7 derniers jours"><span class="sr-watch-dot ${esc(data.priority)}"></span><span>${code} · ${esc(RISK_CATEGORIES[code].short)}</span><span class="sr-watch-count" aria-label="${data.count} article${data.count>1?'s':''}">${data.count}</span></div>`).join('') : '<span class="sr-analytic-sub">Aucun signal sur cette période.</span>';
-}
-
-function refreshSituationRoom(){
-  if (!$('situationRoom')) return;
-  const baseItems = srItems();
-  srRenderBrief(baseItems);
-  srRenderHealth();
-  srRenderTimeline(baseItems);
-  srRenderWatchList(baseItems);
-}
-
-function scheduleSituationRefresh(){
-  if (SR.refreshFrame) cancelAnimationFrame(SR.refreshFrame);
-  SR.refreshFrame = requestAnimationFrame(() => { SR.refreshFrame = null; refreshSituationRoom(); });
-}
-
-function stableIntelId(it) {
-  const base = `${it.source?.id || 'intel'}|${it.url || ''}|${it.title || ''}|${it.publishedAt || ''}`;
-  let hash = 0;
-  for (let i = 0; i < base.length; i++) hash = (hash * 31 + base.charCodeAt(i)) >>> 0;
-  return (it.source?.id || 'intel') + '-' + hash.toString(16);
-}
-
-function articleListSignature(items){
-  return JSON.stringify(items.map(item=>[
-    String(item.id||''),item.title||'',item.link||'',item.date instanceof Date?item.date.getTime():String(item.date||''),
-    item.desc||'',item.source||'',item.catCode||'',item.priority||'',item.contentLane||'',item.corroboration||0
-  ]));
 }
 
 async function loadAll({silent=false,notify=false,preservePage=false}={}) {
@@ -3158,7 +2461,7 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
         id: it.link || stableIntelId({source:src,title,publishedAt:it.pubDate}),
         title, link: it.link, date, desc,
         source: displaySource, sourceRegistryName: src.name, sourceId: src.id,
-        cat: src.cat,           // legacy — utilisé par le scoring existant
+        cat: src.cat,           // legacy — utilisé par certains filtres et vues
         catCode,                // nouveau — taxonomie officielle A→K
         riskIds: finalRiskIds,  // nouveau — numéros de risques officiels (1.0 → 72.0)
         sustainability,         // nouveau — flag 🌳
@@ -3168,11 +2471,7 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
         macro: !!src.macro,               // nouveau — source macro-institutionnelle (BCE/FMI/ONU/Banque Mondiale/McKinsey)
         corroboration: 1,                 // nouveau — nb de sources reprenant la même info (recoupement)
         corroboratedBy: [displaySource],  // noms des éditeurs ayant repris l'information
-        // Gravité du risque + priorité (Critique/Élevée/Modérée/Faible) — sert au tri interne,
-        // plus affiché comme "score /100" à l'utilisateur (cf. tier + recoupement à la place)
-        ...scoreItem(raw, src, { riskIds: finalRiskIds, suggestedCatCode: catCode })
       };
-      Object.assign(candidate, assessEditorialItem(raw, src, { riskIds: finalRiskIds, suggestedCatCode: catCode }));
       applySharedOverrides(candidate);
       items.push(candidate);
     }
@@ -3197,7 +2496,6 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
         if (!existing.corroboratedBy.includes(item.source)) {
           existing.corroboration++;
           existing.corroboratedBy.push(item.source);
-          refreshEditorialConfidence(existing);
         }
         continue;
       }
@@ -3213,7 +2511,13 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
   // Construit la prochaine liste hors de l'interface. Une actualisation
   // automatique ne vide donc jamais la page pendant la collecte des flux.
   SHARED.articles.filter(record=>!record.competitor_id).forEach(record=>nextItems.push(sharedRecordToItem(record)));
+  for(const engagement of SHARED.engagements.values()){
+    if(Number(engagement.archived)!==1||nextItems.some(item=>sharedArticleKey(item)===engagement.article_id))continue;
+    const archivedItem=archivedSnapshotToItem(engagement);
+    if(archivedItem)nextItems.push(archivedItem);
+  }
   nextItems.forEach(item => {
+    applySharedOverrides(item);
     const titleKey = normalizeTitleKey(item.title);
     const urlKey = canonicalUrlKey(item.link);
     if (titleKey) dedupIndex.set('t:' + titleKey, item);
@@ -3261,29 +2565,24 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
 function updateCounts(){
   const a=ST.all, n=f=>a.filter(f).length;
   const active=a.filter(matchesActiveFilters);
-  const categoryOptions=a.filter(matchesContextFilter);
+  const categoryOptions=a.filter(item=>matchesArticleScope(item)&&matchesGeoFilter(item));
   // Compteurs par catégorie officielle A→K (référentiel Carrefour)
   const cats = RISK_CATEGORY_CODES;
   const catCounts = {};
   cats.forEach(k => { catCounts[k] = categoryOptions.filter(i => i.catCode === k).length; });
   const c={
     all:active.length,
-    crit:n(i=>matchesCategoryFilter(i)&&i.priority==='critical'),
-    high:n(i=>matchesCategoryFilter(i)&&i.priority==='high'),
-    mod:n(i=>matchesCategoryFilter(i)&&i.priority==='moderate'),
-    low:n(i=>matchesCategoryFilter(i)&&i.priority==='low'),
-    added:active.filter(i=>i.shared===true).length,
-    FR:active.filter(i=>i.pays==='FR').length,ES:active.filter(i=>i.pays==='ES').length,BR:active.filter(i=>i.pays==='BR').length,MON:active.filter(i=>i.pays==='MONDE').length,
+    added:n(i=>!i.archived&&i.shared===true&&matchesCategoryFilter(i)&&matchesGeoFilter(i)),
+    archived:n(i=>i.archived===true&&matchesCategoryFilter(i)&&matchesGeoFilter(i)),
+    FR:n(i=>!i.archived&&i.pays==='FR'&&matchesCategoryFilter(i)),ES:n(i=>!i.archived&&i.pays==='ES'&&matchesCategoryFilter(i)),BR:n(i=>!i.archived&&i.pays==='BR'&&matchesCategoryFilter(i)),MON:n(i=>!i.archived&&i.pays==='MONDE'&&matchesCategoryFilter(i)),
     ...catCounts,
   };
-  set('nc-crit',c.crit);set('nc-high',c.high);set('nc-mod',c.mod);set('nc-low',c.low);set('nc-added',c.added);
-  set('cadTotal',c.all);set('cadCritical',active.filter(i=>i.priority==='critical').length);set('cadHigh',active.filter(i=>i.priority==='high').length);set('cadModerate',active.filter(i=>i.priority==='moderate').length);set('cadLow',active.filter(i=>i.priority==='low').length);set('cadSources',`${ST.online}/${SOURCES.length}`);
+  set('nc-added',c.added);set('nc-archived',c.archived);
   cats.forEach(k => set('nc-'+k, c[k]));
   set('nc-cat-all',categoryOptions.length);
   ['FR','ES','BR','MON'].forEach(k=>set('nc-'+k,c[k]));
   updateFilterUI();
   renderMacroPanel();
-  scheduleSituationRefresh();
 }
 
 // Bandeau "État du monde" : derniers titres des sources macro-institutionnelles
@@ -3315,58 +2614,43 @@ function applyFilter({preservePage=false}={}){
     });
   }
 
-  const po={critical:0,high:1,moderate:2,low:3};
-  const editorialSort=(a,b)=>{
-    const laneA=a.contentLane==='macro'?'macro':'alert', laneB=b.contentLane==='macro'?'macro':'alert';
-    if(laneA!==laneB)return laneA==='alert'?-1:1;
-    if(laneA==='macro')return (b.editorialRank||0)-(a.editorialRank||0)||(b.assessment?.confidenceRank||0)-(a.assessment?.confidenceRank||0)||b.date-a.date;
-    return po[a.priority]-po[b.priority]||(b.assessment?.exposureRank||0)-(a.assessment?.exposureRank||0)||(b.assessment?.timingRank||0)-(a.assessment?.timingRank||0)||(b.assessment?.confidenceRank||0)-(a.assessment?.confidenceRank||0)||b.date-a.date;
-  };
-  if(ST.sort==='pertinence') items.sort(editorialSort);
-  else if(ST.sort==='recent') items.sort((a,b)=>b.date-a.date);
-  else items.sort(editorialSort);
+  const voteSort=(a,b)=>(b.voteCount||0)-(a.voteCount||0)||(RECOMMENDATION_RANKS[b.recommendation]||1)-(RECOMMENDATION_RANKS[a.recommendation]||1)||b.date-a.date;
+  if(ST.sort==='recent')items.sort((a,b)=>b.date-a.date||(b.voteCount||0)-(a.voteCount||0));
+  else items.sort(voteSort);
   ST.filtered=items;
   const totalPages=Math.max(1,Math.ceil(items.length/ST.perPage));
   ST.page=preservePage?Math.min(Math.max(1,ST.page),totalPages):1;
   set('resCnt',items.length?`${items.length} articles`:''); render();
-  scheduleSituationRefresh();
 }
 
 function render(){
   const feed=$('feed'),items=ST.filtered,total=items.length;
   const tp=Math.ceil(total/ST.perPage),start=(ST.page-1)*ST.perPage,page=items.slice(start,start+ST.perPage);
   if(!total){feed.innerHTML='<div class="empty"><div class="ico">🔍</div><p>Aucun article pour ce filtre.</p></div>';$('pager').innerHTML='';return;}
-  const crits=page.filter(i=>i.priority==='critical'), others=page.filter(i=>i.priority!=='critical');
   let html='';
-  if(crits.length&&ST.sort!=='recent'){
-    html+='<div class="fsttl">Alertes critiques</div>'; crits.forEach((it,i)=>html+=rSpot(it,start+i));
-    if(others.length) html+='<div class="fsttl" style="margin-top:8px">Autres alertes</div>';
-  }
-  (ST.sort!=='recent'?others:page).forEach((it,i)=>html+=rCard(it,start+(ST.sort!=='recent'?crits.length:0)+i));
+  page.forEach((it,i)=>html+=rCard(it,start+i));
   feed.innerHTML=html;
   feed.querySelectorAll('[data-idx]').forEach(el=>{
     el.addEventListener('click',()=>openDetail(ST.filtered[+el.dataset.idx]));
   });
+  feed.querySelectorAll('[data-vote]').forEach(button=>button.addEventListener('click',event=>{
+    event.stopPropagation();void toggleArticleVote(ST.filtered[Number(button.dataset.vote)]);
+  }));
   renderPager(ST.page,tp);
-}
-
-function rSpot(it,idx){
-  requestFrenchTranslation(it);
-  return `<div class="spot" data-idx="${idx}" data-id="${esc(it.id)}"><div class="spb">🔴 CRITIQUE · ${esc(it.source)}</div>${translatedTitleHtml(it, 'spt')}<div class="spm"><span class="cflag">${flag(it.pays)}</span>${it.lang!=='fr'?`<span class="clng">${it.lang.toUpperCase()}</span>`:''}<span style="font-size:.65rem;color:var(--t4)">${relDate(it.date)}</span>${corroborationHtml(it)}</div></div>`;
 }
 
 function rCard(it,idx){
   requestFrenchTranslation(it);
-  const bc={critical:'c',high:'h',moderate:'m',low:'l'}[it.priority]||'l';
   // Badge catégorie officielle A→K (lettre + icône — libellé complet en infobulle)
   const catC = it.catCode && RISK_CATEGORIES[it.catCode];
   const catBadge = catC
     ? `<span class="ccat" title="${esc(catC.label)}"><i class="rv-fi ${catC.ico}" aria-hidden="true"></i> ${esc(it.catCode)} · ${esc(catC.label)}</span>`
     : `<span class="ccat">${esc(it.label||'')}</span>`;
   const customBadge = it.custom ? `<span class="ccorrob" title="Ajouté manuellement par ${esc(it.addedBy||'')}"><i class="rv-fi rv-added" aria-hidden="true"></i> Ajouté</span>` : '';
-  const levelBadge = `<span class="csc ${it.priority}">${plbl(it.priority)}</span>`;
+  const recommendation=`<span class="recommendation-badge ${esc(it.recommendation||'standard')}">${esc(RECOMMENDATION_LABELS[it.recommendation]||'À lire')}</span>`;
+  const archiveBadge=it.archived?'<span class="archive-badge">Archivé</span>':'';
   const summary = it.desc ? `<div class="cde">${esc(it.desc)}</div>` : '';
-  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><div class="cb ${it.contentLane==='macro'?'l':bc}"></div><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${levelBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}</div><div class="cdate">${relDate(it.date)}</div></div>`;
+  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${it.votedByMe?'Retirer votre vote':'Recommander cet article'}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow">▲</span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}</div><div class="cdate">${relDate(it.date)}</div></div>`;
 }
 
 function renderPager(cur,tot){
@@ -3556,8 +2840,8 @@ function openDetail(it){
   $('dpBackToComp').style.display=detailReturnCompId?'inline-flex':'none';
   $('dpDeleteZone').style.display=it.shared?'block':'none';
   requestFrenchTranslation(it, true);
-  $('dpChip').textContent=plbl(it.priority);
-  $('dpChip').className=`dpchip ${it.priority}`;
+  $('dpChip').textContent=RECOMMENDATION_LABELS[it.recommendation]||'À lire';
+  $('dpChip').className=`dpchip recommendation ${it.recommendation||'standard'}`;
   const needsTranslation = TRANSLATION_LANGS.has(it.lang);
   $('dpTitle').textContent=needsTranslation ? (it.titleFR || (it.translationFailed ? it.title : 'Traduction française en cours…')) : it.title;
   if (needsTranslation) { $('dpTitleFR').textContent=`Original ${it.lang.toUpperCase()} · ${it.title}`; $('dpTitleFR').style.display='block'; }
@@ -3566,7 +2850,7 @@ function openDetail(it){
   renderDetailDescription(it);
 
   renderClassificationEditor(it);
-  renderAssessmentEditor(it);
+  renderEngagementEditor(it);
   renderSharedComments(it);
   $('ov').classList.add('open');
   void loadCachedArticleAiSummary(it);
@@ -3594,53 +2878,61 @@ $('dpClassSave').addEventListener('click',async()=>{
   }catch(error){toast(error.message||'Classement impossible.','err');}
   finally{button.disabled=false;}
 });
-function fillAssessmentSelect(id,options,selected){
+function fillRecommendationSelect(id,options,selected){
   const select=$(id);
   const pairs=options.map(option=>Array.isArray(option)?option:[option,option]);
   select.innerHTML=pairs.map(([value,label])=>`<option value="${esc(value)}">${esc(label)}</option>`).join('');
   select.value=pairs.some(([value])=>value===selected)?selected:pairs[0][0];
 }
 
-function renderAssessmentEditor(item){
-  if(!item)return;
-  const timingAliases={'Immédiate':'Cette année','Émergente':'D’ici 5 ans','Structurelle':'Plus de 5 ans'};
-  const exposure=ASSESSMENT_OPTIONS.exposure.includes(item.assessment?.exposure)?item.assessment.exposure:'Indirecte';
-  const timing=ASSESSMENT_OPTIONS.timing.includes(item.assessment?.timing)?item.assessment.timing:(timingAliases[item.assessment?.timing]||'Cette année');
-  fillAssessmentSelect('dpEvalExposure',ASSESSMENT_OPTIONS.exposure,exposure);
-  fillAssessmentSelect('dpEvalTiming',ASSESSMENT_OPTIONS.timing,timing);
-  fillAssessmentSelect('dpEvalLevel',ASSESSMENT_OPTIONS.level,item.priority||'low');
-  $('dpChip').textContent=plbl(item.priority);
-  $('dpChip').className=`dpchip ${item.priority}`;
-  const override=item.assessmentOverride||SHARED.assessments.get(sharedArticleKey(item));
-  $('dpEvalMeta').textContent=override?`Modifiée par ${override.updated_by} · ${fmtCommentDate(override.updated_at)}`:'Évaluation automatique';
-  $('dpEvalReset').style.display=override&&!item.custom?'inline-flex':'none';
+function articleSnapshot(item){
+  return {
+    id:sharedArticleKey(item),title:item.title,link:item.link,desc:item.desc||'',date:new Date(item.date).toISOString(),
+    source:item.source,sourceId:item.sourceId||'',catCode:item.catCode||'A',pays:item.pays||'MONDE',lang:item.lang||'fr',
+    label:item.label||'',macro:!!item.macro,custom:!!item.custom,shared:!!item.shared,addedBy:item.addedBy||'',competitorId:item.competitorId||null,
+  };
 }
 
-$('dpEvalSave').addEventListener('click',async()=>{
+function renderEngagementEditor(item){
+  if(!item)return;
+  fillRecommendationSelect('dpRecommendation',RECOMMENDATION_OPTIONS,item.recommendation||'standard');
+  $('dpArchived').checked=!!item.archived;
+  $('dpChip').textContent=RECOMMENDATION_LABELS[item.recommendation]||'À lire';
+  $('dpChip').className=`dpchip recommendation ${item.recommendation||'standard'}`;
+  $('dpVoteCount').textContent=String(item.voteCount||0);
+  $('dpVote').classList.toggle('active',!!item.votedByMe);
+  $('dpVote').setAttribute('aria-pressed',String(!!item.votedByMe));
+  const state=item.engagement||SHARED.engagements.get(sharedArticleKey(item));
+  $('dpEngagementMeta').textContent=state?.updated_by?`Mis à jour par ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:'Aucune qualification enregistrée';
+}
+
+$('dpEngagementSave').addEventListener('click',async()=>{
   if(!curItem)return;
-  const button=$('dpEvalSave');button.disabled=true;
+  const button=$('dpEngagementSave');button.disabled=true;
   try{
     const articleId=sharedArticleKey(curItem);
-    const payload={
-      exposure:$('dpEvalExposure').value,timing:$('dpEvalTiming').value,level:$('dpEvalLevel').value,
-    };
-    const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/assessment`,{method:'PUT',body:JSON.stringify(payload)});
-    SHARED.assessments.set(articleId,data.assessment);
-    if(curItem.custom)curItem.manualAssessment=data.assessment;
-    applySharedAssessment(curItem);renderAssessmentEditor(curItem);updateCounts();applyFilter();
-    toast('Évaluation enregistrée.','ok');
-  }catch(error){toast(error.message||'Évaluation impossible.','err');}
+    const payload={recommendation:$('dpRecommendation').value,archived:$('dpArchived').checked,snapshot:articleSnapshot(curItem)};
+    const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/engagement`,{method:'PUT',body:JSON.stringify(payload)});
+    SHARED.engagements.set(articleId,data.engagement);
+    applySharedEngagement(curItem);renderEngagementEditor(curItem);updateCounts();applyFilter();
+    toast(curItem.archived?'Article archivé.':'Recommandation enregistrée.','ok');
+  }catch(error){toast(error.message||'Enregistrement impossible.','err');}
   finally{button.disabled=false;}
 });
-$('dpEvalReset').addEventListener('click',async()=>{
-  if(!curItem)return;
+
+async function toggleArticleVote(item){
+  if(!item)return;
+  const articleId=sharedArticleKey(item);
   try{
-    const articleId=sharedArticleKey(curItem);
-    await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/assessment`,{method:'DELETE'});
-    SHARED.assessments.delete(articleId);applySharedAssessment(curItem);renderAssessmentEditor(curItem);updateCounts();applyFilter();
-    toast('Évaluation automatique restaurée.','ok');
-  }catch(error){toast(error.message||'Réinitialisation impossible.','err');}
-});
+    const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/vote`,{method:item.votedByMe?'DELETE':'POST'});
+    const vote={article_id:articleId,vote_count:data.voteCount,voted_by_me:data.voted?1:0};
+    SHARED.votes.set(articleId,vote);applySharedEngagement(item);
+    if(curItem&&sharedArticleKey(curItem)===articleId)renderEngagementEditor(curItem);
+    applyFilter({preservePage:true});
+  }catch(error){toast(error.message||'Vote impossible.','err');}
+}
+
+$('dpVote').addEventListener('click',()=>void toggleArticleVote(curItem));
 
 function renderSharedComments(item){
   const host=$('dpSharedComments');if(!host||!item)return;
@@ -3774,7 +3066,7 @@ $('dpArticleDelete').addEventListener('click',async()=>{
   try{
     await apiFetch(`/api/articles/${encodeURIComponent(articleId)}`,{method:'DELETE'});
     SHARED.articles=SHARED.articles.filter(article=>article.id!==articleId);
-    SHARED.comments.delete(articleId);SHARED.overrides.delete(articleId);SHARED.assessments.delete(articleId);
+    SHARED.comments.delete(articleId);SHARED.overrides.delete(articleId);SHARED.engagements.delete(articleId);SHARED.votes.delete(articleId);
     ST.all=ST.all.filter(item=>sharedArticleKey(item)!==articleId);
     curItem=null;$('ov').classList.remove('open');updateCounts();applyFilter();
     if($('viewConcurrence')?.classList.contains('active'))renderConcurrence();
@@ -3789,15 +3081,11 @@ function populateAddArticleCatSelect(){
   if (!sel || sel.options.length) return;
   sel.innerHTML = Object.keys(RISK_CATEGORIES).map(code => `<option value="${code}">${code} · ${esc(RISK_CATEGORIES[code].label)}</option>`).join('');
 }
-function populateAddArticleAssessment(){
-  fillAssessmentSelect('addArtExposure',ASSESSMENT_OPTIONS.exposure,'Indirecte');
-  fillAssessmentSelect('addArtTiming',ASSESSMENT_OPTIONS.timing,'Cette année');
-  fillAssessmentSelect('addArtLevel',ASSESSMENT_OPTIONS.level,'moderate');
-}
 function openAddArticleModal(){
   populateAddArticleCatSelect();
-  populateAddArticleAssessment();
+  fillRecommendationSelect('addArtRecommendation',RECOMMENDATION_OPTIONS,'standard');
   $('addArtAi').checked=false;
+  $('addArtArchived').checked=false;
   $('addArticleOv').classList.add('open');
 }
 $('btnAddArticle')?.addEventListener('click', openAddArticleModal);
@@ -3806,26 +3094,25 @@ $('addArticleOv')?.addEventListener('click', e => { if (e.target.id === 'addArti
 $('addArtSubmit')?.addEventListener('click', async () => {
   const url = $('addArtUrl').value.trim();
   const title = $('addArtTitle').value.trim();
-  const desc = $('addArtDesc').value.trim();
+  const comment = $('addArtComment').value.trim();
   const generateAi=$('addArtAi').checked;
   const catCode = $('addArtCat').value;
-  const assessment={
-    exposure:$('addArtExposure').value,timing:$('addArtTiming').value,level:$('addArtLevel').value,
-  };
+  const recommendation=$('addArtRecommendation').value;
+  const archived=$('addArtArchived').checked;
   const err = $('addArtErr');
   if (!url || !title){ err.textContent = 'URL et titre sont obligatoires.'; err.style.display = 'block'; return; }
   try{ new URL(url); }catch(e){ err.textContent = 'URL invalide (elle doit commencer par https://).'; err.style.display = 'block'; return; }
   err.style.display = 'none';
   const button=$('addArtSubmit');button.disabled=true;
   try{
-    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,summary:desc,catCode,assessment})});
-    $('addArtUrl').value = ''; $('addArtTitle').value = ''; $('addArtDesc').value = '';
+    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,comment,catCode,recommendation,archived})});
+    $('addArtUrl').value = ''; $('addArtTitle').value = ''; $('addArtComment').value = '';
     $('addArtAi').checked=false;
     $('addArticleOv').classList.remove('open');
     await syncSharedData(false);
     if(generateAi){
       toast('Article ajouté. Génération du résumé IA…','ok');
-      const item=ST.all.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc};
+      const item=ST.all.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc:''};
       const bullets=await requestArticleAiSummary(item);
       toast(bullets?'Article ajouté et résumé par IA.':(item.aiSummaryError||'Article ajouté, mais le résumé IA est indisponible.'),bullets?'ok':'warn');
     }else toast('Article ajouté.','ok');
@@ -3842,8 +3129,10 @@ function populateAddCompetitorSelect(){
 }
 function openAddCompetitorArticleModal(competitorId=''){
   populateAddCompetitorSelect();
+  fillRecommendationSelect('addCompArticleRecommendation',RECOMMENDATION_OPTIONS,'standard');
   if(competitorId&&COMPETITORS_BY_ID[competitorId])$('addCompArticleCompetitor').value=competitorId;
   $('addCompArticleAi').checked=false;
+  $('addCompArticleArchived').checked=false;
   $('addCompArticleErr').style.display='none';
   $('addCompArticleOv').classList.add('open');
 }
@@ -3854,7 +3143,9 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
   const competitorId=$('addCompArticleCompetitor').value;
   const url=$('addCompArticleUrl').value.trim();
   const title=$('addCompArticleTitle').value.trim();
-  const summary=$('addCompArticleDesc').value.trim();
+  const comment=$('addCompArticleComment').value.trim();
+  const recommendation=$('addCompArticleRecommendation').value;
+  const archived=$('addCompArticleArchived').checked;
   const generateAi=$('addCompArticleAi').checked;
   const errorHost=$('addCompArticleErr');
   if(!competitorId||!url||!title){errorHost.textContent='Enseigne, URL et titre sont obligatoires.';errorHost.style.display='block';return;}
@@ -3863,8 +3154,8 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
   errorHost.style.display='none';
   const button=$('addCompArticleSubmit');button.disabled=true;
   try{
-    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,summary,competitorId})});
-    $('addCompArticleUrl').value='';$('addCompArticleTitle').value='';$('addCompArticleDesc').value='';
+    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,comment,competitorId,recommendation,archived})});
+    $('addCompArticleUrl').value='';$('addCompArticleTitle').value='';$('addCompArticleComment').value='';
     $('addCompArticleAi').checked=false;
     $('addCompArticleOv').classList.remove('open');
     SHARED.signature='';
@@ -3872,7 +3163,7 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
     renderConcurrence();
     if(generateAi){
       toast(`Article ajouté à ${COMPETITORS_BY_ID[competitorId].name}. Génération du résumé IA…`,'ok');
-      const item=CC.items.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc:summary};
+      const item=CC.items.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc:''};
       const bullets=await requestArticleAiSummary(item);
       toast(bullets?'Article ajouté et résumé par IA.':(item.aiSummaryError||'Article ajouté, mais le résumé IA est indisponible.'),bullets?'ok':'warn');
     }else toast(`Article ajouté à ${COMPETITORS_BY_ID[competitorId].name}.`,'ok');
@@ -3992,11 +3283,6 @@ function extractCompetitorArticlesFromAll(allItems){
         catCode: item.catCode,
         riskIds: [...(item.riskIds||[])],
         sustainability: !!item.sustainability,
-        contentLane: item.contentLane,
-        priority: item.priority,
-        macroLevel: item.macroLevel,
-        editorialRank: item.editorialRank,
-        assessment: {...(item.assessment||{})},
         competitorId: c.id,
         competitorName: c.name,
         pays: c.pays,
@@ -4016,7 +3302,6 @@ function sharedCompetitorRecordToItem(record){
     source:`Ajouté par ${record.author}`,competitorId:competitor.id,competitorName:competitor.name,
     pays:competitor.pays,lang:'fr',custom:true,shared:true,addedBy:record.author,
     manualClassification:manualClassificationFromRecord(record)||SHARED.overrides.get(String(record.id)),
-    manualAssessment:manualAssessmentFromRecord(record)||SHARED.assessments.get(String(record.id)),
   };
 }
 
@@ -4028,15 +3313,6 @@ function prepareCompetitorDetailItem(item){
   item.catCode=item.catCode||'A';
   item.riskIds=Array.isArray(item.riskIds)?item.riskIds:[];
   item.sustainability=!!item.sustainability;
-  item.contentLane=item.contentLane==='macro'?'macro':'alert';
-  item.priority=item.priority||'low';
-  item.macroLevel=item.contentLane==='macro'?(item.macroLevel||'context'):null;
-  item.editorialRank=item.editorialRank||1;
-  item.assessment={
-    exposure:ASSESSMENT_OPTIONS.exposure[0],exposureRank:1,
-    timing:ASSESSMENT_OPTIONS.timing[0],timingRank:3,
-    ...(item.assessment||{}),
-  };
   item.label=item.label||`${item.catCode} - ${RISK_CATEGORIES[item.catCode]?.label||''}`;
   item.corroboration=item.corroboration||1;
   item.corroboratedBy=item.corroboratedBy||[item.source];
@@ -4327,11 +3603,6 @@ function buildCategoryNav(){
   wrap.innerHTML = (lbl ? lbl.outerHTML : '<div class="sbl">Familles de risques · Référentiel Carrefour</div>') + allRow + blocks;
 }
 
-function contextFilterLabel(){
-  const labels={critical:'Critique',high:'Élevé',moderate:'Modéré',low:'Faible',added:'Articles ajoutés','pays-FR':'France','pays-ES':'Espagne','pays-BR':'Brésil','pays-MONDE':'Monde / EU'};
-  return labels[ST.filter]||'';
-}
-
 function updateFilterUI(){
   const allCategoriesSelected=ST.categories.size===RISK_CATEGORY_CODES.length;
   document.querySelectorAll('.nav-cat').forEach(node=>{
@@ -4344,19 +3615,27 @@ function updateFilterUI(){
     const check=node.querySelector('.filter-check');
     if(check)check.textContent=mixed?'−':'✓';
   });
-  document.querySelectorAll('.nav:not(.nav-cat):not(.nav-view)').forEach(node=>node.classList.toggle('active',(node.dataset.f||'all')===ST.filter));
+  document.querySelectorAll('.nav-article').forEach(node=>{
+    const checked=node.dataset.scope===ST.articleScope;
+    node.classList.toggle('active',checked);node.setAttribute('aria-checked',String(checked));
+  });
+  document.querySelectorAll('.nav-geo').forEach(node=>{
+    const checked=ST.geographies.has(node.dataset.geo);
+    node.classList.toggle('active',checked);node.setAttribute('aria-checked',String(checked));
+  });
 
   const selectedCategories=RISK_CATEGORY_CODES.filter(code=>ST.categories.has(code));
   const categoryLabel=allCategoriesSelected?'Toutes les familles':selectedCategories.length?`${selectedCategories.length} famille${selectedCategories.length>1?'s':''} · ${selectedCategories.join(', ')}`:'Aucune famille sélectionnée';
   set('secTtl','Veille des risques');
-  const contextLabel=contextFilterLabel();
+  const scopeLabel={added:'Articles ajoutés',archived:'Articles archivés'}[ST.articleScope]||'';
+  const geoNames={MONDE:'Monde / UE',FR:'France',ES:'Espagne',BR:'Brésil'};
+  const geoLabel=ST.geographies.size?[...ST.geographies].map(code=>geoNames[code]||code).join(', '):'Toutes les géographies';
   const host=$('filterState');
-  const priorityClass=['critical','high','moderate','low'].includes(ST.filter)?` priority ${ST.filter}`:'';
-  if(host)host.innerHTML=`<span class="filter-state-label">Filtres actifs</span><span class="filter-pill primary">${esc(categoryLabel)}</span>${contextLabel?`<span class="filter-pill${priorityClass}">${esc(contextLabel)}</span>`:''}`;
+  if(host)host.innerHTML=`<span class="filter-state-label">Filtres actifs</span><span class="filter-pill primary">${esc(categoryLabel)}</span><span class="filter-pill">${esc(geoLabel)}</span>${scopeLabel?`<span class="filter-pill">${esc(scopeLabel)}</span>`:''}`;
 }
 
 function attachNavHandlers(){
-  const keyboardClick=node=>node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();node.click();}});
+  const keyboardClick=node=>node?.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();node.click();}});
   // Les familles se combinent entre elles et avec les autres critères.
   document.querySelectorAll('.nav-cat').forEach(n => {
     n.addEventListener('click', () => {
@@ -4370,17 +3649,22 @@ function attachNavHandlers(){
     });
     keyboardClick(n);
   });
-  // Les autres critères s'ajoutent à la famille.
-  document.querySelectorAll('.nav:not(.nav-cat):not(.nav-view)').forEach(n => {
+  document.querySelectorAll('.nav-article').forEach(n=>{
     n.addEventListener('click', () => {
-      const selected=n.dataset.f||'all';
-      ST.filter=ST.filter===selected?'all':selected;
+      const selected=n.dataset.scope;
+      ST.articleScope=ST.articleScope===selected?'all':selected;
       updateCounts();applyFilter();
     });
-    n.tabIndex=0;keyboardClick(n);
+    keyboardClick(n);
   });
-  $('sidebarGlobal')?.addEventListener('click',()=>{switchView('global');setMobileFiltersOpen(false);});
-  keyboardClick($('sidebarGlobal'));
+  document.querySelectorAll('.nav-geo').forEach(n=>{
+    n.addEventListener('click',()=>{
+      const code=n.dataset.geo;
+      if(ST.geographies.has(code))ST.geographies.delete(code);else ST.geographies.add(code);
+      updateCounts();applyFilter();
+    });
+    keyboardClick(n);
+  });
   updateFilterUI();
 }
 

@@ -440,25 +440,37 @@ function validCompetitorId(value) {
   return COMPETITOR_IDS.has(String(value || ''));
 }
 
-const ASSESSMENT_VALUES = {
-  exposure: new Set(['Indirecte', 'Directe']),
-  timing: new Set(['Cette année', 'D’ici 5 ans', 'Plus de 5 ans']),
-  level: new Set(['low', 'moderate', 'high', 'critical']),
-};
+const RECOMMENDATIONS = new Set(['standard', 'recommended', 'essential']);
 
-function cleanAssessment(body) {
-  const assessment = {
-    nature: 'alert',
-    impact: 'Significatif',
-    exposure: cleanText(body?.exposure, 40),
-    timing: cleanText(body?.timing, 40),
-    confidence: 'Source unique',
-    level: cleanText(body?.level, 20),
+function cleanRecommendation(value) {
+  const recommendation = cleanText(value, 24);
+  return RECOMMENDATIONS.has(recommendation) ? recommendation : 'standard';
+}
+
+function cleanArticleSnapshot(value, articleId) {
+  if (!value || typeof value !== 'object') return null;
+  const title = cleanArticleText(value.title, 700);
+  const link = cleanText(value.link, 2000);
+  if (!title || !link) return null;
+  const parsedDate = new Date(value.date);
+  return {
+    id: articleId,
+    title,
+    link,
+    desc: cleanArticleText(value.desc, 3000),
+    date: Number.isFinite(parsedDate.getTime()) ? parsedDate.toISOString() : new Date().toISOString(),
+    source: cleanText(value.source, 180) || 'Source archivée',
+    sourceId: cleanText(value.sourceId, 120),
+    catCode: validCatCode(value.catCode) ? value.catCode : 'A',
+    pays: new Set(['FR', 'ES', 'BR', 'MONDE']).has(value.pays) ? value.pays : 'MONDE',
+    lang: cleanText(value.lang, 8) || 'fr',
+    label: cleanText(value.label, 240),
+    macro: value.macro === true,
+    custom: value.custom === true,
+    shared: value.shared === true,
+    addedBy: cleanText(value.addedBy, 80),
+    competitorId: validCompetitorId(value.competitorId) ? value.competitorId : null,
   };
-  const valid = ASSESSMENT_VALUES.exposure.has(assessment.exposure)
-    && ASSESSMENT_VALUES.timing.has(assessment.timing)
-    && ASSESSMENT_VALUES.level.has(assessment.level);
-  return valid ? assessment : null;
 }
 
 async function handleApi(request, env, ctx) {
@@ -537,28 +549,31 @@ async function handleApi(request, env, ctx) {
   }
 
   if (path === '/api/shared' && request.method === 'GET') {
-    const [comments, overrides, assessments, articles, aiSummaryVersions, feedState] = await Promise.all([
+    const [comments, overrides, articles, engagements, votes, aiSummaryVersions, feedState] = await Promise.all([
       env.DB.prepare('SELECT id, article_id, author, body, created_at, updated_at FROM comments ORDER BY created_at ASC LIMIT 1000').all(),
       env.DB.prepare('SELECT article_id, cat_code, updated_by, updated_at FROM article_overrides').all(),
-      env.DB.prepare('SELECT article_id, nature, impact, exposure, timing, confidence, level, updated_by, updated_at FROM article_assessments').all(),
       env.DB.prepare(`
         SELECT ca.id, ca.url, ca.title, ca.summary, ca.cat_code, ca.competitor_id, ca.author, ca.created_at,
-          ao.cat_code AS saved_cat_code, ao.updated_by AS classification_updated_by, ao.updated_at AS classification_updated_at,
-          aa.exposure AS saved_exposure, aa.timing AS saved_timing, aa.level AS saved_level,
-          aa.updated_by AS assessment_updated_by, aa.updated_at AS assessment_updated_at
+          ao.cat_code AS saved_cat_code, ao.updated_by AS classification_updated_by, ao.updated_at AS classification_updated_at
         FROM custom_articles ca
         LEFT JOIN article_overrides ao ON ao.article_id=ca.id
-        LEFT JOIN article_assessments aa ON aa.article_id=ca.id
         ORDER BY ca.created_at DESC LIMIT 300
       `).all(),
+      env.DB.prepare('SELECT article_id, recommendation, archived, snapshot_json, updated_by, updated_at FROM article_engagement ORDER BY updated_at DESC LIMIT 2000').all(),
+      env.DB.prepare(`
+        SELECT article_id, COUNT(*) AS vote_count,
+          MAX(CASE WHEN voter=? THEN 1 ELSE 0 END) AS voted_by_me
+        FROM article_votes GROUP BY article_id
+      `).bind(session.display_name).all(),
       env.DB.prepare('SELECT article_id, generated_at, updated_by, updated_at FROM article_ai_summaries ORDER BY generated_at DESC LIMIT 1000').all(),
       env.DB.prepare('SELECT MAX(fetched_at) AS revision FROM feed_cache').first(),
     ]);
     return json(request, {
       comments: comments.results || [],
       overrides: overrides.results || [],
-      assessments: assessments.results || [],
       articles: articles.results || [],
+      engagements: engagements.results || [],
+      votes: votes.results || [],
       aiSummaryVersions: aiSummaryVersions.results || [],
       feedRevision: feedState?.revision || null,
       syncedAt: new Date().toISOString(),
@@ -613,30 +628,41 @@ async function handleApi(request, env, ctx) {
     return json(request, { override: { article_id: articleId, cat_code: body.catCode, updated_by: session.display_name, updated_at: updatedAt } });
   }
 
-  const assessmentMatch = path.match(/^\/api\/articles\/(.+)\/assessment$/);
-  if (assessmentMatch && (request.method === 'PUT' || request.method === 'DELETE')) {
-    const articleId = cleanText(decodeURIComponent(assessmentMatch[1]), 1800);
+  const engagementMatch = path.match(/^\/api\/articles\/(.+)\/engagement$/);
+  if (engagementMatch && request.method === 'PUT') {
+    const articleId = cleanText(decodeURIComponent(engagementMatch[1]), 1800);
     if (!articleId) return json(request, { error: 'Article invalide.' }, 400);
-    if (request.method === 'DELETE') {
-      const manualArticle = await env.DB.prepare('SELECT id FROM custom_articles WHERE id=?').bind(articleId).first();
-      if (manualArticle) return json(request, { error: 'L’évaluation d’un article ajouté manuellement doit rester enregistrée.' }, 409);
-      await env.DB.prepare('DELETE FROM article_assessments WHERE article_id=?').bind(articleId).run();
-      return json(request, { reset: true });
-    }
-    const assessment = cleanAssessment(await readBody(request));
-    if (!assessment) return json(request, { error: 'Évaluation invalide.' }, 400);
+    const body = await readBody(request);
+    const recommendation = cleanRecommendation(body?.recommendation);
+    const archived = body?.archived === true ? 1 : 0;
+    const snapshot = cleanArticleSnapshot(body?.snapshot, articleId);
     const updatedAt = new Date().toISOString();
     await env.DB.prepare(`
-      INSERT INTO article_assessments(article_id, nature, impact, exposure, timing, confidence, level, updated_by, updated_at)
-      VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(article_id) DO UPDATE SET
-      nature=excluded.nature, impact=excluded.impact, exposure=excluded.exposure,
-      timing=excluded.timing, confidence=excluded.confidence, level=excluded.level,
+      INSERT INTO article_engagement(article_id, recommendation, archived, snapshot_json, updated_by, updated_at)
+      VALUES(?,?,?,?,?,?) ON CONFLICT(article_id) DO UPDATE SET
+      recommendation=excluded.recommendation, archived=excluded.archived,
+      snapshot_json=COALESCE(excluded.snapshot_json, article_engagement.snapshot_json),
       updated_by=excluded.updated_by, updated_at=excluded.updated_at
-    `).bind(articleId, assessment.nature, assessment.impact, assessment.exposure, assessment.timing,
-      assessment.confidence, assessment.level, session.display_name, updatedAt).run();
-    return json(request, { assessment: {
-      article_id: articleId, ...assessment, updated_by: session.display_name, updated_at: updatedAt,
+    `).bind(articleId, recommendation, archived, snapshot ? JSON.stringify(snapshot) : null, session.display_name, updatedAt).run();
+    return json(request, { engagement: {
+      article_id: articleId, recommendation, archived, snapshot_json: snapshot ? JSON.stringify(snapshot) : null,
+      updated_by: session.display_name, updated_at: updatedAt,
     } });
+  }
+
+  const voteMatch = path.match(/^\/api\/articles\/(.+)\/vote$/);
+  if (voteMatch && ['POST', 'DELETE'].includes(request.method)) {
+    const articleId = cleanText(decodeURIComponent(voteMatch[1]), 1800);
+    if (!articleId) return json(request, { error: 'Article invalide.' }, 400);
+    if (request.method === 'POST') {
+      await env.DB.prepare('INSERT OR IGNORE INTO article_votes(article_id, voter, created_at) VALUES(?,?,?)')
+        .bind(articleId, session.display_name, new Date().toISOString()).run();
+    } else {
+      await env.DB.prepare('DELETE FROM article_votes WHERE article_id=? AND voter=?')
+        .bind(articleId, session.display_name).run();
+    }
+    const count = await env.DB.prepare('SELECT COUNT(*) AS total FROM article_votes WHERE article_id=?').bind(articleId).first();
+    return json(request, { articleId, voted: request.method === 'POST', voteCount: Number(count?.total || 0) });
   }
 
   const summaryMatch = path.match(/^\/api\/articles\/(.+)\/ai-summary$/);
@@ -731,7 +757,8 @@ async function handleApi(request, env, ctx) {
     await env.DB.batch([
       env.DB.prepare('DELETE FROM comments WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM article_overrides WHERE article_id=?').bind(articleId),
-      env.DB.prepare('DELETE FROM article_assessments WHERE article_id=?').bind(articleId),
+      env.DB.prepare('DELETE FROM article_engagement WHERE article_id=?').bind(articleId),
+      env.DB.prepare('DELETE FROM article_votes WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM article_ai_summaries WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM custom_articles WHERE id=?').bind(articleId),
     ]);
@@ -742,26 +769,32 @@ async function handleApi(request, env, ctx) {
     const body = await readBody(request);
     const articleUrl = cleanText(body?.url, 2000);
     const title = cleanText(body?.title, 700);
-    const summary = cleanText(body?.summary, 3000);
+    const comment = cleanText(body?.comment, 1200);
     const competitorId = cleanText(body?.competitorId, 80);
     const isCompetitorArticle = validCompetitorId(competitorId);
-    const assessment = body?.assessment ? cleanAssessment(body.assessment) : cleanAssessment({
-      exposure:'Indirecte', timing:'Cette année', level:'moderate',
-    });
+    const recommendation = cleanRecommendation(body?.recommendation);
+    const archived = body?.archived === true ? 1 : 0;
     if (!articleUrl || !title) return json(request, { error: 'Titre et URL sont obligatoires.' }, 400);
     if (competitorId && !isCompetitorArticle) return json(request, { error: 'Enseigne invalide.' }, 400);
-    if (!isCompetitorArticle && (!validCatCode(body?.catCode) || !assessment)) return json(request, { error: 'Famille et évaluation valides sont obligatoires.' }, 400);
+    if (!isCompetitorArticle && !validCatCode(body?.catCode)) return json(request, { error: 'Famille de risques invalide.' }, 400);
     try { new URL(articleUrl); } catch { return json(request, { error: 'URL invalide.' }, 400); }
     const id = `custom:${crypto.randomUUID()}`;
     const createdAt = new Date().toISOString();
     try {
       const statements = [
         env.DB.prepare('INSERT INTO custom_articles(id,url,title,summary,cat_code,competitor_id,author,created_at) VALUES(?,?,?,?,?,?,?,?)')
-          .bind(id, articleUrl, title, summary || null, isCompetitorArticle ? 'A' : body.catCode, isCompetitorArticle ? competitorId : null, session.display_name, createdAt),
+          .bind(id, articleUrl, title, null, isCompetitorArticle ? 'A' : body.catCode, isCompetitorArticle ? competitorId : null, session.display_name, createdAt),
       ];
-      if (!isCompetitorArticle) {
-        statements.push(env.DB.prepare('INSERT INTO article_assessments(article_id,nature,impact,exposure,timing,confidence,level,updated_by,updated_at) VALUES(?,?,?,?,?,?,?,?,?)')
-          .bind(id, assessment.nature, assessment.impact, assessment.exposure, assessment.timing, assessment.confidence, assessment.level, session.display_name, createdAt));
+      const snapshot = cleanArticleSnapshot({
+        title, link: articleUrl, desc: '', date: createdAt, source: `Ajouté par ${session.display_name}`,
+        sourceId: 'shared', catCode: isCompetitorArticle ? 'A' : body.catCode, pays: 'MONDE', lang: 'fr',
+        custom: true, shared: true, addedBy: session.display_name, competitorId: isCompetitorArticle ? competitorId : null,
+      }, id);
+      statements.push(env.DB.prepare('INSERT INTO article_engagement(article_id,recommendation,archived,snapshot_json,updated_by,updated_at) VALUES(?,?,?,?,?,?)')
+        .bind(id, recommendation, archived, JSON.stringify(snapshot), session.display_name, createdAt));
+      if (comment) {
+        statements.push(env.DB.prepare('INSERT INTO comments(id,article_id,author,body,created_at) VALUES(?,?,?,?,?)')
+          .bind(crypto.randomUUID(), id, session.display_name, comment, createdAt));
       }
       await env.DB.batch(statements);
     } catch (error) {
@@ -769,8 +802,8 @@ async function handleApi(request, env, ctx) {
       throw error;
     }
     return json(request, {
-      article: { id, url: articleUrl, title, summary, cat_code: isCompetitorArticle ? 'A' : body.catCode, competitor_id: isCompetitorArticle ? competitorId : null, author: session.display_name, created_at: createdAt },
-      assessment: isCompetitorArticle ? null : { article_id:id, ...assessment, updated_by:session.display_name, updated_at:createdAt },
+      article: { id, url: articleUrl, title, summary: null, cat_code: isCompetitorArticle ? 'A' : body.catCode, competitor_id: isCompetitorArticle ? competitorId : null, author: session.display_name, created_at: createdAt },
+      engagement: { article_id:id, recommendation, archived, updated_by:session.display_name, updated_at:createdAt },
     }, 201);
   }
 

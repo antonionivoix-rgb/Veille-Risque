@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "riskveille",
+  "account_id": "60a28fd434f41c12130eaae8b3906e25",
   "main": "worker.js",
   "compatibility_date": "2025-09-27",
   "observability": {
@@ -15,7 +16,7 @@
     {
       "binding": "DB",
       "database_name": "riskveille-db",
-      "database_id": "4296e902-88ea-4212-afab-853b364e53c4",
+      "database_id": "b4c177cc-0805-43a1-bef1-204d4ec40b3e",
       "migrations_dir": "migrations"
     }
   ],
