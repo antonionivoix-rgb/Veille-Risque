@@ -36,10 +36,14 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#addArticleOv')).not.toHaveClass(/open/);
 
   await page.locator('.nav-article[data-scope="archived"]').click();
-  await expect(page.locator('.card', { hasText: title })).toBeVisible({ timeout: 20000 });
-  await page.locator('.card', { hasText: title }).click();
+  const newlyArchivedCard = page.locator('.card', { hasText: title });
+  await expect(newlyArchivedCard).toBeVisible({ timeout: 20000 });
+  await expect(newlyArchivedCard.locator('.archive-attribution')).toContainText('Test engagement');
+  await expect(newlyArchivedCard.locator('.archive-attribution time')).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:/);
+  await newlyArchivedCard.click();
   await expect(page.locator('#dpArchived')).toBeChecked();
   await expect(page.locator('#dpRecommendation')).toHaveValue('recommended');
+  await expect(page.locator('#dpEngagementMeta')).toContainText('Test engagement');
   await expect(page.locator('#dpSharedComments')).toContainText('Commentaire créé avec l’article.');
 
   await page.locator('#dpVote').click();
@@ -49,9 +53,15 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await page.locator('.nav-article[data-scope="archived"]').click();
   const archivedCard = page.locator('.card', { hasText: title });
   await expect(archivedCard).toBeVisible({ timeout: 20000 });
+  await expect(archivedCard.locator('.archive-attribution')).toContainText('Test engagement');
+  await expect(archivedCard.locator('.archive-attribution time')).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:/);
   await expect(archivedCard.locator('.rv-upvote')).toHaveCount(1);
   await expect(archivedCard.locator('.card-vote strong')).toHaveText('1');
   await page.screenshot({ path: 'test-results/engagement-desktop.png', fullPage: true });
+  await archivedCard.click();
+  page.once('dialog', dialog => dialog.accept());
+  await page.locator('#dpArticleDelete').click();
+  await expect(page.locator('#ov')).not.toHaveClass(/open/);
 });
 
 test('les filtres restent lisibles sur mobile', async ({ page }) => {

@@ -559,7 +559,7 @@ async function handleApi(request, env, ctx) {
         LEFT JOIN article_overrides ao ON ao.article_id=ca.id
         ORDER BY ca.created_at DESC LIMIT 300
       `).all(),
-      env.DB.prepare('SELECT article_id, recommendation, archived, snapshot_json, updated_by, updated_at FROM article_engagement ORDER BY updated_at DESC LIMIT 2000').all(),
+      env.DB.prepare('SELECT article_id, recommendation, archived, snapshot_json, updated_by, updated_at, archived_by, archived_at FROM article_engagement ORDER BY updated_at DESC LIMIT 2000').all(),
       env.DB.prepare(`
         SELECT article_id, COUNT(*) AS vote_count,
           MAX(CASE WHEN voter=? THEN 1 ELSE 0 END) AS voted_by_me
@@ -638,15 +638,30 @@ async function handleApi(request, env, ctx) {
     const snapshot = cleanArticleSnapshot(body?.snapshot, articleId);
     const updatedAt = new Date().toISOString();
     await env.DB.prepare(`
-      INSERT INTO article_engagement(article_id, recommendation, archived, snapshot_json, updated_by, updated_at)
-      VALUES(?,?,?,?,?,?) ON CONFLICT(article_id) DO UPDATE SET
+      INSERT INTO article_engagement(article_id, recommendation, archived, snapshot_json, updated_by, updated_at, archived_by, archived_at)
+      VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(article_id) DO UPDATE SET
       recommendation=excluded.recommendation, archived=excluded.archived,
       snapshot_json=COALESCE(excluded.snapshot_json, article_engagement.snapshot_json),
-      updated_by=excluded.updated_by, updated_at=excluded.updated_at
-    `).bind(articleId, recommendation, archived, snapshot ? JSON.stringify(snapshot) : null, session.display_name, updatedAt).run();
+      updated_by=excluded.updated_by, updated_at=excluded.updated_at,
+      archived_by=CASE
+        WHEN excluded.archived=0 THEN NULL
+        WHEN article_engagement.archived=0 THEN excluded.archived_by
+        ELSE article_engagement.archived_by
+      END,
+      archived_at=CASE
+        WHEN excluded.archived=0 THEN NULL
+        WHEN article_engagement.archived=0 THEN excluded.archived_at
+        ELSE article_engagement.archived_at
+      END
+    `).bind(
+      articleId, recommendation, archived, snapshot ? JSON.stringify(snapshot) : null,
+      session.display_name, updatedAt, archived ? session.display_name : null, archived ? updatedAt : null,
+    ).run();
+    const savedEngagement = await env.DB.prepare(
+      'SELECT article_id, recommendation, archived, snapshot_json, updated_by, updated_at, archived_by, archived_at FROM article_engagement WHERE article_id=?',
+    ).bind(articleId).first();
     return json(request, { engagement: {
-      article_id: articleId, recommendation, archived, snapshot_json: snapshot ? JSON.stringify(snapshot) : null,
-      updated_by: session.display_name, updated_at: updatedAt,
+      ...savedEngagement,
     } });
   }
 
@@ -790,8 +805,8 @@ async function handleApi(request, env, ctx) {
         sourceId: 'shared', catCode: isCompetitorArticle ? 'A' : body.catCode, pays: 'MONDE', lang: 'fr',
         custom: true, shared: true, addedBy: session.display_name, competitorId: isCompetitorArticle ? competitorId : null,
       }, id);
-      statements.push(env.DB.prepare('INSERT INTO article_engagement(article_id,recommendation,archived,snapshot_json,updated_by,updated_at) VALUES(?,?,?,?,?,?)')
-        .bind(id, recommendation, archived, JSON.stringify(snapshot), session.display_name, createdAt));
+      statements.push(env.DB.prepare('INSERT INTO article_engagement(article_id,recommendation,archived,snapshot_json,updated_by,updated_at,archived_by,archived_at) VALUES(?,?,?,?,?,?,?,?)')
+        .bind(id, recommendation, archived, JSON.stringify(snapshot), session.display_name, createdAt, archived ? session.display_name : null, archived ? createdAt : null));
       if (comment) {
         statements.push(env.DB.prepare('INSERT INTO comments(id,article_id,author,body,created_at) VALUES(?,?,?,?,?)')
           .bind(crypto.randomUUID(), id, session.display_name, comment, createdAt));
@@ -803,7 +818,10 @@ async function handleApi(request, env, ctx) {
     }
     return json(request, {
       article: { id, url: articleUrl, title, summary: null, cat_code: isCompetitorArticle ? 'A' : body.catCode, competitor_id: isCompetitorArticle ? competitorId : null, author: session.display_name, created_at: createdAt },
-      engagement: { article_id:id, recommendation, archived, updated_by:session.display_name, updated_at:createdAt },
+      engagement: {
+        article_id:id, recommendation, archived, updated_by:session.display_name, updated_at:createdAt,
+        archived_by:archived ? session.display_name : null, archived_at:archived ? createdAt : null,
+      },
     }, 201);
   }
 

@@ -398,6 +398,7 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .pg:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
 .pg.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 .pginfo{font-size:.66rem;color:var(--t4);padding:0 8px}
+.archive-attribution{display:flex;align-items:center;gap:4px;margin-top:7px;font-size:.65rem;color:var(--t3)}.archive-attribution strong{color:var(--t2);font-weight:700}.archive-attribution time{font-variant-numeric:tabular-nums}
 
 /* DETAIL PANEL */
 .ov{position:fixed;inset:0;background:rgba(9,17,38,.8);z-index:300;display:flex;align-items:flex-start;justify-content:flex-end;opacity:0;pointer-events:none;overflow:hidden;transition:opacity .2s;backdrop-filter:blur(2px)}
@@ -2269,6 +2270,8 @@ function articleListSignature(items){
     item?.title || '',
     item?.catCode || '',
     item?.archived ? 1 : 0,
+    item?.archivedBy || '',
+    item?.archivedAt || '',
     item?.recommendation || '',
     Number(item?.voteCount || 0),
   ].join('\u001f')).join('\u001e');
@@ -2313,6 +2316,8 @@ function applySharedEngagement(item){
   const vote=SHARED.votes.get(articleId);
   item.recommendation=RECOMMENDATION_RANKS[engagement?.recommendation]?engagement.recommendation:'standard';
   item.archived=Number(engagement?.archived)===1;
+  item.archivedBy=item.archived?(engagement?.archived_by||engagement?.updated_by||''):'';
+  item.archivedAt=item.archived?(engagement?.archived_at||engagement?.updated_at||''):'';
   item.engagement=engagement||null;
   item.voteCount=Number(vote?.vote_count||0);
   item.votedByMe=Number(vote?.voted_by_me)===1;
@@ -2701,9 +2706,12 @@ function rCard(it,idx){
   const customBadge = it.custom ? `<span class="ccorrob" title="Ajouté manuellement par ${esc(it.addedBy||'')}"><i class="rv-fi rv-added" aria-hidden="true"></i> Ajouté</span>` : '';
   const recommendation=`<span class="recommendation-badge ${esc(it.recommendation||'standard')}">${esc(RECOMMENDATION_LABELS[it.recommendation]||'À lire')}</span>`;
   const archiveBadge=it.archived?'<span class="archive-badge">Archivé</span>':'';
+  const archiveAttribution=it.archived&&it.archivedBy&&it.archivedAt
+    ? `<div class="archive-attribution">Archivé par <strong>${esc(it.archivedBy)}</strong> · <time datetime="${esc(it.archivedAt)}">${esc(fmtCommentDate(it.archivedAt))}</time></div>`
+    : '';
   const summary = it.desc ? `<div class="cde">${esc(it.desc)}</div>` : '';
   const voteLabel=it.votedByMe?'Retirer votre vote':'Recommander cet article';
-  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}</div><div class="cdate">${relDate(it.date)}</div></div>`;
+  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}${archiveAttribution}</div><div class="cdate">${relDate(it.date)}</div></div>`;
 }
 
 function renderPager(cur,tot){
@@ -2959,7 +2967,9 @@ function renderEngagementEditor(item){
   $('dpVote').setAttribute('aria-label',voteLabel);
   $('dpVote').title=voteLabel;
   const state=item.engagement||SHARED.engagements.get(sharedArticleKey(item));
-  $('dpEngagementMeta').textContent=state?.updated_by?`Mis à jour par ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:'Aucune qualification enregistrée';
+  $('dpEngagementMeta').textContent=item.archived&&item.archivedBy&&item.archivedAt
+    ? `Archivé par ${item.archivedBy} · ${fmtCommentDate(item.archivedAt)}`
+    : state?.updated_by?`Mis à jour par ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:'Aucune qualification enregistrée';
 }
 
 $('dpEngagementSave').addEventListener('click',async()=>{
