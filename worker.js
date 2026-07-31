@@ -6,9 +6,8 @@ const SESSION_DAYS = 30;
 const REFRESH_BATCH_SIZE = 12;
 const MAX_FEED_ITEMS = 30;
 const ALLOWED_ORIGINS = new Set([
-  'https://fernandnaudin82.github.io',
-  'https://riskveillecrf.pages.dev',
-  'https://riskveille.laurentpouile95.workers.dev',
+  'https://antonionivoix-rgb.github.io',
+  'https://riskveillecrf-824.pages.dev',
 ]);
 
 const parser = new XMLParser({
@@ -23,7 +22,8 @@ const parser = new XMLParser({
 function corsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
   const local = /^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/.test(origin);
-  const allowed = ALLOWED_ORIGINS.has(origin) || local ? origin : '';
+  const pagesPreview = /^https:\/\/[a-z0-9-]+\.riskveillecrf-824\.pages\.dev$/.test(origin);
+  const allowed = ALLOWED_ORIGINS.has(origin) || local || pagesPreview ? origin : '';
   return {
     ...(allowed ? { 'Access-Control-Allow-Origin': allowed } : {}),
     'Access-Control-Allow-Credentials': 'true',
@@ -82,7 +82,7 @@ async function fetchPublicArticle(url, maxRedirects = 4) {
       signal: AbortSignal.timeout(15000),
       headers: {
         'Accept': 'text/html,application/xhtml+xml,text/plain;q=0.8,*/*;q=0.2',
-        'User-Agent': 'RiskVeille/1.0 (+https://riskveillecrf.pages.dev)',
+        'User-Agent': 'RiskVeille/1.0 (+https://riskveillecrf-824.pages.dev)',
       },
     });
     if ([301, 302, 303, 307, 308].includes(response.status)) {
@@ -274,7 +274,7 @@ async function fetchWithTimeout(url, timeoutMs = 12000) {
     signal: AbortSignal.timeout(timeoutMs),
     headers: {
       'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, application/json;q=0.8, */*;q=0.2',
-      'User-Agent': 'RiskVeille/1.0 (+https://riskveillecrf.pages.dev)',
+      'User-Agent': 'RiskVeille/1.0 (+https://riskveillecrf-824.pages.dev)',
     },
   });
 }
@@ -392,7 +392,7 @@ async function verifyGithubOidc(request) {
     const now = Math.floor(Date.now() / 1000);
     const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
     if (header.alg !== 'RS256' || claims.iss !== 'https://token.actions.githubusercontent.com') return false;
-    if (!audience.includes('riskveille') || claims.repository?.toLowerCase() !== 'fernandnaudin82/riskveille') return false;
+    if (!audience.includes('riskveille') || claims.repository?.toLowerCase() !== 'antonionivoix-rgb/veille-risque') return false;
     if (claims.exp < now || claims.nbf > now + 30) return false;
     if (!['schedule','workflow_dispatch'].includes(claims.event_name)) return false;
     const response = await fetch('https://token.actions.githubusercontent.com/.well-known/jwks', { cf:{cacheTtl:3600,cacheEverything:true} });
@@ -820,10 +820,6 @@ export default {
         console.error(error);
         return json(request, { error: 'Erreur interne RiskVeille.' }, 500);
       }
-    }
-    if (url.hostname === 'riskveille.laurentpouile95.workers.dev') {
-      url.hostname = 'riskveillecrf.pages.dev';
-      return Response.redirect(url.toString(), 308);
     }
     const asset = await env.ASSETS.fetch(request);
     if (request.method === 'GET' && (path === '/' || path === '/index.html')) {

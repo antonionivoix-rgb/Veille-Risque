@@ -12,12 +12,10 @@ risques.
 ## Accéder à la démonstration
 
 - **[Version de production Cloudflare — à utiliser](https://riskveillecrf-824.pages.dev/)**
-- [Miroir de l'interface sur GitHub Pages](https://fernandnaudin82.github.io/riskveille/)
+- [Dépôt GitHub d'Antonio](https://github.com/antonionivoix-rgb/Veille-Risque)
 
 Cloudflare Pages héberge l'interface de production. Les services Cloudflare assurent en arrière-plan
 la base partagée, la synchronisation entre les utilisateurs et la collecte centralisée des flux.
-GitHub Pages publie une copie statique de l'interface directement depuis le dépôt ; cette copie
-utilise les mêmes services partagés. Les deux adresses présentent donc la même expérience, mais
 **`riskveillecrf-824.pages.dev` est la version de production et la seule adresse à communiquer comme
 version de référence**. Un mot de passe est demandé à
 l'ouverture pour éviter un accès accidentel. Chaque utilisateur indique également son nom afin que

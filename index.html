@@ -2221,6 +2221,28 @@ const TTL = 20 * 60 * 1000;
 const RISK_CATEGORY_CODES = Object.keys(RISK_CATEGORIES);
 const ST = { all:[], filtered:[], articleScope:'all', geographies:new Set(['MONDE']), categories:new Set(RISK_CATEGORY_CODES), sort:'votes', search:'', page:1, perPage:20, loading:false, online:0, errors:[] };
 
+function signalLane(item){
+  return item.macro ? 'macro' : 'alert';
+}
+
+function matchesCategoryFilter(item){
+  return ST.categories.has(item.catCode);
+}
+
+function matchesArticleScope(item){
+  if(ST.articleScope==='archived')return item.archived===true;
+  if(ST.articleScope==='added')return item.archived!==true&&item.shared===true;
+  return item.archived!==true;
+}
+
+function matchesGeoFilter(item){
+  return ST.geographies.size===0||ST.geographies.has(item.pays||'MONDE');
+}
+
+function matchesActiveFilters(item){
+  return matchesCategoryFilter(item)&&matchesArticleScope(item)&&matchesGeoFilter(item);
+}
+
 function sharedArticleKey(item){ return String(item?.id || item?.link || ''); }
 
 function rememberAutomaticClassification(item){
