@@ -2262,6 +2262,18 @@ function matchesActiveFilters(item){
 
 function sharedArticleKey(item){ return String(item?.id || item?.link || ''); }
 
+function articleListSignature(items){
+  return (items || []).map(item => [
+    sharedArticleKey(item),
+    item?.date instanceof Date ? item.date.getTime() : new Date(item?.date || 0).getTime(),
+    item?.title || '',
+    item?.catCode || '',
+    item?.archived ? 1 : 0,
+    item?.recommendation || '',
+    Number(item?.voteCount || 0),
+  ].join('\u001f')).join('\u001e');
+}
+
 function rememberAutomaticClassification(item){
   if(item._autoClassification)return;
   item._autoClassification={catCode:item.catCode,riskIds:[...(item.riskIds||[])],sustainability:!!item.sustainability};
