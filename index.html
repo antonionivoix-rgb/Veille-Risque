@@ -14,6 +14,7 @@
 .rv-alert::before{content:"\fbde"}.rv-macro::before{content:"\f705"}.rv-added::before,.rv-add-article::before{content:"\f117"}
 .rv-comment-edit::before{content:"\f49b"}.rv-comment-delete::before{content:"\fe17"}
 .rv-ai::before{content:"\f8e1"}
+.rv-upvote::before{content:"\f19f"}
 .rv-cat-a::before{content:"\f702"}.rv-cat-b::before{content:"\fb97"}.rv-cat-c::before{content:"\fd03"}.rv-cat-d::before{content:"\fbfc"}.rv-cat-e::before{content:"\f7ce"}.rv-cat-f::before{content:"\fe40"}.rv-cat-g::before{content:"\f34b"}.rv-cat-h::before{content:"\f82d"}.rv-cat-i::before{content:"\fbdb"}.rv-cat-j::before{content:"\fea6"}.rv-cat-k::before{content:"\f494"}.rv-all::before{content:"\f16c"}
 :root{
   --blue:#1D4ED8;--blue-d:#1E3A8A;--blue-l:#EFF6FF;--blue-xl:#F0F7FF;
@@ -377,7 +378,7 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .recommendation-badge,.archive-badge{font-size:.57rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surf3);color:var(--t3);border:1px solid var(--bd)}
 .recommendation-badge.recommended{background:#ECFDF5;color:#047857;border-color:#A7F3D0}.recommendation-badge.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}.archive-badge{background:#F3F4F6;color:#4B5563}
 .vote-button{border:1px solid var(--bd);background:var(--surf2);color:var(--t3);border-radius:7px;cursor:pointer;font-family:var(--sans);transition:color var(--ease),border-color var(--ease),background var(--ease)}
-.vote-button:hover,.vote-button.active{color:#C2410C;border-color:#FDBA74;background:#FFF7ED}.card-vote{width:40px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.68rem}.card-vote strong{font-size:.76rem}.vote-arrow{font-size:.8rem;line-height:1}
+.vote-button:hover,.vote-button.active{color:#C2410C;border-color:#FDBA74;background:#FFF7ED}.card-vote{width:40px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.68rem}.card-vote strong{font-size:.76rem}.vote-arrow{display:inline-flex;align-items:center;justify-content:center;font-size:1rem;line-height:1}.detail-vote .vote-arrow{font-size:.92rem}
 .ctfr{font-size:.7rem;color:var(--t4);line-height:1.4;margin:2px 0 4px;font-style:italic;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .cti{font-size:.85rem;font-weight:500;color:var(--t1);line-height:1.48;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cde{font-size:.74rem;color:var(--t3);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -573,7 +574,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
   </div>
   <div class="h-center">
     <div class="view-tabs">
-      <button class="view-tab active" data-view="risks" id="tabRisks">Risques</button>
+      <button class="view-tab active" data-view="risks" id="tabRisks">Vue globale</button>
       <button class="view-tab" data-view="concurrence" id="tabConcurrence">Veille concurrentielle</button>
     </div>
     <div class="srch">
@@ -616,7 +617,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <!-- Les 11 familles A à K sont injectées ici par JavaScript. -->
     </div>
     <div class="sbfoot">
-      <p><strong>RiskVeille v14</strong> · référentiel de risques Carrefour<br>11 familles A→K<br>66 sources sélectionnées · 4 langues<br>Analyse automatisée</p>
+      <p><strong>RiskVeille v14</strong> · référentiel de risques Carrefour<br>11 familles A→K<br>66 sources globales · 18 flux concurrents<br>4 langues · analyse automatisée</p>
     </div>
   </aside>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -754,7 +755,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       </div>
       <div class="dp-shared-actions">
         <button class="sbtn active" id="dpEngagementSave">Enregistrer</button>
-        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false"><span class="vote-arrow">▲</span><span id="dpVoteCount">0</span><span>vote</span></button>
+        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false" title="Recommander cet article"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><span id="dpVoteCount">0</span><span>vote</span></button>
       </div>
       <div class="dp-shared-meta" id="dpEngagementMeta"></div>
     </section>
@@ -1706,13 +1707,14 @@ function scheduleCentralReload(revision){
 }
 
 async function fetchFeedData(feedUrl, timeoutMs = 6000, direct = false) {
-  const source=SOURCES.find(item=>item.url===feedUrl);
+  const source=SOURCES.find(item=>item.url===feedUrl)||COMPETITOR_FEEDS.find(item=>item.url===feedUrl);
   if(!source)return fetchFallbackFeedData(feedUrl,timeoutMs,direct);
   const snapshot=await loadCentralFeeds();
   const record=snapshot.byId.get(source.id);
   if(record&&Array.isArray(record.items)&&(record.items.length||record.lastSuccessAt)){
     return {items:record.items,via:record.status==='ok'?'Cloudflare central':'Cloudflare central (dernier succès)'};
   }
+  if(source.competitorId)return fetchFallbackFeedData(feedUrl,timeoutMs,direct);
   throw new Error(record?.status==='pending'?'Collecte centralisée en cours':record?.error||'Source non encore collectée');
 }
 
@@ -2165,6 +2167,21 @@ const COMPETITOR_REGISTRY = [
 ];
 
 const COMPETITORS_BY_ID = Object.fromEntries(COMPETITOR_REGISTRY.map(c => [c.id, c]));
+const COMPETITOR_FEED_LOCALES = {
+  FR:{lang:'fr',ceid:'FR:fr'},
+  ES:{lang:'es',ceid:'ES:es'},
+  BR:{lang:'pt-BR',ceid:'BR:pt-419'},
+};
+function competitorFeedUrl(competitor){
+  const locale=COMPETITOR_FEED_LOCALES[competitor.pays]||COMPETITOR_FEED_LOCALES.FR;
+  return `https://news.google.com/rss/search?q=${competitor.rssQ}&hl=${locale.lang}&gl=${competitor.pays}&ceid=${locale.ceid}`;
+}
+const COMPETITOR_FEEDS = COMPETITOR_REGISTRY.map(competitor=>({
+  id:`competitor-${competitor.id}`,
+  name:`Veille concurrentielle — ${competitor.name}`,
+  url:competitorFeedUrl(competitor),
+  competitorId:competitor.id,
+}));
 
 const REL_WORDS = ['carrefour','atacadão','carrefour market','grande distribution','hypermarché','supermarché','supermercado','varejo','distribution alimentaire','approvisionnement','fournisseur','rupture stock','supply chain','logistique','rappel produit','contamination','listeria','salmonelle','e.coli','intoxication alimentaire','EFSA','rgpd','CNIL','directive européenne','loi alimentation','CSRD','réglementation','inflation alimentaire','pouvoir achat','prix alimentaires','indice prix','cyberattaque','ransomware','violation données','data breach','inondation','enchente','seca','sequía','perturbation logistique','grève','huelga','plan social','licenciement','parts de marché','consommation ménages','INSEE','Circana'];
 const TRUSTED_PUBLISHER_DOMAINS = [
@@ -2417,8 +2434,9 @@ async function loadAll({silent=false,notify=false,preservePage=false}={}) {
 
   try{
     const central=await loadCentralFeeds();
-    ST.online=central.metrics?.accessible||0;
-    ST.errors=(central.sources||[]).filter(source=>source.status==='error'&&!source.lastSuccessAt).map(source=>`${source.name}: ${source.error||'indisponible'}`);
+    const globalSources=(central.sources||[]).filter(source=>!source.id.startsWith('competitor-'));
+    ST.online=globalSources.filter(source=>source.lastSuccessAt).length;
+    ST.errors=globalSources.filter(source=>source.status==='error'&&!source.lastSuccessAt).map(source=>`${source.name}: ${source.error||'indisponible'}`);
   }catch(error){
     ST.errors=[`Collecte centralisée: ${error.message||'indisponible'}`];
   }
@@ -2672,7 +2690,8 @@ function rCard(it,idx){
   const recommendation=`<span class="recommendation-badge ${esc(it.recommendation||'standard')}">${esc(RECOMMENDATION_LABELS[it.recommendation]||'À lire')}</span>`;
   const archiveBadge=it.archived?'<span class="archive-badge">Archivé</span>':'';
   const summary = it.desc ? `<div class="cde">${esc(it.desc)}</div>` : '';
-  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${it.votedByMe?'Retirer votre vote':'Recommander cet article'}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow">▲</span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}</div><div class="cdate">${relDate(it.date)}</div></div>`;
+  const voteLabel=it.votedByMe?'Retirer votre vote':'Recommander cet article';
+  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}</div><div class="cdate">${relDate(it.date)}</div></div>`;
 }
 
 function renderPager(cur,tot){
@@ -2924,6 +2943,9 @@ function renderEngagementEditor(item){
   $('dpVoteCount').textContent=String(item.voteCount||0);
   $('dpVote').classList.toggle('active',!!item.votedByMe);
   $('dpVote').setAttribute('aria-pressed',String(!!item.votedByMe));
+  const voteLabel=item.votedByMe?'Retirer votre vote':'Recommander cet article';
+  $('dpVote').setAttribute('aria-label',voteLabel);
+  $('dpVote').title=voteLabel;
   const state=item.engagement||SHARED.engagements.get(sharedArticleKey(item));
   $('dpEngagementMeta').textContent=state?.updated_by?`Mis à jour par ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:'Aucune qualification enregistrée';
 }
@@ -3197,7 +3219,7 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
    VEILLE CONCURRENTIELLE — FICHES ENSEIGNE
    ─────────────────────────────────────────
    1) On extrait des articles "concurrent" depuis ST.all (déjà collecté pour la
-      vue Risques), en cherchant les keywords de chaque enseigne du
+      Vue globale), en cherchant les keywords de chaque enseigne du
       COMPETITOR_REGISTRY.
    2) On charge en parallèle un flux Google News dédié par concurrent
       (CC_DEDICATED_FEEDS) pour densifier — utile quand un concurrent n'apparaît
@@ -3217,6 +3239,7 @@ const CC = {
   dedicated: [],
   dedicatedLoaded: false,
   loadingDedicated: false,
+  sourceRefreshAttempts: 0,
 };
 
 /** Lance le chargement des flux Google News dédiés à chaque concurrent
@@ -3243,12 +3266,22 @@ function matchCompetitor(text, c){
 async function loadDedicatedCompetitorFeeds(){
   if (CC.dedicatedLoaded || CC.loadingDedicated) return;
   CC.loadingDedicated = true;
-  const langByPays = { FR:'fr', ES:'es', BR:'pt-BR' };
-  const ceidByPays = { FR:'FR:fr', ES:'ES:es', BR:'BR:pt-419' };
+  let missingSourceIds=[];
+  try{
+    const snapshot=await loadCentralFeeds(true);
+    missingSourceIds=COMPETITOR_FEEDS.filter(source=>{
+      const record=snapshot.byId.get(source.id);
+      return !record||(!record.items?.length&&!record.lastSuccessAt);
+    }).map(source=>source.id);
+    if(missingSourceIds.length&&CC.sourceRefreshAttempts<3){
+      CC.sourceRefreshAttempts++;
+      const batches=[];
+      for(let index=0;index<missingSourceIds.length;index+=12)batches.push(missingSourceIds.slice(index,index+12));
+      await Promise.all(batches.map(sourceIds=>apiFetch('/api/refresh',{method:'POST',body:JSON.stringify({sourceIds})})));
+    }
+  }catch{}
   const tasks = COMPETITOR_REGISTRY.map(async (c) => {
-    const lang = langByPays[c.pays] || 'fr';
-    const ceid = ceidByPays[c.pays] || 'FR:fr';
-    const url = `https://news.google.com/rss/search?q=${c.rssQ}&hl=${lang}&gl=${c.pays==='BR'?'BR':c.pays}&ceid=${ceid}`;
+    const url = competitorFeedUrl(c);
     try {
       const data = await fetchFeedData(url, 7000);
       const CUTOFF = Date.now() - 35 * 24 * 3600 * 1000;
@@ -3282,6 +3315,12 @@ async function loadDedicatedCompetitorFeeds(){
   CC.dedicatedLoaded = true;
   CC.loadingDedicated = false;
   renderConcurrence();
+  if(missingSourceIds.length&&CC.sourceRefreshAttempts<3){
+    setTimeout(()=>{
+      CENTRAL_FEEDS.snapshot=null;CENTRAL_FEEDS.loadedAt=0;CC.dedicatedLoaded=false;
+      void loadDedicatedCompetitorFeeds();
+    },8000);
+  }
 }
 
 /** Extrait depuis ST.all les articles qui parlent d'un concurrent. */

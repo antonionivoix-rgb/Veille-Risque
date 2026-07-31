@@ -328,5 +328,95 @@
     "id": "gn-politique-monde",
     "name": "Géopolitique mondiale (veille légère)",
     "url": "https://news.google.com/rss/search?q=coup+d%27%C3%A9tat+OR+guerre+OR+invasion+OR+sanctions+internationales+OR+embargo&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-leclerc",
+    "name": "Veille concurrentielle — E. Leclerc",
+    "url": "https://news.google.com/rss/search?q=%22Leclerc%22+(supermarch%C3%A9+OR+%22grande+distribution%22+OR+hypermarch%C3%A9+OR+commerce)&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-auchan",
+    "name": "Veille concurrentielle — Auchan",
+    "url": "https://news.google.com/rss/search?q=%22Auchan%22&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-lidl-fr",
+    "name": "Veille concurrentielle — Lidl France",
+    "url": "https://news.google.com/rss/search?q=%22Lidl%22+France&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-intermarche",
+    "name": "Veille concurrentielle — Intermarché",
+    "url": "https://news.google.com/rss/search?q=%22Intermarch%C3%A9%22+OR+%22Mousquetaires%22&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-casino",
+    "name": "Veille concurrentielle — Casino",
+    "url": "https://news.google.com/rss/search?q=(%22Groupe+Casino%22+OR+%22Casino+distribution%22+OR+%22G%C3%A9ant+Casino%22)&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-aldi-fr",
+    "name": "Veille concurrentielle — Aldi France",
+    "url": "https://news.google.com/rss/search?q=%22Aldi%22+France&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-monoprix",
+    "name": "Veille concurrentielle — Monoprix",
+    "url": "https://news.google.com/rss/search?q=%22Monoprix%22&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-franprix",
+    "name": "Veille concurrentielle — Franprix",
+    "url": "https://news.google.com/rss/search?q=%22Franprix%22&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-systeme-u",
+    "name": "Veille concurrentielle — Système U",
+    "url": "https://news.google.com/rss/search?q=(%22Syst%C3%A8me+U%22+OR+%22Super+U%22+OR+%22Hyper+U%22+OR+%22magasins+U%22)&hl=fr&gl=FR&ceid=FR:fr"
+  },
+  {
+    "id": "competitor-mercadona",
+    "name": "Veille concurrentielle — Mercadona",
+    "url": "https://news.google.com/rss/search?q=%22Mercadona%22&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "competitor-dia",
+    "name": "Veille concurrentielle — DIA España",
+    "url": "https://news.google.com/rss/search?q=(%22DIA%22+supermercados+OR+%22Grupo+DIA%22+OR+%22DIA+SA%22)&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "competitor-lidl-es",
+    "name": "Veille concurrentielle — Lidl España",
+    "url": "https://news.google.com/rss/search?q=%22Lidl%22+(Espa%C3%B1a+OR+espa%C3%B1ol)&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "competitor-eroski",
+    "name": "Veille concurrentielle — Eroski",
+    "url": "https://news.google.com/rss/search?q=%22Eroski%22&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "competitor-alcampo",
+    "name": "Veille concurrentielle — Alcampo",
+    "url": "https://news.google.com/rss/search?q=%22Alcampo%22&hl=es&gl=ES&ceid=ES:es"
+  },
+  {
+    "id": "competitor-assai",
+    "name": "Veille concurrentielle — Assaí Atacadista",
+    "url": "https://news.google.com/rss/search?q=(%22Assa%C3%AD%22+OR+%22Assai%22)+(atacadista+OR+supermercado+OR+varejo)&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  },
+  {
+    "id": "competitor-gpa",
+    "name": "Veille concurrentielle — GPA (Pão de Açúcar)",
+    "url": "https://news.google.com/rss/search?q=(%22Grupo+P%C3%A3o+de+A%C3%A7%C3%BAcar%22+OR+%22P%C3%A3o+de+A%C3%A7%C3%BAcar%22+OR+PCAR3)&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  },
+  {
+    "id": "competitor-grupo-mateus",
+    "name": "Veille concurrentielle — Grupo Mateus",
+    "url": "https://news.google.com/rss/search?q=%22Grupo+Mateus%22+OR+%22Mateus+Supermercados%22&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  },
+  {
+    "id": "competitor-cencosud-br",
+    "name": "Veille concurrentielle — Cencosud Brasil",
+    "url": "https://news.google.com/rss/search?q=%22Cencosud%22+Brasil&hl=pt-BR&gl=BR&ceid=BR:pt-419"
   }
 ]

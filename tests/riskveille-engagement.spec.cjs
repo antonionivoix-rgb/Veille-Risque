@@ -21,6 +21,7 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
 
   await expect(page.locator('#sidebarGlobal')).toHaveCount(0);
   await expect(page.locator('.nav-priority')).toHaveCount(0);
+  await expect(page.locator('#tabRisks')).toHaveText('Vue globale');
   await expect(page.locator('.nav-geo').first()).toHaveAttribute('data-geo', 'MONDE');
   await expect(page.locator('.nav-geo[data-geo="MONDE"]')).toHaveAttribute('aria-checked', 'true');
 
@@ -48,6 +49,7 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await page.locator('.nav-article[data-scope="archived"]').click();
   const archivedCard = page.locator('.card', { hasText: title });
   await expect(archivedCard).toBeVisible({ timeout: 20000 });
+  await expect(archivedCard.locator('.rv-upvote')).toHaveCount(1);
   await expect(archivedCard.locator('.card-vote strong')).toHaveText('1');
   await page.screenshot({ path: 'test-results/engagement-desktop.png', fullPage: true });
 });

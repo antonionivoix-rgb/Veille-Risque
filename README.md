@@ -57,7 +57,7 @@ RiskVeille propose un point d'entrée unique pour rendre cette matière plus lis
 
 ### Comprendre rapidement la situation
 
-Dans le menu « Risques », un bandeau « État du monde » présente les
+Dans l'onglet « Vue globale », un bandeau « État du monde » présente les
 publications récentes des institutions et de la presse économique internationale. Ces contenus
 restent intégrés à la même veille : ils ne constituent ni une catégorie ni un filtre distinct.
 
@@ -226,7 +226,8 @@ sont publiés par Cloudflare et peuvent évoluer.
 
 ## Une méthode de veille explicite
 
-RiskVeille s'appuie actuellement sur **66 sources en français, anglais, espagnol et portugais**.
+RiskVeille s'appuie actuellement sur **66 sources globales en français, anglais, espagnol et
+portugais**, complétées par **18 flux Google News dédiés aux concurrents**.
 Elles comprennent notamment :
 
 - des organismes officiels et des régulateurs ;
@@ -266,7 +267,7 @@ une lecture strictement chronologique.
 
 ## Parcours conseillé pour une démonstration
 
-1. Ouvrir « Risques » et combiner plusieurs familles avec une ou plusieurs zones géographiques.
+1. Ouvrir « Vue globale » et combiner plusieurs familles avec une ou plusieurs zones géographiques.
 2. Ouvrir un article pour présenter la source, le classement et la recommandation modifiables, puis
    déclencher volontairement le résumé en quatre points si l'article n'en possède pas encore.
 3. Voter pour un article et montrer son repositionnement dans la liste.

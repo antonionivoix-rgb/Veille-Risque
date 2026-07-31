@@ -1,7 +1,8 @@
 # Registre des sources — RiskVeille
 
-Ce document présente les **66 sources actuellement suivies**, en français, anglais, espagnol et
-portugais. Elles sont regroupées selon les grandes familles du référentiel de risques Carrefour.
+Ce document présente les **66 sources suivies dans Vue globale**, en français, anglais, espagnol et
+portugais. Elles sont regroupées selon les grandes familles du référentiel de risques Carrefour et
+complétées par **18 flux Google News dédiés aux enseignes** dans l'onglet Veille concurrentielle.
 
 Chaque nom de source renvoie directement au site public de l'organisme, de l'institution ou du
 média concerné. Les adresses techniques utilisées pour collecter les publications sont gérées
