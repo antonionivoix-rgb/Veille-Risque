@@ -2738,6 +2738,23 @@ function fmtCommentDate(ts){
 
 const AI_SUMMARIES={cache:new Map(),pending:new Map(),loading:new Map()};
 
+function publicReaderUrl(articleUrl){
+  const target=new URL(articleUrl);
+  if(!['http:','https:'].includes(target.protocol))throw new Error('Adresse d’article non prise en charge.');
+  return `https://r.jina.ai/${target.protocol}//${target.host}${target.pathname}${target.search}`;
+}
+
+async function loadPublicArticleText(articleUrl){
+  const response=await fetch(publicReaderUrl(articleUrl),{
+    headers:{'Accept':'text/plain','X-Return-Format':'text','X-Target-Selector':'article'},
+    signal:AbortSignal.timeout(30000),
+  });
+  if(!response.ok)throw new Error(`Lecteur public indisponible (HTTP ${response.status}).`);
+  const text=await response.text();
+  if(text.length>200000)throw new Error('Contenu public trop volumineux.');
+  return text;
+}
+
 function detailDescriptionEditorClosed(){return $('dpDescEditor')?.hidden&&$('dpAiEditor')?.hidden;}
 
 function aiSummaryBullets(record){
@@ -2821,11 +2838,20 @@ async function requestArticleAiSummary(item){
   if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(item);
   let pending=AI_SUMMARIES.pending.get(articleId);
   if(!pending){
-    pending=apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{
-      method:'POST',
-      body:JSON.stringify({url:item.link,title:item.title,...(!item.custom&&item.desc?{description:item.desc}:{})}),
-      signal:AbortSignal.timeout(45000),
-    }).then(data=>{
+    pending=(async()=>{
+      const requestBody={url:item.link,title:item.title,...(!item.custom&&item.desc?{description:item.desc}:{})};
+      try{
+        return await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{
+          method:'POST',body:JSON.stringify(requestBody),signal:AbortSignal.timeout(90000),
+        });
+      }catch(error){
+        if(error.status!==422)throw error;
+        const readerText=await loadPublicArticleText(item.link);
+        return apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{
+          method:'POST',body:JSON.stringify({...requestBody,readerText}),signal:AbortSignal.timeout(90000),
+        });
+      }
+    })().then(data=>{
       if(!Array.isArray(data.bullets)||data.bullets.length!==4)throw new Error('Le résumé reçu est incomplet.');
       const bullets=data.bullets.map(value=>String(value||'').trim()).filter(Boolean);
       if(bullets.length!==4)throw new Error('Le résumé reçu est incomplet.');

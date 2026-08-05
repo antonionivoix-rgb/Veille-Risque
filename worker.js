@@ -1,5 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
 import feeds from './feeds.generated.json';
+import { trimReaderArticleText } from './article-reader.js';
 
 const PASSWORD_HASH = '421b5c971bccb446465230ac63ce7cdef599fd628855297bd149296efed19b1e';
 const SESSION_DAYS = 30;
@@ -732,6 +733,8 @@ async function handleApi(request, env, ctx) {
 
     let extracted = '';
     try { extracted = await extractArticleText(sourceUrl); } catch {}
+    const readerText = trimReaderArticleText(body?.readerText);
+    if (extracted.length < 160 && readerText.length >= 160) extracted = readerText;
     if (customArticle && extracted.length < 160) {
       return json(request, { error: "Le contenu de l’article n’est pas suffisamment accessible pour produire un résumé IA indépendant de la description ajoutée." }, 422);
     }
