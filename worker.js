@@ -1,4 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
+import puppeteer from '@cloudflare/puppeteer';
 import feeds from './feeds.generated.json';
 import { trimReaderArticleText } from './article-reader.js';
 
@@ -137,6 +138,47 @@ async function extractArticleText(url) {
   await transformed.arrayBuffer();
   const candidates = [article.value(), main.value(), page.value()];
   return candidates.find(text => text.length >= 500) || candidates.find(text => text.length >= 160) || '';
+}
+
+async function extractArticleTextViaBrowser(env, url) {
+  if (!env.BROWSER) throw new Error('Le navigateur d’extraction n’est pas configuré.');
+  if (!isPublicArticleUrl(url)) throw new Error('Adresse de l’article non autorisée.');
+  const browser = await puppeteer.launch(env.BROWSER);
+  try {
+    const page = await browser.newPage();
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138.0 Safari/537.36');
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
+    try { await page.waitForSelector('article p, main p', { timeout: 5000 }); } catch {}
+    const extracted = await page.evaluate(() => {
+      const structuredBodies = [];
+      for (const script of document.querySelectorAll('script[type="application/ld+json"]')) {
+        try {
+          const queue = [JSON.parse(script.textContent || 'null')];
+          let visited = 0;
+          while (queue.length && visited < 400) {
+            const value = queue.shift();
+            visited++;
+            if (!value || typeof value !== 'object') continue;
+            if (typeof value.articleBody === 'string') structuredBodies.push(value.articleBody);
+            if (Array.isArray(value)) queue.push(...value);
+            else queue.push(...Object.values(value).filter(item => item && typeof item === 'object'));
+          }
+        } catch {}
+      }
+      const structured = structuredBodies.sort((a, b) => b.length - a.length)[0] || '';
+      const root = document.querySelector('article') || document.querySelector('main') || document.body;
+      const paragraphs = [...root.querySelectorAll('p')]
+        .map(node => node.textContent?.trim() || '')
+        .filter(Boolean)
+        .join('\n');
+      const meta = document.querySelector('meta[name="description"], meta[property="og:description"]')?.content || '';
+      const body = structured.length >= 160 ? structured : paragraphs;
+      return `${meta}\n${body}`.trim().slice(0, 100000);
+    });
+    return cleanArticleText(extracted);
+  } finally {
+    try { await browser.close(); } catch {}
+  }
 }
 
 function parseAiSummary(result) {
@@ -732,9 +774,24 @@ async function handleApi(request, env, ctx) {
     }
 
     let extracted = '';
+    let extractionMethod = 'direct';
     try { extracted = await extractArticleText(sourceUrl); } catch {}
     const readerText = trimReaderArticleText(body?.readerText);
-    if (extracted.length < 160 && readerText.length >= 160) extracted = readerText;
+    if (extracted.length < 160 && readerText.length < 160) {
+      try {
+        const browserText = await extractArticleTextViaBrowser(env, sourceUrl);
+        if (browserText.length > extracted.length) {
+          extracted = browserText;
+          extractionMethod = 'browser-run';
+        }
+      } catch (error) {
+        console.warn('Browser article extraction failed', new URL(sourceUrl).hostname, error?.message || String(error));
+      }
+    }
+    if (extracted.length < 160 && readerText.length >= 160) {
+      extracted = readerText;
+      extractionMethod = 'public-reader';
+    }
     if (customArticle && extracted.length < 160) {
       return json(request, { error: "Le contenu de l’article n’est pas suffisamment accessible pour produire un résumé IA indépendant de la description ajoutée." }, 422);
     }
@@ -751,7 +808,7 @@ async function handleApi(request, env, ctx) {
         bullets_json=excluded.bullets_json, source_url=excluded.source_url, generated_at=excluded.generated_at,
         updated_by=NULL, updated_at=NULL
       `).bind(articleId, JSON.stringify(bullets), sourceUrl, generatedAt).run();
-      return json(request, { bullets, generatedAt, cached: false });
+      return json(request, { bullets, generatedAt, cached: false, extractionMethod });
     } catch (error) {
       console.error('AI summary failed', articleId, error);
       const localDebug = ['127.0.0.1', 'localhost'].includes(new URL(request.url).hostname)

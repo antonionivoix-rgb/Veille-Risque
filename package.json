@@ -13,6 +13,7 @@
     "fast-xml-parser": "^5.3.0"
   },
   "devDependencies": {
+    "@cloudflare/puppeteer": "^1.2.0",
     "@playwright/test": "^1.61.1",
     "wrangler": "^4.111.0"
   }

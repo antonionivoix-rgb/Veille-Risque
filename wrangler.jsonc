@@ -24,6 +24,9 @@
     "binding": "AI",
     "remote": true
   },
+  "browser": {
+    "binding": "BROWSER"
+  },
   "triggers": {
     "crons": ["*/5 * * * *"]
   },

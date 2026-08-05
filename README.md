@@ -145,10 +145,15 @@ mais elle n'est jamais envoyée au modèle et n'influence donc pas sa synthèse.
 modifiée sans supprimer ni recalculer le résumé existant.
 
 Certaines pages protégées par un abonnement ou bloquant la lecture automatique ne livrent pas leur
-texte complet. Pour un article collecté automatiquement, RiskVeille peut alors s'appuyer sur la
-description fournie par le flux. Pour un article ajouté manuellement, le système signale plutôt
-l'indisponibilité : il ne transforme pas la description de l'utilisateur en source journalistique.
-Le lien vers l'article original reste la référence pour vérifier et approfondir l'information.
+texte complet. RiskVeille tente alors une extraction rendue par **Cloudflare Browser Run** : un
+navigateur Chromium exécute la page et lit en priorité les données structurées de l'article, puis
+les paragraphes de son contenu principal. Si le média bloque aussi ce navigateur, le site utilise
+en dernier recours le lecteur public depuis le navigateur de l'utilisateur. Pour un article
+collecté automatiquement, la description fournie par le flux reste également disponible.
+
+Ces replis ne transforment jamais la description ou les commentaires de l'utilisateur en source
+journalistique. Le texte est nettoyé et limité à 16 000 caractères avant l'appel à l'IA. Le lien
+vers l'article original reste la référence pour vérifier et approfondir l'information.
 
 #### Prompt utilisé pour les résumés
 
@@ -210,6 +215,11 @@ longueur des articles traités par RiskVeille, cette allocation représente envi
 nouveaux articles résumés gratuitement par jour**. Il s'agit bien de nouvelles générations,
 déclenchées par le bouton ou par la case choisie lors d'un ajout : consulter ou corriger un résumé
 déjà conservé dans l'espace commun ne consomme pas à nouveau l'IA.
+
+Cloudflare Browser Run inclut en complément **10 minutes de navigateur par jour** sur l'offre
+Workers Free, avec jusqu'à trois navigateurs simultanés. Ce quota n'est consommé que lorsqu'une
+extraction HTTP directe échoue pendant une demande explicite de résumé. Une fois le résumé
+enregistré, les consultations suivantes ne relancent ni Chromium ni l'IA.
 
 Au-delà de cette allocation, les tarifs officiels de Llama 3.2 3B Instruct sont de **0,051 dollar
 par million de tokens en entrée** et **0,335 dollar par million de tokens en sortie**. Pour
