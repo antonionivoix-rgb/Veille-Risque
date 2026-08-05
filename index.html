@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrefour · RiskVeille</title>
+<title>Carrefour · Veille Risque</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -109,10 +109,13 @@ body.dark .bico-dm .ico-sun{display:block!important}
 
 /* HEADER */
 header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;background:var(--sb);display:flex;align-items:center;border-bottom:1px solid var(--sbbd);box-shadow:0 1px 0 var(--sbbd),0 4px 20px rgba(0,0,0,.28)}
-.h-brand{width:var(--sw);flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 18px;height:100%;border-right:1px solid var(--sbbd)}
-.h-logo{height:26px;width:auto;filter:brightness(0) invert(1);opacity:.9}
+.h-brand{width:var(--sw);flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 18px;height:100%;border:0;border-right:1px solid var(--sbbd);background:transparent;color:inherit;font-family:var(--sans);text-align:left;cursor:pointer;transition:background var(--ease)}
+.h-brand:hover{background:rgba(255,255,255,.065)}
+.h-brand:active{background:rgba(255,255,255,.1)}
+.h-brand:focus-visible{outline:2px solid #60A5FA;outline-offset:-3px;border-radius:0}
+.h-logo{height:32px;width:49px;object-fit:contain;flex-shrink:0}
 .h-divider{width:1px;height:16px;background:var(--sbbd)}
-.h-name{font-size:.66rem;font-weight:700;color:rgba(255,255,255,.48);letter-spacing:.1em;text-transform:uppercase}
+.h-name{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.82);letter-spacing:0;white-space:nowrap}
 .h-center{flex:1;display:flex;align-items:center;padding:0 16px;gap:10px}
 .srch{flex:1;max-width:380px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:0 14px;height:34px;transition:background var(--ease),border-color var(--ease),box-shadow var(--ease)}
 .srch:focus-within{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);box-shadow:0 0 0 3px rgba(255,255,255,.05)}
@@ -545,7 +548,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
   :root{--hh:100px}
   header{align-items:flex-start}
   .h-brand{position:absolute;left:0;top:0;width:auto;height:42px;border-right:0;padding:0 10px;gap:6px}
-  .h-logo{height:18px}.h-divider{display:none}.h-name{font-size:.58rem}
+  .h-logo{height:25px;width:38px}.h-divider{display:none}.h-name{font-size:.66rem}
   .h-center{width:100%;flex:none;padding:48px 8px 8px}.srch{display:none}
   .view-tabs{width:100%;overflow-x:auto;scrollbar-width:none}.view-tabs::-webkit-scrollbar{display:none}.view-tab{flex:0 0 auto;padding:6px 12px}
   .h-right{position:absolute;right:7px;top:5px;padding:0}.h-right .upt{display:none}.h-right .live{font-size:.55rem}
@@ -578,11 +581,11 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 
 <!-- HEADER -->
 <header>
-  <div class="h-brand">
-    <img class="h-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnDQogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iDQogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIg0KICAgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIg0KICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCINCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIg0KICAgdmVyc2lvbj0iMS4xIg0KICAgaWQ9IkxheWVyXzEiDQogICB4PSIwcHgiDQogICB5PSIwcHgiDQogICB3aWR0aD0iNTg5Ig0KICAgaGVpZ2h0PSI0NzIiDQogICB2aWV3Qm94PSIwIDAgNTg5IDQ3Mi4wMDAwMSINCiAgIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDcwOC42NjEgODI3LjcxNyINCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGgNCiAgIHN0eWxlPSJmaWxsOiMwMDViYWIiDQogICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgZD0ibSAxMjAuNDU0OTMsNDM3LjEwODYyIGMgLTcuNjEyNDksMCAtMTMuMTcyMjgsMy44Mzg0NiAtMTMuMTcyMjgsMTEuMTg0MDIgMCw2Ljg4MDcgNC44MzI2LDExLjY3NjQ4IDEyLjA4NjEsMTEuNjc2NDggNC44MzcyLDAgOS42NzQ0LC0yLjY4Nzg1IDEyLjY5MzYzLC02LjUzMDkyIHYgLTkuNzk4NjcgYyAwLC0zLjI2Nzc2IC00LjIzNDI4LC02LjUzMDkxIC0xMS42MDc0NSwtNi41MzA5MSIgLz48L3N2Zz4=" alt="Carrefour">
-    <div class="h-divider"></div>
-    <span class="h-name">RiskVeille</span>
-  </div>
+  <button class="h-brand" id="btnHome" type="button" title="Revenir à la vue initiale" aria-label="Revenir à la vue initiale">
+    <img class="h-logo h-logo-primary" src="assets/carrefour-logo.svg" alt="Carrefour">
+    <span class="h-divider" aria-hidden="true"></span>
+    <span class="h-name">Veille Risque</span>
+  </button>
   <div class="h-center">
     <div class="view-tabs">
       <button class="view-tab active" data-view="risks" id="tabRisks">Vue globale</button>
@@ -3696,6 +3699,28 @@ $('btnDark').addEventListener('click', toggleDark);
    ========================================= */
 function showSkels(){$('feed').innerHTML=Array(5).fill('<div class="skel"></div>').join('');}
 function updTime(){const n=new Date();set('upt',`${n.getHours().toString().padStart(2,'0')}:${n.getMinutes().toString().padStart(2,'0')}`);}
+
+function resetToInitialView(){
+  clearTimeout(st);
+  switchView('risks');
+  ST.articleScope='all';
+  ST.geographies=new Set(['MONDE']);
+  ST.categories=new Set(RISK_CATEGORY_CODES);
+  ST.sort='votes';
+  ST.search='';
+  ST.page=1;
+  $('searchInput').value='';
+  document.querySelectorAll('[data-sort]').forEach(button=>button.classList.toggle('active',button.dataset.sort==='votes'));
+  $('ov').classList.remove('open');
+  curItem=null;detailReturnCompId=null;
+  closeCompPanel();
+  setMobileFiltersOpen(false);
+  updateCounts();
+  applyFilter();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+$('btnHome').addEventListener('click',resetToInitialView);
 
 /* =========================================
    Sidebar — Construction dynamique A→K
