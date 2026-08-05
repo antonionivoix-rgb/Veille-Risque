@@ -15,6 +15,33 @@ async function login(page, name) {
   await expect(page.locator('#nc-MON')).not.toHaveText('—', { timeout: 20000 });
 }
 
+test('le bouton Carrefour restaure la vue initiale', async ({ page }) => {
+  await login(page, 'Test accueil');
+  const home = page.locator('#btnHome');
+
+  await expect(home).toContainText('Veille Risque');
+  await expect(home.locator('.h-logo-primary')).toHaveAttribute('src', 'assets/carrefour-logo.svg');
+
+  await page.locator('.nav-geo[data-geo="MONDE"]').click();
+  await page.locator('.nav-geo[data-geo="FR"]').click();
+  await page.locator('.nav-article[data-scope="archived"]').click();
+  await page.locator('[data-sort="recent"]').click();
+  await page.locator('#searchInput').fill('test filtre');
+  await page.locator('#tabConcurrence').click();
+  await home.click();
+
+  await expect(page.locator('#viewRisks')).toHaveClass(/active/);
+  await expect(page.locator('.nav-geo[data-geo="MONDE"]')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.locator('.nav-geo[data-geo="FR"]')).toHaveAttribute('aria-checked', 'false');
+  await expect(page.locator('.nav-article[data-scope="archived"]')).toHaveAttribute('aria-checked', 'false');
+  await expect(page.locator('.nav-cat[data-code="all"]')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.locator('[data-sort="votes"]')).toHaveClass(/active/);
+  await expect(page.locator('#searchInput')).toHaveValue('');
+  await page.waitForTimeout(350);
+  await expect(page.locator('#searchInput')).toHaveValue('');
+  await expect(page.locator('#filterState')).not.toContainText('France');
+});
+
 test('archives, recommandations, commentaires et votes persistent', async ({ page }) => {
   const title = `Article archive test ${Date.now()}`;
   await login(page, 'Test engagement');
