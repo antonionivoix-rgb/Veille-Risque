@@ -27,6 +27,9 @@ ne pas reinitialiser et demander une verification humaine.
   `argos@carrefour.com`. Chaque avatar reste un lien `mailto:`.
 - L'etat actif d'un bouton J'aime conserve la palette neutre de l'etat initial. Ne pas retablir
   de fond ou de bordure jaune/orange.
+- Dans les cartes de veille concurrentielle, la traduction et le titre original sont empiles dans
+  `.comp-news-copy`. La date occupe une ligne separee et ne doit jamais reduire le titre a une
+  colonne de caracteres sur un petit ecran.
 - Les resumes IA francais et anglais sont stockes separement dans
   `article_ai_summaries_i18n`. Ne jamais remplacer une langue par l'autre.
 - Conserver exactement 66 sources globales, 18 sources concurrentielles et 1 source de veille
