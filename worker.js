@@ -204,26 +204,30 @@ function parseAiSummary(result) {
   return bullets.length === 4 ? bullets : null;
 }
 
-function isUsableAiSummary(bullets, sourceText) {
+function isUsableAiSummary(bullets, sourceText, language = 'fr') {
   if (!Array.isArray(bullets) || bullets.length !== 4 || new Set(bullets).size !== 4) return false;
   const figures = bullets[3] || '';
-  if (!/^Chiffres clés\s*:/i.test(figures)) return false;
-  const detail = figures.replace(/^Chiffres clés\s*:\s*/i, '').trim();
+  const prefix = language === 'en' ? /^Key figures\s*:/i : /^Chiffres clés\s*:/i;
+  if (!prefix.test(figures)) return false;
+  const detail = figures.replace(prefix, '').trim();
   if (detail.length < 12) return false;
-  if (/aucun chiffre/i.test(detail) && /\d/.test(sourceText)) return false;
+  if ((language === 'en' ? /no key figures?/i : /aucun chiffre/i).test(detail) && /\d/.test(sourceText)) return false;
   return true;
 }
 
-async function generateArticleSummary(env, sourceText) {
+async function generateArticleSummary(env, sourceText, language = 'fr') {
   if (!env.AI?.run) throw new Error('Le service de résumé par IA n’est pas configuré.');
+  const english = language === 'en';
   const messages = [
     {
       role: 'system',
-      content: `Tu résumes des articles pour une équipe de risques stratégiques de Carrefour. Réponds en français avec un objet JSON strict de la forme {"bullets":["...","...","...","..."]}. Le tableau doit contenir exactement quatre puces autonomes et factuelles. Les trois premières présentent, sans répétition, les idées centrales les plus utiles. La quatrième commence par « Chiffres clés : » et regroupe tous les chiffres, montants, pourcentages et dates utiles présents dans le contenu. N’écris « aucun chiffre clé n’est fourni dans le contenu accessible » que si le contenu ne contient réellement aucun chiffre utile. La quatrième puce doit former une phrase complète après les deux-points. Chaque puce compte au maximum 45 mots. Conserve fidèlement les noms propres et les noms officiels d’organisations. N’invente jamais une information, un chiffre ou un contexte absent. Si le contenu est partiel, signale sobrement cette limite dans une puce. N’ajoute aucune introduction ni conclusion.`,
+      content: english
+        ? `You summarize articles for Carrefour's strategic risk team. Answer in English with a strict JSON object shaped as {"bullets":["...","...","...","..."]}. The array must contain exactly four standalone, factual bullets. The first three present the most useful central ideas without repetition. The fourth begins with "Key figures:" and gathers every useful figure, amount, percentage and date found in the content. Write "no key figures are provided in the accessible content" only when the content genuinely contains no useful figure. The fourth bullet must be a complete sentence after the colon. Each bullet is limited to 45 words. Preserve proper names and official organisation names exactly. Never invent information, figures or context. If the content is partial, state that limitation plainly in one bullet. Add no introduction or conclusion.`
+        : `Tu résumes des articles pour une équipe de risques stratégiques de Carrefour. Réponds en français avec un objet JSON strict de la forme {"bullets":["...","...","...","..."]}. Le tableau doit contenir exactement quatre puces autonomes et factuelles. Les trois premières présentent, sans répétition, les idées centrales les plus utiles. La quatrième commence par « Chiffres clés : » et regroupe tous les chiffres, montants, pourcentages et dates utiles présents dans le contenu. N’écris « aucun chiffre clé n’est fourni dans le contenu accessible » que si le contenu ne contient réellement aucun chiffre utile. La quatrième puce doit former une phrase complète après les deux-points. Chaque puce compte au maximum 45 mots. Conserve fidèlement les noms propres et les noms officiels d’organisations. N’invente jamais une information, un chiffre ou un contexte absent. Si le contenu est partiel, signale sobrement cette limite dans une puce. N’ajoute aucune introduction ni conclusion.`,
     },
     {
       role: 'user',
-      content: `Contenu à résumer :\n\n${sourceText.slice(0, 16000)}`,
+      content: `${english ? 'Content to summarize' : 'Contenu à résumer'} :\n\n${sourceText.slice(0, 16000)}`,
     },
   ];
   let previous = null;
@@ -231,7 +235,9 @@ async function generateArticleSummary(env, sourceText) {
     const attemptMessages = previous ? [
       ...messages,
       { role: 'assistant', content: JSON.stringify({ bullets: previous }) },
-      { role: 'user', content: 'Corrige entièrement ce résumé. La quatrième puce était vide, incomplète ou incohérente avec les chiffres du contenu. Respecte strictement les quatre puces demandées, sans répétition.' },
+      { role: 'user', content: english
+        ? 'Rewrite this summary completely. The fourth bullet was empty, incomplete or inconsistent with the figures in the content. Follow the required four-bullet format exactly, without repetition.'
+        : 'Corrige entièrement ce résumé. La quatrième puce était vide, incomplète ou incohérente avec les chiffres du contenu. Respecte strictement les quatre puces demandées, sans répétition.' },
     ] : messages;
     const result = await env.AI.run('@cf/meta/llama-3.2-3b-instruct', {
       messages: attemptMessages,
@@ -255,7 +261,7 @@ async function generateArticleSummary(env, sourceText) {
       },
     });
     const bullets = parseAiSummary(result);
-    if (isUsableAiSummary(bullets, sourceText)) return bullets;
+    if (isUsableAiSummary(bullets, sourceText, language)) return bullets;
     previous = bullets;
   }
   throw new Error('Le résumé généré ne respecte pas le format attendu.');
@@ -609,7 +615,7 @@ async function handleApi(request, env, ctx) {
           MAX(CASE WHEN voter=? THEN 1 ELSE 0 END) AS voted_by_me
         FROM article_votes GROUP BY article_id
       `).bind(session.display_name).all(),
-      env.DB.prepare('SELECT article_id, generated_at, updated_by, updated_at FROM article_ai_summaries ORDER BY generated_at DESC LIMIT 1000').all(),
+      env.DB.prepare('SELECT article_id, language, generated_at, updated_by, updated_at FROM article_ai_summaries_i18n ORDER BY generated_at DESC LIMIT 2000').all(),
       env.DB.prepare('SELECT MAX(fetched_at) AS revision FROM feed_cache').first(),
     ]);
     return json(request, {
@@ -727,32 +733,36 @@ async function handleApi(request, env, ctx) {
   const summaryMatch = path.match(/^\/api\/articles\/(.+)\/ai-summary$/);
   if (summaryMatch && ['GET','POST','PUT'].includes(request.method)) {
     const articleId = cleanText(decodeURIComponent(summaryMatch[1]), 1800);
+    const queryLanguage = cleanText(url.searchParams.get('lang'), 2);
+    const defaultLanguage = ['fr','en'].includes(queryLanguage) ? queryLanguage : 'fr';
     if (!articleId) return json(request, { error: 'Article invalide pour le résumé.' }, 400);
     if (request.method === 'GET') {
-      const existing = await env.DB.prepare('SELECT bullets_json, source_url, generated_at, updated_by, updated_at FROM article_ai_summaries WHERE article_id=?').bind(articleId).first();
+      const existing = await env.DB.prepare('SELECT bullets_json, source_url, generated_at, updated_by, updated_at FROM article_ai_summaries_i18n WHERE article_id=? AND language=?').bind(articleId, defaultLanguage).first();
       if (!existing) return json(request, { error: 'Aucun résumé IA enregistré pour cet article.' }, 404);
       try {
         const bullets = JSON.parse(existing.bullets_json);
         if (!Array.isArray(bullets) || bullets.length !== 4) throw new Error('Résumé incomplet');
         return json(request, { summary: {
-          article_id: articleId, bullets, source_url: existing.source_url, generated_at: existing.generated_at,
+          article_id: articleId, language:defaultLanguage, bullets, source_url: existing.source_url, generated_at: existing.generated_at,
           updated_by: existing.updated_by, updated_at: existing.updated_at,
         } });
       } catch { return json(request, { error: 'Le résumé IA enregistré est incomplet.' }, 500); }
     }
     const body = await readBody(request);
+    const bodyLanguage = cleanText(body?.language, 2);
+    const summaryLanguage = ['fr','en'].includes(bodyLanguage) ? bodyLanguage : defaultLanguage;
     if (request.method === 'PUT') {
       const bullets = Array.isArray(body?.bullets)
         ? body.bullets.map(value => cleanArticleText(value, 600)).filter(Boolean)
         : [];
       if (bullets.length !== 4) return json(request, { error: 'Le résumé doit contenir exactement quatre points.' }, 400);
-      const existing = await env.DB.prepare('SELECT article_id, source_url, generated_at FROM article_ai_summaries WHERE article_id=?').bind(articleId).first();
+      const existing = await env.DB.prepare('SELECT article_id, source_url, generated_at FROM article_ai_summaries_i18n WHERE article_id=? AND language=?').bind(articleId, summaryLanguage).first();
       if (!existing) return json(request, { error: 'Aucun résumé IA à modifier pour cet article.' }, 404);
       const updatedAt = new Date().toISOString();
-      await env.DB.prepare('UPDATE article_ai_summaries SET bullets_json=?, updated_by=?, updated_at=? WHERE article_id=?')
-        .bind(JSON.stringify(bullets), session.display_name, updatedAt, articleId).run();
+      await env.DB.prepare('UPDATE article_ai_summaries_i18n SET bullets_json=?, updated_by=?, updated_at=? WHERE article_id=? AND language=?')
+        .bind(JSON.stringify(bullets), session.display_name, updatedAt, articleId, summaryLanguage).run();
       return json(request, { summary: {
-        article_id: articleId, bullets, source_url: existing.source_url, generated_at: existing.generated_at,
+        article_id: articleId, language:summaryLanguage, bullets, source_url: existing.source_url, generated_at: existing.generated_at,
         updated_by: session.display_name, updated_at: updatedAt,
       } });
     }
@@ -764,12 +774,12 @@ async function handleApi(request, env, ctx) {
     if (!articleId || !sourceUrl || !title || !isPublicArticleUrl(sourceUrl)) {
       return json(request, { error: 'Article invalide pour le résumé.' }, 400);
     }
-    const cached = await env.DB.prepare('SELECT bullets_json, source_url, generated_at, updated_by, updated_at FROM article_ai_summaries WHERE article_id=?').bind(articleId).first();
+    const cached = await env.DB.prepare('SELECT bullets_json, source_url, generated_at, updated_by, updated_at FROM article_ai_summaries_i18n WHERE article_id=? AND language=?').bind(articleId, summaryLanguage).first();
     if (cached && cached.source_url === sourceUrl) {
       try {
         const bullets = JSON.parse(cached.bullets_json);
         if (Array.isArray(bullets) && bullets.length === 4) {
-          return json(request, { bullets, generatedAt: cached.generated_at, updatedBy:cached.updated_by, updatedAt:cached.updated_at, cached: true });
+          return json(request, { language:summaryLanguage, bullets, generatedAt: cached.generated_at, updatedBy:cached.updated_by, updatedAt:cached.updated_at, cached: true });
         }
       } catch {}
     }
@@ -801,15 +811,15 @@ async function handleApi(request, env, ctx) {
     if (sourceText.length < 40) return json(request, { error: 'Le contenu de cet article est insuffisant pour produire un résumé fiable.' }, 422);
 
     try {
-      const bullets = await generateArticleSummary(env, sourceText);
+      const bullets = await generateArticleSummary(env, sourceText, summaryLanguage);
       const generatedAt = new Date().toISOString();
       await env.DB.prepare(`
-        INSERT INTO article_ai_summaries(article_id, bullets_json, source_url, generated_at)
-        VALUES(?,?,?,?) ON CONFLICT(article_id) DO UPDATE SET
+        INSERT INTO article_ai_summaries_i18n(article_id, language, bullets_json, source_url, generated_at)
+        VALUES(?,?,?,?,?) ON CONFLICT(article_id, language) DO UPDATE SET
         bullets_json=excluded.bullets_json, source_url=excluded.source_url, generated_at=excluded.generated_at,
         updated_by=NULL, updated_at=NULL
-      `).bind(articleId, JSON.stringify(bullets), sourceUrl, generatedAt).run();
-      return json(request, { bullets, generatedAt, cached: false, extractionMethod });
+      `).bind(articleId, summaryLanguage, JSON.stringify(bullets), sourceUrl, generatedAt).run();
+      return json(request, { language:summaryLanguage, bullets, generatedAt, cached: false, extractionMethod });
     } catch (error) {
       console.error('AI summary failed', articleId, error);
       const localDebug = ['127.0.0.1', 'localhost'].includes(new URL(request.url).hostname)
@@ -836,6 +846,7 @@ async function handleApi(request, env, ctx) {
       env.DB.prepare('DELETE FROM article_engagement WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM article_votes WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM article_ai_summaries WHERE article_id=?').bind(articleId),
+      env.DB.prepare('DELETE FROM article_ai_summaries_i18n WHERE article_id=?').bind(articleId),
       env.DB.prepare('DELETE FROM custom_articles WHERE id=?').bind(articleId),
     ]);
     return json(request, { deleted:true, id:articleId });

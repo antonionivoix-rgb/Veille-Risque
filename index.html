@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrefour · Veille Risque</title>
+<title>Carrefour · Veille</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -113,7 +113,7 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 .h-brand:hover{background:rgba(255,255,255,.065)}
 .h-brand:active{background:rgba(255,255,255,.1)}
 .h-brand:focus-visible{outline:2px solid #60A5FA;outline-offset:-3px;border-radius:0}
-.h-logo{height:32px;width:49px;object-fit:contain;flex-shrink:0}
+.h-logo{height:38px;width:38px;object-fit:contain;flex-shrink:0}
 .h-divider{width:1px;height:16px;background:var(--sbbd)}
 .h-name{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.82);letter-spacing:0;white-space:nowrap}
 .h-center{flex:1;display:flex;align-items:center;padding:0 16px;gap:10px}
@@ -129,7 +129,18 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 .tgl-k::after{content:'';position:absolute;left:2px;top:2px;width:11px;height:11px;background:#fff;border-radius:50%;transition:left var(--ease);box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .tgl.on .tgl-k{background:rgba(74,222,128,.7)}
 .tgl.on .tgl-k::after{left:15px}
-.h-right{display:flex;align-items:center;gap:8px;padding-right:16px;margin-left:auto}
+.h-right{display:flex;align-items:center;gap:7px;padding-right:16px;margin-left:auto}
+.language-switcher{display:flex;align-items:center;gap:3px;padding:2px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04)}
+.language-button{width:29px;height:26px;display:grid;place-items:center;border:1px solid transparent;border-radius:5px;background:transparent;cursor:pointer;transition:background var(--ease),border-color var(--ease),transform .1s}
+.language-button:hover{background:rgba(255,255,255,.1)}.language-button:active{transform:scale(.92)}
+.language-button.active{background:rgba(29,78,216,.32);border-color:rgba(96,165,250,.72)}
+.language-button img{display:block;width:19px;height:12px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.2)}
+.team-avatars{display:flex;align-items:center;padding-left:5px}
+.team-avatar{position:relative;display:block;width:28px;height:28px;margin-left:-6px;border-radius:50%;border:2px solid var(--sb);background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.18);z-index:1;transition:transform var(--ease),z-index 0s}
+.team-avatar:first-child{margin-left:0}.team-avatar:hover,.team-avatar:focus-visible{transform:translateY(-2px) scale(1.06);z-index:5}
+.team-avatar img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.team-avatar::after{content:attr(data-email);position:absolute;right:0;top:calc(100% + 8px);padding:5px 8px;border-radius:5px;background:#0D1526;color:#fff;font:500 .64rem var(--sans);white-space:nowrap;box-shadow:var(--s2);opacity:0;visibility:hidden;transform:translateY(-3px);transition:opacity var(--ease),transform var(--ease);pointer-events:none}
+.team-avatar:hover::after,.team-avatar:focus-visible::after{opacity:1;visibility:visible;transform:none}
 .live{display:flex;align-items:center;gap:5px;font-size:.64rem;font-weight:700;color:rgba(74,222,128,.9);letter-spacing:.07em;text-transform:uppercase}
 .ldot{width:6px;height:6px;border-radius:50%;background:rgba(74,222,128,.9);animation:ldot 2.2s ease-in-out infinite;will-change:opacity,transform}
 @keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.55)}}
@@ -201,6 +212,10 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 
 /* Badge catégorie A→K d'un article */
 .ccat{position:relative}
+.category-icon{display:block;width:20px;height:20px;object-fit:contain;flex:0 0 20px}
+.ccat .category-icon{display:inline-block;width:14px;height:14px;vertical-align:-3px;margin-right:3px;filter:none}
+.sidebar .category-icon{filter:invert(1);opacity:.88}
+body.dark .ccat .category-icon{filter:invert(1);opacity:.8}
 .ccat-risk{display:inline-flex;align-items:center;gap:4px;font-size:.62rem;background:var(--blue-l);color:var(--blue-d);padding:2px 7px;border-radius:8px;font-weight:600;letter-spacing:.01em;margin-left:4px;border:1px solid rgba(29,78,216,.15)}
 .ccorrob{display:inline-flex;align-items:center;gap:3px;font-size:.62rem;background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:8px;font-weight:600;margin-left:4px;border:1px solid rgba(217,119,6,.2)}
 body.dark .ccorrob{background:rgba(217,119,6,.18);color:#FBBF24;border-color:rgba(217,119,6,.35)}
@@ -249,11 +264,10 @@ body.dark .comp-seg{background:rgba(96,165,250,.15);color:#93C5FD;border-color:r
 .comp-news-item:last-child{border-bottom:none}
 .comp-news-item:hover .comp-news-title{color:var(--blue)}
 .comp-news-item:focus-visible,.cp-alert-card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.comp-news-item span{flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.comp-news-item .comp-news-date{flex-shrink:0;font-size:.62rem;color:var(--t4);white-space:nowrap}
-.comp-news-copy{flex:1;min-width:0}
-.comp-news-marker{display:inline-block!important;flex:none!important;width:6px!important;height:6px;border-radius:50%;background:var(--blue);margin:0 7px 1px 0;vertical-align:middle}
-.comp-news-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.comp-news-item .comp-news-date{flex-shrink:0;font-size:.52rem;color:var(--t4);white-space:nowrap;line-height:1.2;padding-top:2px}
+.comp-news-copy{flex:1;min-width:0;display:flex;align-items:center;justify-content:center}
+.comp-news-marker{display:block;flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:var(--blue);margin:0 7px 0 0}
+.comp-news-title{display:block;flex:1;min-width:0;overflow:visible;text-align:center;white-space:normal;overflow-wrap:anywhere}
 .comp-news-copy .ctfr{font-size:.62rem;margin-bottom:0}
 .comp-news-empty{font-size:.7rem;color:var(--t4);font-style:italic;padding:6px 0}
 .comp-cta{font-size:.65rem;color:var(--blue);font-weight:600;text-align:right;letter-spacing:.02em;margin-top:auto;padding-top:4px}
@@ -290,6 +304,8 @@ body.dark .comp-seg{background:rgba(96,165,250,.15);color:#93C5FD;border-color:r
 /* MAIN */
 .main{flex:1 1 0;margin-left:var(--sw);display:flex;flex-direction:column;width:calc(100% - var(--sw));max-width:calc(100% - var(--sw));min-width:0;overflow-x:hidden}
 .view-content{display:none}.view-content.active{display:flex;flex-direction:column;flex:1}
+body.view-concurrence .sidebar,body.view-concurrence .sidebar-backdrop{display:none!important}
+body.view-concurrence .main{margin-left:0;width:100%;max-width:100%}
 .krow{display:grid;grid-template-columns:repeat(5,1fr);background:var(--surf);border-bottom:1px solid var(--bd)}
 .kpi{padding:16px 20px 14px;border-right:1px solid var(--bd);position:relative;overflow:hidden;transition:background var(--ease)}
 .kpi:last-child{border-right:none}
@@ -385,7 +401,7 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .card:hover{box-shadow:var(--s2);border-color:var(--bd2);transform:translateY(-2px);background:var(--surf2)}
 .cm{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
 .csrc{font-size:.6rem;font-weight:700;color:var(--blue);letter-spacing:.05em;text-transform:uppercase}
-.ccat{font-size:.58rem;padding:2px 7px;border-radius:4px;background:var(--blue-l);color:var(--blue);font-weight:500}
+.ccat{display:inline-flex;align-items:center;gap:3px;font-size:.58rem;padding:2px 7px;border-radius:4px;background:var(--blue-l);color:var(--blue);font-weight:500}
 .cflag{font-size:.72rem}
 .clng{font-size:.57rem;padding:1px 6px;border-radius:4px;background:#EFF6FF;color:#3B82F6;font-weight:600}
 .recommendation-badge,.archive-badge{font-size:.57rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surf3);color:var(--t3);border:1px solid var(--bd)}
@@ -442,7 +458,7 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 .dpdesc.unavailable{padding:12px 14px;background:var(--high-bg);color:var(--high);border:1px solid var(--high-bd);border-radius:6px}
 .dp-ai-summary{display:flex;flex-direction:column;gap:9px;margin:0;padding-left:20px}.dp-ai-summary li{padding-left:3px;line-height:1.62}.dp-ai-summary li::marker{color:var(--blue)}
 .dp-ai-loading{color:var(--t3);font-style:italic}.dp-ai-error{font-weight:700;margin-bottom:7px}.dp-ai-fallback{font-weight:400;white-space:pre-wrap}
-.dp-description-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.dp-description-head.dp-ai-head{margin-top:18px}.dp-description-head .dpsection-label{margin-bottom:0}.dp-description-tools{display:flex;align-items:center;gap:6px}.dp-ai-generate{display:none;align-items:center;gap:7px}.dp-description-editor,.dp-ai-editor{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}.dp-description-editor[hidden],.dp-ai-editor[hidden]{display:none}.dp-description-actions{display:flex;justify-content:flex-end;gap:7px}.dp-ai-fields{display:grid;grid-template-columns:1fr;gap:8px}.dp-ai-field{display:flex;flex-direction:column;gap:5px;font-size:.65rem;font-weight:700;color:var(--t3)}.dp-ai-meta{font-size:.62rem;color:var(--t4);margin:-2px 0 10px}.dp-ai-meta:empty{display:none}
+.dp-description-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.dp-description-head.dp-ai-head{margin-top:18px}.dp-description-head .dpsection-label{margin-bottom:0}.dp-description-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}.dp-ai-language{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;font-weight:700;color:var(--t3)}.dp-ai-language select{height:29px;border:1px solid var(--bd);border-radius:6px;background:var(--surf);color:var(--t2);font:600 .65rem var(--sans);padding:0 24px 0 8px}.dp-ai-generate{display:none;align-items:center;gap:7px}.dp-description-editor,.dp-ai-editor{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}.dp-description-editor[hidden],.dp-ai-editor[hidden]{display:none}.dp-description-actions{display:flex;justify-content:flex-end;gap:7px}.dp-ai-fields{display:grid;grid-template-columns:1fr;gap:8px}.dp-ai-field{display:flex;flex-direction:column;gap:5px;font-size:.65rem;font-weight:700;color:var(--t3)}.dp-ai-meta{font-size:.62rem;color:var(--t4);margin:-2px 0 10px}.dp-ai-meta:empty{display:none}
 .dpdfr{font-size:.81rem;color:var(--t3);line-height:1.65;margin-bottom:16px;font-style:italic;padding:10px 14px;background:var(--blue-l);border-radius:8px;border-left:3px solid var(--blue)}
 .dp-shared-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--bd)}
 .dp-class-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px}.dp-class-grid label{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:700;color:var(--t3)}
@@ -471,6 +487,7 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 .addart-err{font-size:.72rem;color:var(--crit);margin-top:6px}
 .addart-section-label{margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--t4)}
 .addart-ai-option{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--surf2);font-size:.72rem;font-weight:700;color:var(--t2);cursor:pointer}.addart-ai-option input{width:16px;height:16px;flex:0 0 auto;margin-top:1px;accent-color:var(--blue)}.addart-ai-option .rv-fi{color:var(--blue);font-size:.9rem}
+.addart-ai-language{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,210px);align-items:center;gap:12px;margin-top:8px}.addart-ai-language .addart-lbl{margin:0}
 
 /* TOASTS */
 .toasts{position:fixed;bottom:20px;right:20px;z-index:400;display:flex;flex-direction:column;gap:6px}
@@ -541,17 +558,20 @@ button,a,[role="button"],.nav,.card,.pg,.tgc,.cp-alert-card,.sbtn{
 body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 @media(max-width:1280px){.ops-overview-head{flex-direction:column}.ops-jumps{justify-content:flex-start}}
 @media(max-width:1100px){.krow{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1180px){.h-right .upt{display:none}.srch{display:none}}
 @media(max-width:900px){.ops-shell{padding:16px}.ops-overview-head,.ops-panel{border-radius:16px}.krow{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.ops-overview-name{font-size:1.6rem}.krow{grid-template-columns:1fr}.cmd{gap:10px}.ops-jumps{width:100%}}
+@media(max-width:520px){.dp-description-head.dp-ai-head{align-items:flex-start;flex-direction:column}.dp-description-tools{width:100%;justify-content:space-between}.addart-ai-language{grid-template-columns:1fr}}
 
 @media(max-width:760px){
   :root{--hh:100px}
   header{align-items:flex-start}
   .h-brand{position:absolute;left:0;top:0;width:auto;height:42px;border-right:0;padding:0 10px;gap:6px}
-  .h-logo{height:25px;width:38px}.h-divider{display:none}.h-name{font-size:.66rem}
+  .h-logo{height:30px;width:30px}.h-divider{display:none}.h-name{font-size:.66rem}
   .h-center{width:100%;flex:none;padding:48px 8px 8px}.srch{display:none}
   .view-tabs{width:100%;overflow-x:auto;scrollbar-width:none}.view-tabs::-webkit-scrollbar{display:none}.view-tab{flex:0 0 auto;padding:6px 12px}
-  .h-right{position:absolute;right:7px;top:5px;padding:0}.h-right .upt{display:none}.h-right .live{font-size:.55rem}
+  .h-right{position:absolute;right:7px;top:5px;padding:0;gap:4px}.h-right .upt{display:none}
+  .team-avatar{width:25px;height:25px;margin-left:-8px}.language-button{width:26px;height:25px}.bico{width:29px;height:29px}
   .dp-class-grid,.dp-engagement-grid{grid-template-columns:1fr}.dp-comment-compose{align-items:stretch;flex-direction:column}.dp-comment-compose .sbtn{width:100%}
 }
 @media(max-width:900px){
@@ -570,7 +590,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 <div class="login-overlay" id="loginOverlay">
   <div class="login-panel">
     <img class="login-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnDQogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iDQogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIg0KICAgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIg0KICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyINCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCINCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIg0KICAgdmVyc2lvbj0iMS4xIg0KICAgaWQ9IkxheWVyXzEiDQogICB4PSIwcHgiDQogICB5PSIwcHgiDQogICB3aWR0aD0iNTg5Ig0KICAgaGVpZ2h0PSI0NzIiDQogICB2aWV3Qm94PSIwIDAgNTg5IDQ3Mi4wMDAwMSINCiAgIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDcwOC42NjEgODI3LjcxNyINCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGgNCiAgIHN0eWxlPSJmaWxsOiMwMDViYWIiDQogICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgZD0ibSAxMjAuNDU0OTMsNDM3LjEwODYyIGMgLTcuNjEyNDksMCAtMTMuMTcyMjgsMy44Mzg0NiAtMTMuMTcyMjgsMTEuMTg0MDIgMCw2Ljg4MDcgNC44MzI2LDExLjY3NjQ4IDEyLjA4NjEsMTEuNjc2NDggNC44MzcyLDAgOS42NzQ0LC0yLjY4Nzg1IDEyLjY5MzYzLC02LjUzMDkyIHYgLTkuNzk4NjcgYyAwLC0zLjI2Nzc2IC00LjIzNDI4LC02LjUzMDkxIC0xMS42MDc0NSwtNi41MzA5MSIgLz48L3N2Zz4=" alt="Carrefour">
-    <div class="login-title">RiskVeille</div>
+    <div class="login-title">Veille</div>
 
     <input type="text" class="login-input" id="loginName" placeholder="Votre nom" autocomplete="name" maxlength="40">
     <input type="password" class="login-input" id="loginPwd" placeholder="Mot de passe" autocomplete="current-password">
@@ -581,57 +601,66 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 
 <!-- HEADER -->
 <header>
-  <a class="h-brand" id="btnHome" href="/" title="Revenir à la vue initiale" aria-label="Revenir à la vue initiale">
-    <img class="h-logo h-logo-primary" src="assets/carrefour-logo.svg" alt="Carrefour">
+  <a class="h-brand" id="btnHome" href="/" title="Revenir à la vue initiale" aria-label="Revenir à la vue initiale" data-i18n-title="home.title" data-i18n-aria-label="home.title">
+    <img class="h-logo h-logo-primary" src="assets/brand/peacock.png" alt="Veille">
     <span class="h-divider" aria-hidden="true"></span>
-    <span class="h-name">Veille Risque</span>
+    <span class="h-name">Veille</span>
   </a>
   <div class="h-center">
     <div class="view-tabs">
-      <button class="view-tab active" data-view="risks" id="tabRisks">Vue globale</button>
-      <button class="view-tab" data-view="concurrence" id="tabConcurrence">Veille concurrentielle</button>
+      <button class="view-tab active" data-view="risks" id="tabRisks" data-i18n="tabs.global">Vue globale</button>
+      <button class="view-tab" data-view="concurrence" id="tabConcurrence" data-i18n="tabs.competitive">Veille concurrentielle</button>
     </div>
     <div class="srch">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Rechercher dans les alertes…" aria-label="Rechercher dans les alertes">
+      <input type="text" id="searchInput" placeholder="Rechercher dans les alertes…" aria-label="Rechercher dans les alertes" data-i18n-placeholder="search.placeholder" data-i18n-aria-label="search.label">
     </div>
   </div>
   <div class="h-right">
     <span class="upt" id="currentUser"></span>
-    <div class="live"><span class="ldot"></span>LIVE</div>
     <span class="upt" id="upt">—</span>
-    <button class="bico bico-dm" id="btnDark" title="Mode nuit / jour" aria-label="Basculer le mode nuit">
+    <div class="language-switcher" role="group" aria-label="Langue de l'interface" data-i18n-aria-label="language.group">
+      <button class="language-button active" id="langFr" type="button" data-ui-lang="fr" aria-pressed="true" title="Français" aria-label="Afficher le site en français"><img src="assets/flags/fr.png" alt="" aria-hidden="true"></button>
+      <button class="language-button" id="langEn" type="button" data-ui-lang="en" aria-pressed="false" title="English" aria-label="Display the site in English"><img src="assets/flags/gb.svg" alt="" aria-hidden="true"></button>
+    </div>
+    <div class="team-avatars" aria-label="Équipe Argos" data-i18n-aria-label="team.label">
+      <a class="team-avatar" href="mailto:argos@carrefour.com" data-email="argos@carrefour.com" aria-label="Guillaume Litvak · argos@carrefour.com"><img src="assets/avatars/guillaume-litvak.png" alt="Guillaume Litvak"></a>
+      <a class="team-avatar" href="mailto:argos@carrefour.com" data-email="argos@carrefour.com" aria-label="Chi · argos@carrefour.com"><img src="assets/avatars/chi.png" alt="Chi"></a>
+      <a class="team-avatar" href="mailto:argos@carrefour.com" data-email="argos@carrefour.com" aria-label="Antonio Nivoix · argos@carrefour.com"><img src="assets/avatars/antonio-nivoix.png" alt="Antonio Nivoix"></a>
+      <a class="team-avatar" href="mailto:argos@carrefour.com" data-email="argos@carrefour.com" aria-label="Mathilde Blataj · argos@carrefour.com"><img src="assets/avatars/mathilde-blataj.png" alt="Mathilde Blataj"></a>
+    </div>
+    <button class="bico bico-dm" id="btnDark" title="Mode nuit / jour" aria-label="Basculer le mode nuit" data-i18n-title="theme.title" data-i18n-aria-label="theme.label">
       <svg class="ico-moon" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="ico-sun" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" style="display:none" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
-    <button class="bico" id="btnRef" title="Rafraîchir les sources" aria-label="Rafraîchir les sources"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15A9 9 0 1 1 12 3a9 9 0 0 1 8.49 12z"/></svg></button>
+    <button class="bico" id="btnRef" title="Rafraîchir les sources" aria-label="Rafraîchir les sources" data-i18n-title="refresh.title" data-i18n-aria-label="refresh.title"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15A9 9 0 1 1 12 3a9 9 0 0 1 8.49 12z"/></svg></button>
   </div>
 </header>
 
 <!-- LAYOUT -->
 <div class="layout">
   <aside class="sidebar" id="sidebar-risks">
-    <button class="sidebar-close" id="sidebarClose" title="Fermer les filtres" aria-label="Fermer les filtres">✕</button>
+    <button class="sidebar-close" id="sidebarClose" title="Fermer les filtres" aria-label="Fermer les filtres" data-i18n-title="filters.close" data-i18n-aria-label="filters.close">✕</button>
     <div class="sbg">
-      <div class="sbl">Articles</div>
-      <div class="nav nav-article" data-scope="added" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-added"></i></span><span class="nlbl">Articles ajoutés</span><span class="ncnt" id="nc-added">—</span></div>
-      <div class="nav nav-article" data-scope="archived" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-archive"></i></span><span class="nlbl">Articles archivés</span><span class="ncnt" id="nc-archived">—</span></div>
+      <div class="sbl" data-i18n="sidebar.articles">Articles</div>
+      <div class="nav nav-article" data-scope="added" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-added"></i></span><span class="nlbl" data-i18n="articles.added">Articles ajoutés</span><span class="ncnt" id="nc-added">—</span></div>
+      <div class="nav nav-article" data-scope="archived" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-archive"></i></span><span class="nlbl" data-i18n="articles.archived">Articles archivés</span><span class="ncnt" id="nc-archived">—</span></div>
     </div>
     <div class="sdiv"></div>
     <div class="sbg" id="geoNavWrap">
-      <div class="sbl">Géographie</div>
-      <div class="nav nav-geo active" data-geo="MONDE" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-macro"></i></span><span class="nlbl">Monde / Union européenne</span><span class="ncnt" id="nc-MON">—</span></div>
-      <div class="nav nav-geo" data-geo="FR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/fr.png" alt=""></span><span class="nlbl">France</span><span class="ncnt" id="nc-FR">—</span></div>
-      <div class="nav nav-geo" data-geo="ES" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/es.png" alt=""></span><span class="nlbl">Espagne</span><span class="ncnt" id="nc-ES">—</span></div>
-      <div class="nav nav-geo" data-geo="BR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/br.png" alt=""></span><span class="nlbl">Brésil</span><span class="ncnt" id="nc-BR">—</span></div>
+      <div class="sbl" data-i18n="sidebar.geography">Géographie</div>
+      <div class="nav nav-geo active" data-geo="MONDE" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-macro"></i></span><span class="nlbl" data-i18n="geo.worldEu">Monde / Union européenne</span><span class="ncnt" id="nc-MON">—</span></div>
+      <div class="nav nav-geo" data-geo="FR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/fr.png" alt=""></span><span class="nlbl" data-i18n="geo.france">France</span><span class="ncnt" id="nc-FR">—</span></div>
+      <div class="nav nav-geo" data-geo="ES" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/es.png" alt=""></span><span class="nlbl" data-i18n="geo.spain">Espagne</span><span class="ncnt" id="nc-ES">—</span></div>
+      <div class="nav nav-geo" data-geo="BR" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><img class="nav-flag" src="assets/flags/br.png" alt=""></span><span class="nlbl" data-i18n="geo.brazil">Brésil</span><span class="ncnt" id="nc-BR">—</span></div>
     </div>
     <div class="sdiv"></div>
     <div class="sbg" id="catNavWrap">
-      <div class="sbl">Catégories de risques - Univers de risques Carrefour</div>
+      <div class="sbl" data-i18n="sidebar.categories">Catégories de risques - Univers de risques Carrefour</div>
       <!-- Les 11 catégories A à K sont injectées ici par JavaScript. -->
     </div>
     <div class="sbfoot">
-      <p><strong>RiskVeille v14</strong> · univers de risques Carrefour<br>11 catégories A→K<br>66 sources globales · 18 flux concurrents · 1 flux Carrefour<br>4 langues · analyse automatisée</p>
+      <p id="sidebarFootText"><strong>Veille v14</strong> · univers de risques Carrefour<br>11 catégories A→K<br>66 sources globales · 18 flux concurrents · 1 flux Carrefour<br>4 langues · analyse automatisée</p>
     </div>
   </aside>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -642,7 +671,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <div class="ops-shell ops-shell-risks">
 
         <section class="macro-panel" id="macroPanel" style="display:none">
-          <div class="macro-panel-hd"><span><i class="rv-fi rv-macro" aria-hidden="true"></i> État du monde</span><span class="macro-panel-sub">Institutions officielles · presse économique internationale</span></div>
+          <div class="macro-panel-hd"><span><i class="rv-fi rv-macro" aria-hidden="true"></i> <span data-i18n="macro.worldState">État du monde</span></span><span class="macro-panel-sub" data-i18n="macro.sources">Institutions officielles · presse économique internationale</span></div>
           <div class="macro-panel-row" id="macroPanelRow"></div>
         </section>
 
@@ -652,14 +681,14 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
             <div class="eban" id="eban"><span id="eban-txt"></span></div>
 
             <div class="cmd">
-              <span class="sttl" id="secTtl">Alertes risques + Signaux macro</span>
+              <span class="sttl" id="secTtl">Veille</span>
               <span class="rcnt" id="resCnt"></span>
               <div class="sgrp">
-                <button class="sbtn active" data-sort="votes">Plus aimés</button>
-                <button class="sbtn" data-sort="recent">Récents</button>
+                <button class="sbtn active" data-sort="votes" data-i18n="sort.liked">Plus aimés</button>
+                <button class="sbtn" data-sort="recent" data-i18n="sort.recent">Récents</button>
               </div>
-              <button class="sbtn mobile-filter-btn" id="btnFilters" aria-controls="sidebar-risks" aria-expanded="false">Filtres</button>
-              <button class="sbtn article-add-action" id="btnAddArticle" style="margin-left:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter un article</span></button>
+              <button class="sbtn mobile-filter-btn" id="btnFilters" aria-controls="sidebar-risks" aria-expanded="false" data-i18n="filters.button">Filtres</button>
+              <button class="sbtn article-add-action" id="btnAddArticle" style="margin-left:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.add">Ajouter un article</span></button>
               <div class="filter-state" id="filterState" aria-live="polite"></div>
             </div>
 
@@ -677,33 +706,33 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <div class="comp-shell">
 
         <div class="krow">
-          <div class="kpi kt"><div class="kl">Concurrents suivis</div><div class="kv" id="cc-total-comp">—</div><div class="ks2">France · Espagne · Brésil</div></div>
-          <div class="kpi kt"><div class="kl">Enseignes France</div><div class="kv" id="cc-total-FR">—</div><div class="ks2">marché français</div></div>
-          <div class="kpi kt"><div class="kl">Enseignes Espagne</div><div class="kv" id="cc-total-ES">—</div><div class="ks2">marché espagnol</div></div>
-          <div class="kpi kt"><div class="kl">Enseignes Brésil</div><div class="kv" id="cc-total-BR">—</div><div class="ks2">marché brésilien</div></div>
-          <div class="kpi ks"><div class="kl">Articles recensés</div><div class="kv" id="cc-tot">—</div><div class="ks2">flux et ajouts de l’équipe</div></div>
+          <div class="kpi kt"><div class="kl" data-i18n="competitive.tracked">Concurrents suivis</div><div class="kv" id="cc-total-comp">—</div><div class="ks2" data-i18n="competitive.countries">France · Espagne · Brésil</div></div>
+          <div class="kpi kt"><div class="kl" data-i18n="competitive.franceBrands">Enseignes France</div><div class="kv" id="cc-total-FR">—</div><div class="ks2" data-i18n="competitive.franceMarket">marché français</div></div>
+          <div class="kpi kt"><div class="kl" data-i18n="competitive.spainBrands">Enseignes Espagne</div><div class="kv" id="cc-total-ES">—</div><div class="ks2" data-i18n="competitive.spainMarket">marché espagnol</div></div>
+          <div class="kpi kt"><div class="kl" data-i18n="competitive.brazilBrands">Enseignes Brésil</div><div class="kv" id="cc-total-BR">—</div><div class="ks2" data-i18n="competitive.brazilMarket">marché brésilien</div></div>
+          <div class="kpi ks"><div class="kl" data-i18n="competitive.articles">Articles recensés</div><div class="kv" id="cc-tot">—</div><div class="ks2" data-i18n="competitive.teamFeeds">flux et ajouts de l’équipe</div></div>
         </div>
 
         <section class="comp-bar">
           <div class="comp-bar-left">
-            <span class="comp-bar-title">Veille concurrentielle · fiches enseigne</span>
+            <span class="comp-bar-title" data-i18n="competitive.title">Veille concurrentielle · fiches enseigne</span>
             <span class="comp-bar-sub" id="ccModeDescription">Cliquez sur une enseigne pour voir le détail.</span>
           </div>
           <div class="comp-bar-right">
             <div class="sgrp">
-              <button class="sbtn active" data-cc-mode="competitors">Concurrents</button>
+              <button class="sbtn active" data-cc-mode="competitors" data-i18n="competitive.competitors">Concurrents</button>
               <button class="sbtn" data-cc-mode="carrefour">Carrefour</button>
             </div>
-            <button class="sbtn active article-add-action" id="btnAddCompArticle" style="margin-right:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter un article</span></button>
+            <button class="sbtn active article-add-action" id="btnAddCompArticle" style="margin-right:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.add">Ajouter un article</span></button>
             <div class="sgrp" id="ccCountryFilters">
-              <button class="sbtn active" data-cc-pays="all">Tous (<span id="cc-cnt-all">—</span>)</button>
-              <button class="sbtn" data-cc-pays="FR"><img class="filter-flag" src="assets/flags/fr.png" alt="">France (<span id="cc-cnt-FR">—</span>)</button>
-              <button class="sbtn" data-cc-pays="ES"><img class="filter-flag" src="assets/flags/es.png" alt="">Espagne (<span id="cc-cnt-ES">—</span>)</button>
-              <button class="sbtn" data-cc-pays="BR"><img class="filter-flag" src="assets/flags/br.png" alt="">Brésil (<span id="cc-cnt-BR">—</span>)</button>
+              <button class="sbtn active" data-cc-pays="all"><span data-i18n="common.all">Tous</span> (<span id="cc-cnt-all">—</span>)</button>
+              <button class="sbtn" data-cc-pays="FR"><img class="filter-flag" src="assets/flags/fr.png" alt=""><span data-i18n="geo.france">France</span> (<span id="cc-cnt-FR">—</span>)</button>
+              <button class="sbtn" data-cc-pays="ES"><img class="filter-flag" src="assets/flags/es.png" alt=""><span data-i18n="geo.spain">Espagne</span> (<span id="cc-cnt-ES">—</span>)</button>
+              <button class="sbtn" data-cc-pays="BR"><img class="filter-flag" src="assets/flags/br.png" alt=""><span data-i18n="geo.brazil">Brésil</span> (<span id="cc-cnt-BR">—</span>)</button>
             </div>
             <div class="sgrp" style="margin-left:8px">
-              <button class="sbtn active" data-cc-sort="recent">Récents ↓</button>
-              <button class="sbtn" data-cc-sort="share">Parts marché</button>
+              <button class="sbtn active" data-cc-sort="recent" data-i18n="sort.recentDown">Récents ↓</button>
+              <button class="sbtn" data-cc-sort="share" data-i18n="sort.marketShare">Parts marché</button>
               <button class="sbtn" data-cc-sort="name">A → Z</button>
             </div>
           </div>
@@ -717,7 +746,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
         </div>
         <div id="cc-empty" class="comp-empty" style="display:none">
           <div class="ico">🏪</div>
-          <p>Aucune enseigne ne correspond aux filtres actifs.</p>
+          <p data-i18n="competitive.empty">Aucune enseigne ne correspond aux filtres actifs.</p>
         </div>
 
       </div>
@@ -736,59 +765,59 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
     <h2 class="dptitle" id="dpTitle">—</h2>
     <div class="dptitlefr" id="dpTitleFR" style="display:none">—</div>
     <div class="dpmeta" id="dpMeta"></div>
-    <div class="dp-description-head"><div class="dpsection-label" id="dpDescLabel">Description de la source</div><div class="dp-description-tools"><button class="dp-comment-action" id="dpDescEdit" type="button" title="Modifier la description saisie" aria-label="Modifier la description saisie" style="display:none"><i class="rv-fi rv-comment-edit" aria-hidden="true"></i></button></div></div>
+    <div class="dp-description-head"><div class="dpsection-label" id="dpDescLabel">Description de la source</div><div class="dp-description-tools"><button class="dp-comment-action" id="dpDescEdit" type="button" title="Modifier la description saisie" aria-label="Modifier la description saisie" style="display:none" data-i18n-title="details.editDescription" data-i18n-aria-label="details.editDescription"><i class="rv-fi rv-comment-edit" aria-hidden="true"></i></button></div></div>
     <div class="dpdesc" id="dpManualDesc">—</div>
     <div class="dpdfr" id="dpDescFR" style="display:none">—</div>
     <div class="dp-description-editor" id="dpDescEditor" hidden>
       <textarea class="dpcomment-input" id="dpDescInput" rows="5" maxlength="3000" aria-label="Description de l'article"></textarea>
-      <div class="dp-description-actions"><button class="sbtn" id="dpDescCancel" type="button">Annuler</button><button class="sbtn active" id="dpDescSave" type="button">Enregistrer</button></div>
+      <div class="dp-description-actions"><button class="sbtn" id="dpDescCancel" type="button" data-i18n="common.cancel">Annuler</button><button class="sbtn active" id="dpDescSave" type="button" data-i18n="common.save">Enregistrer</button></div>
     </div>
-    <div class="dp-description-head dp-ai-head"><div class="dpsection-label">Résumé par IA</div><div class="dp-description-tools"><button class="sbtn dp-ai-generate" id="dpAiGenerate" type="button"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer par IA</span></button><button class="dp-comment-action" id="dpAiEdit" type="button" title="Modifier le résumé IA" aria-label="Modifier le résumé IA" style="display:none"><i class="rv-fi rv-ai" aria-hidden="true"></i></button></div></div>
+    <div class="dp-description-head dp-ai-head"><div class="dpsection-label" data-i18n="ai.title">Résumé par IA</div><div class="dp-description-tools"><label class="dp-ai-language"><span data-i18n="ai.language">Langue</span><select id="dpAiLanguage" aria-label="Langue du résumé IA" data-i18n-aria-label="ai.languageLabel"><option value="fr">Français</option><option value="en">English</option></select></label><button class="sbtn dp-ai-generate" id="dpAiGenerate" type="button"><i class="rv-fi rv-ai" aria-hidden="true"></i><span data-i18n="ai.generate">Générer par IA</span></button><button class="dp-comment-action" id="dpAiEdit" type="button" title="Modifier le résumé IA" aria-label="Modifier le résumé IA" style="display:none" data-i18n-title="ai.edit" data-i18n-aria-label="ai.edit"><i class="rv-fi rv-ai" aria-hidden="true"></i></button></div></div>
     <div class="dpdesc" id="dpDesc">—</div>
     <div class="dp-ai-meta" id="dpAiMeta"></div>
     <div class="dp-ai-editor" id="dpAiEditor" hidden>
       <div class="dp-ai-fields">
-        <label class="dp-ai-field">Point 1<textarea class="dpcomment-input" data-ai-bullet="0" rows="2" maxlength="600"></textarea></label>
-        <label class="dp-ai-field">Point 2<textarea class="dpcomment-input" data-ai-bullet="1" rows="2" maxlength="600"></textarea></label>
-        <label class="dp-ai-field">Point 3<textarea class="dpcomment-input" data-ai-bullet="2" rows="2" maxlength="600"></textarea></label>
-        <label class="dp-ai-field">Chiffres clés<textarea class="dpcomment-input" data-ai-bullet="3" rows="2" maxlength="600"></textarea></label>
+        <label class="dp-ai-field"><span data-i18n="ai.point1">Point 1</span><textarea class="dpcomment-input" data-ai-bullet="0" rows="2" maxlength="600"></textarea></label>
+        <label class="dp-ai-field"><span data-i18n="ai.point2">Point 2</span><textarea class="dpcomment-input" data-ai-bullet="1" rows="2" maxlength="600"></textarea></label>
+        <label class="dp-ai-field"><span data-i18n="ai.point3">Point 3</span><textarea class="dpcomment-input" data-ai-bullet="2" rows="2" maxlength="600"></textarea></label>
+        <label class="dp-ai-field"><span data-i18n="ai.keyFigures">Chiffres clés</span><textarea class="dpcomment-input" data-ai-bullet="3" rows="2" maxlength="600"></textarea></label>
       </div>
-      <div class="dp-description-actions"><button class="sbtn" id="dpAiEditCancel" type="button">Annuler</button><button class="sbtn active" id="dpAiEditSave" type="button">Enregistrer</button></div>
+      <div class="dp-description-actions"><button class="sbtn" id="dpAiEditCancel" type="button" data-i18n="common.cancel">Annuler</button><button class="sbtn active" id="dpAiEditSave" type="button" data-i18n="common.save">Enregistrer</button></div>
     </div>
     <section class="dp-shared-section" id="dpClassification">
-      <div class="dpsection-label">Catégorie de risques - Univers de risques Carrefour</div>
+      <div class="dpsection-label" data-i18n="details.riskCategory">Catégorie de risques - Univers de risques Carrefour</div>
       <div class="dp-class-grid">
-        <label>Classement<select class="dpti" id="dpCatSelect"></select></label>
+        <label><span data-i18n="details.classification">Classement</span><select class="dpti" id="dpCatSelect"></select></label>
       </div>
       <div class="dp-shared-actions">
-        <button class="sbtn active" id="dpClassSave">Enregistrer</button>
+        <button class="sbtn active" id="dpClassSave" data-i18n="common.save">Enregistrer</button>
       </div>
       <div class="dp-shared-meta" id="dpClassMeta"></div>
     </section>
     <section class="dpsc" id="dpEngagement">
-      <div class="dpsc-head"><div class="dpscttl">Recommandation de lecture</div><span class="dpchip recommendation" id="dpChip">À lire</span></div>
+      <div class="dpsc-head"><div class="dpscttl" data-i18n="recommendation.title">Recommandation de lecture</div><span class="dpchip recommendation" id="dpChip">À lire</span></div>
       <div class="dp-engagement-grid">
-        <label>Recommandation<select class="dpti" id="dpRecommendation"></select></label>
-        <label class="archive-option"><input type="checkbox" id="dpArchived"><span>Archiver cet article</span></label>
+        <label><span data-i18n="recommendation.label">Recommandation</span><select class="dpti" id="dpRecommendation"></select></label>
+        <label class="archive-option"><input type="checkbox" id="dpArchived"><span data-i18n="articles.archiveThis">Archiver cet article</span></label>
       </div>
       <div class="dp-shared-actions">
-        <button class="sbtn active" id="dpEngagementSave">Enregistrer</button>
-        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false" title="J’aime cet article"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><span id="dpVoteCount">0</span><span>J’aime</span></button>
+        <button class="sbtn active" id="dpEngagementSave" data-i18n="common.save">Enregistrer</button>
+        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false" title="J’aime cet article"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><span id="dpVoteCount">0</span><span data-i18n="vote.like">J’aime</span></button>
       </div>
       <div class="dp-shared-meta" id="dpEngagementMeta"></div>
     </section>
     <section class="dp-shared-section">
-      <div class="dpsection-label">Commentaires</div>
+      <div class="dpsection-label" data-i18n="comments.title">Commentaires</div>
       <div class="dp-comments-list" id="dpSharedComments"><div class="dpcomment-empty">Aucun commentaire.</div></div>
       <div class="dp-comment-compose">
-        <textarea id="dpSharedCommentInput" class="dpcomment-input" placeholder="Ajouter un commentaire…" rows="2" maxlength="1200"></textarea>
-        <button class="sbtn active" id="dpSharedCommentAdd">Publier</button>
+        <textarea id="dpSharedCommentInput" class="dpcomment-input" placeholder="Ajouter un commentaire…" rows="2" maxlength="1200" data-i18n-placeholder="comments.placeholder"></textarea>
+        <button class="sbtn active" id="dpSharedCommentAdd" data-i18n="common.publish">Publier</button>
       </div>
     </section>
     <section class="dp-delete-zone" id="dpDeleteZone" style="display:none">
       <button class="dp-article-delete" id="dpArticleDelete" type="button">
         <img class="dp-delete-icon" src="assets/trash-flaticon.png" alt="" aria-hidden="true">
-        <span>Supprimer cet article</span>
+        <span data-i18n="articles.delete">Supprimer cet article</span>
       </button>
     </section>
   </div>
@@ -797,22 +826,23 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 <!-- AJOUTER UN ARTICLE -->
 <div class="ov" id="addArticleOv">
   <div class="dp" style="max-width:640px">
-    <div class="dptop"><span class="dpchip recommendation">Ajouter un article</span><button class="dpcl" id="addArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
+    <div class="dptop"><span class="dpchip recommendation" data-i18n="articles.add">Ajouter un article</span><button class="dpcl" id="addArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
     <div class="addart-form">
-      <label class="addart-lbl">URL de l'article *</label>
+      <label class="addart-lbl" data-i18n="form.articleUrl">URL de l'article *</label>
       <input type="url" id="addArtUrl" class="addart-input" placeholder="https://…" required>
-      <label class="addart-lbl">Titre *</label>
-      <input type="text" id="addArtTitle" class="addart-input" placeholder="Titre de l'article" required>
-      <label class="addart-lbl">Commentaire (optionnel)</label>
-      <textarea id="addArtComment" class="addart-input" rows="2" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…"></textarea>
-      <label class="addart-ai-option"><input type="checkbox" id="addArtAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer un résumé par IA après l'ajout</span></label>
-      <label class="addart-lbl">Catégorie de risques - Univers de risques Carrefour</label>
+      <label class="addart-lbl" data-i18n="form.title">Titre *</label>
+      <input type="text" id="addArtTitle" class="addart-input" placeholder="Titre de l'article" data-i18n-placeholder="form.titlePlaceholder" required>
+      <label class="addart-lbl" data-i18n="form.commentOptional">Commentaire (optionnel)</label>
+      <textarea id="addArtComment" class="addart-input" rows="2" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…" data-i18n-placeholder="form.commentPlaceholder"></textarea>
+      <label class="addart-ai-option"><input type="checkbox" id="addArtAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span data-i18n="ai.generateAfterAdd">Générer un résumé par IA après l'ajout</span></label>
+      <div class="addart-ai-language"><label class="addart-lbl" for="addArtAiLanguage" data-i18n="ai.summaryLanguage">Langue du résumé IA</label><select id="addArtAiLanguage" class="addart-input"><option value="fr">Français</option><option value="en">English</option></select></div>
+      <label class="addart-lbl" data-i18n="details.riskCategory">Catégorie de risques - Univers de risques Carrefour</label>
       <select id="addArtCat" class="addart-input"></select>
-      <label class="addart-lbl">Recommandation de lecture</label>
+      <label class="addart-lbl" data-i18n="recommendation.title">Recommandation de lecture</label>
       <select id="addArtRecommendation" class="addart-input"></select>
-      <label class="addart-ai-option"><input type="checkbox" id="addArtArchived"><span>Archiver dès l'ajout</span></label>
+      <label class="addart-ai-option"><input type="checkbox" id="addArtArchived"><span data-i18n="articles.archiveOnAdd">Archiver dès l'ajout</span></label>
       <div class="addart-err" id="addArtErr" style="display:none"></div>
-      <button class="sbtn active article-add-action" id="addArtSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter l'article</span></button>
+      <button class="sbtn active article-add-action" id="addArtSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.addAction">Ajouter l'article</span></button>
     </div>
   </div>
 </div>
@@ -820,23 +850,24 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 <!-- AJOUTER UNE ACTUALITE CONCURRENTIELLE -->
 <div class="ov" id="addCompArticleOv">
   <div class="dp" style="max-width:600px">
-    <div class="dptop"><span class="dpchip recommendation">Veille concurrentielle</span><button class="dpcl" id="addCompArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
-    <h2 class="dptitle" style="font-size:1.35rem;margin-bottom:18px">Ajouter une actualité d’enseigne</h2>
+    <div class="dptop"><span class="dpchip recommendation" data-i18n="tabs.competitive">Veille concurrentielle</span><button class="dpcl" id="addCompArticleCl" title="Fermer" aria-label="Fermer"><img src="assets/close-flaticon.png" alt="" aria-hidden="true"></button></div>
+    <h2 class="dptitle" style="font-size:1.35rem;margin-bottom:18px" data-i18n="competitive.addNews">Ajouter une actualité d’enseigne</h2>
     <div class="addart-form">
-      <label class="addart-lbl">Enseigne *</label>
+      <label class="addart-lbl" data-i18n="competitive.brandRequired">Enseigne *</label>
       <select id="addCompArticleCompetitor" class="addart-input"></select>
-      <label class="addart-lbl">URL de l'article *</label>
+      <label class="addart-lbl" data-i18n="form.articleUrl">URL de l'article *</label>
       <input type="url" id="addCompArticleUrl" class="addart-input" placeholder="https://…" required>
-      <label class="addart-lbl">Titre *</label>
-      <input type="text" id="addCompArticleTitle" class="addart-input" placeholder="Titre de l'article" required>
-      <label class="addart-lbl">Commentaire (optionnel)</label>
-      <textarea id="addCompArticleComment" class="addart-input" rows="3" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…"></textarea>
-      <label class="addart-lbl">Recommandation de lecture</label>
+      <label class="addart-lbl" data-i18n="form.title">Titre *</label>
+      <input type="text" id="addCompArticleTitle" class="addart-input" placeholder="Titre de l'article" data-i18n-placeholder="form.titlePlaceholder" required>
+      <label class="addart-lbl" data-i18n="form.commentOptional">Commentaire (optionnel)</label>
+      <textarea id="addCompArticleComment" class="addart-input" rows="3" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…" data-i18n-placeholder="form.commentPlaceholder"></textarea>
+      <label class="addart-lbl" data-i18n="recommendation.title">Recommandation de lecture</label>
       <select id="addCompArticleRecommendation" class="addart-input"></select>
-      <label class="addart-ai-option"><input type="checkbox" id="addCompArticleArchived"><span>Archiver dès l'ajout</span></label>
-      <label class="addart-ai-option"><input type="checkbox" id="addCompArticleAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer un résumé par IA après l'ajout</span></label>
+      <label class="addart-ai-option"><input type="checkbox" id="addCompArticleArchived"><span data-i18n="articles.archiveOnAdd">Archiver dès l'ajout</span></label>
+      <label class="addart-ai-option"><input type="checkbox" id="addCompArticleAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span data-i18n="ai.generateAfterAdd">Générer un résumé par IA après l'ajout</span></label>
+      <div class="addart-ai-language"><label class="addart-lbl" for="addCompArticleAiLanguage" data-i18n="ai.summaryLanguage">Langue du résumé IA</label><select id="addCompArticleAiLanguage" class="addart-input"><option value="fr">Français</option><option value="en">English</option></select></div>
       <div class="addart-err" id="addCompArticleErr" style="display:none"></div>
-      <button class="sbtn active article-add-action" id="addCompArticleSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter l'article</span></button>
+      <button class="sbtn active article-add-action" id="addCompArticleSubmit" style="margin-top:10px;width:100%"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.addAction">Ajouter l'article</span></button>
     </div>
   </div>
 </div>
@@ -859,23 +890,23 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       </div>
     </div>
     <div class="cp-section">
-      <div class="cp-section-lbl">Fiche d'identité</div>
+      <div class="cp-section-lbl" data-i18n="competitive.identity">Fiche d'identité</div>
       <div id="compFacts" class="comp-facts"></div>
     </div>
     <div class="cp-section">
-      <div class="cp-section-lbl">Description</div>
+      <div class="cp-section-lbl" data-i18n="common.description">Description</div>
       <p id="compDesc" class="comp-desc">—</p>
     </div>
     <div class="cp-section" style="padding-bottom:0">
       <div class="cp-section-lbl">
-        Actualités <span id="compAlertCount" style="font-style:italic;opacity:.55;letter-spacing:0;text-transform:none;font-weight:400"></span>
+        <span data-i18n="competitive.news">Actualités</span> <span id="compAlertCount" style="font-style:italic;opacity:.55;letter-spacing:0;text-transform:none;font-weight:400"></span>
       </div>
-      <button class="sbtn article-add-action" id="btnAddCompFromPanel" style="margin-bottom:10px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter à cette enseigne</span></button>
+      <button class="sbtn article-add-action" id="btnAddCompFromPanel" style="margin-bottom:10px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="competitive.addToBrand">Ajouter à cette enseigne</span></button>
       <div id="compAlertsList" class="cp-alerts-list"></div>
     </div>
     <div class="cp-footer">
-      <div class="cp-footer-label">Source flux</div>
-      <span id="compFooterText">Google News / agrégation multi-sources presse spécialisée</span>
+      <div class="cp-footer-label" data-i18n="competitive.feedSource">Source flux</div>
+      <span id="compFooterText" data-i18n="competitive.feedDescription">Google News / agrégation multi-sources presse spécialisée</span>
     </div>
   </div>
 </div>
@@ -886,6 +917,111 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 <script>
 'use strict';
 
+const I18N = {
+  fr: {
+    'document.title':'Carrefour · Veille','home.title':'Revenir à la vue initiale','tabs.global':'Vue globale','tabs.competitive':'Veille concurrentielle',
+    'search.placeholder':'Rechercher dans les alertes…','search.label':'Rechercher dans les alertes','language.group':"Langue de l'interface",'team.label':'Équipe Argos',
+    'theme.title':'Mode nuit / jour','theme.label':'Basculer le mode nuit','refresh.title':'Rafraîchir les sources','filters.close':'Fermer les filtres','filters.button':'Filtres',
+    'sidebar.articles':'Articles','articles.added':'Articles ajoutés','articles.archived':'Articles archivés','sidebar.geography':'Géographie','geo.worldEu':'Monde / Union européenne',
+    'geo.france':'France','geo.spain':'Espagne','geo.brazil':'Brésil','geo.world':'Monde','sidebar.categories':'Catégories de risques - Univers de risques Carrefour',
+    'sidebar.footer':'<strong>Veille v14</strong> · univers de risques Carrefour<br>11 catégories A→K<br>66 sources globales · 18 flux concurrents · 1 flux Carrefour<br>4 langues · analyse automatisée',
+    'macro.worldState':'État du monde','macro.sources':'Institutions officielles · presse économique internationale','sort.liked':'Plus aimés','sort.recent':'Récents','sort.recentDown':'Récents ↓','sort.marketShare':'Parts marché',
+    'articles.add':'Ajouter un article','articles.addAction':"Ajouter l'article",'articles.archiveThis':'Archiver cet article','articles.archiveOnAdd':"Archiver dès l'ajout",'articles.delete':'Supprimer cet article',
+    'competitive.tracked':'Concurrents suivis','competitive.countries':'France · Espagne · Brésil','competitive.franceBrands':'Enseignes France','competitive.franceMarket':'marché français',
+    'competitive.spainBrands':'Enseignes Espagne','competitive.spainMarket':'marché espagnol','competitive.brazilBrands':'Enseignes Brésil','competitive.brazilMarket':'marché brésilien',
+    'competitive.articles':'Articles recensés','competitive.teamFeeds':"flux et ajouts de l’équipe",'competitive.title':'Veille concurrentielle · fiches enseigne','competitive.competitors':'Concurrents',
+    'competitive.empty':'Aucune enseigne ne correspond aux filtres actifs.','competitive.addNews':"Ajouter une actualité d’enseigne",'competitive.brandRequired':'Enseigne *',
+    'competitive.identity':"Fiche d'identité",'competitive.news':'Actualités','competitive.addToBrand':'Ajouter à cette enseigne','competitive.feedSource':'Source flux',
+    'competitive.feedDescription':'Google News / agrégation multi-sources presse spécialisée','common.all':'Tous','common.cancel':'Annuler','common.save':'Enregistrer','common.publish':'Publier','common.description':'Description',
+    'details.editDescription':'Modifier la description saisie','details.riskCategory':'Catégorie de risques - Univers de risques Carrefour','details.classification':'Classement',
+    'ai.title':'Résumé par IA','ai.language':'Langue','ai.languageLabel':'Langue du résumé IA','ai.generate':'Générer par IA','ai.generating':'Génération en cours…','ai.edit':'Modifier le résumé IA',
+    'ai.point1':'Point 1','ai.point2':'Point 2','ai.point3':'Point 3','ai.keyFigures':'Chiffres clés','ai.generateAfterAdd':"Générer un résumé par IA après l'ajout",'ai.summaryLanguage':'Langue du résumé IA',
+    'recommendation.title':'Recommandation de lecture','recommendation.label':'Recommandation','recommendation.standard':'À lire','recommendation.essential':'Incontournable',
+    'vote.like':"J’aime",'vote.add':"J’aime cet article",'vote.remove':"Retirer votre J’aime",'comments.title':'Commentaires','comments.placeholder':'Ajouter un commentaire…',
+    'form.articleUrl':"URL de l'article *",'form.title':'Titre *','form.titlePlaceholder':"Titre de l'article",'form.commentOptional':'Commentaire (optionnel)','form.commentPlaceholder':"Ajouter un commentaire pour l'équipe…",
+    'categories.all':'Toutes les catégories','filters.active':'Filtres actifs','filters.noneCategory':'Aucune catégorie sélectionnée','filters.allGeographies':'Toutes les géographies',
+    'feed.title':'Veille','feed.empty':'Aucun article pour ce filtre.','articles.one':'article','articles.many':'articles','archive.badge':'Archivé','archive.by':'Archivé par','article.addedBadge':'Ajouté',
+    'date.now':"À l'instant",'date.minutes':'Il y a {count} min','date.hours':'Il y a {count} h','sync.at':'Synchro {time}',
+    'competitive.modeCarrefour':'Google News, communication officielle et sources de la Vue globale.','competitive.modeBrands':'Cliquez sur une enseigne pour voir le détail.',
+    'competitive.noNews':'Aucune actualité récente','competitive.noRecent':'Pas d’actualité récente.','competitive.open':'Ouvrir la fiche détaillée →','competitive.teamAdd':'ajout équipe',
+    'competitive.scope':'Périmètre','competitive.coverage':'Couverture','competitive.revenue':"Chiffre d'affaires",'competitive.marketShare':'Parts de marché','competitive.stores':'Magasins',
+    'competitive.founded':'Fondation','competitive.hq':'Siège','competitive.listed':'Coté en bourse','competitive.officialSite':'Site officiel','competitive.sources':'Sources',
+    'competitive.yes':'Oui','competitive.no':'Non','competitive.groupWatch':'Veille du Groupe Carrefour','competitive.directFr':'Concurrent direct France','competitive.directEs':'Concurrent direct Espagne','competitive.directBr':'Concurrent direct Brésil',
+    'competitive.read':'Lire l’article ↗','competitive.delete':'Supprimer','competitive.teamAddition':"Ajout de l’équipe",'details.readArticle':"Lire l'article ↗",'details.sourceDescription':'Description de la source',
+    'details.addedDescription':'Description ajoutée','details.noAddedDescription':"Aucune description n’a été ajoutée à cet article.",'details.noSourceDescription':'La source ne fournit pas de description exploitable.',
+    'ai.none':'Aucun résumé IA généré.','ai.searching':'Recherche du résumé partagé…','comments.none':'Aucun commentaire.'
+  },
+  en: {
+    'document.title':'Carrefour · Watch','home.title':'Return to the initial view','tabs.global':'Overview','tabs.competitive':'Competitive intelligence',
+    'search.placeholder':'Search alerts…','search.label':'Search alerts','language.group':'Interface language','team.label':'Argos team',
+    'theme.title':'Dark / light mode','theme.label':'Toggle dark mode','refresh.title':'Refresh sources','filters.close':'Close filters','filters.button':'Filters',
+    'sidebar.articles':'Articles','articles.added':'Added articles','articles.archived':'Archived articles','sidebar.geography':'Geography','geo.worldEu':'World / European Union',
+    'geo.france':'France','geo.spain':'Spain','geo.brazil':'Brazil','geo.world':'World','sidebar.categories':'Risk categories - Carrefour risk universe',
+    'sidebar.footer':'<strong>Watch v14</strong> · Carrefour risk universe<br>11 categories A→K<br>66 global sources · 18 competitor feeds · 1 Carrefour feed<br>4 languages · automated analysis',
+    'macro.worldState':'State of the world','macro.sources':'Official institutions · international business press','sort.liked':'Most liked','sort.recent':'Recent','sort.recentDown':'Recent ↓','sort.marketShare':'Market share',
+    'articles.add':'Add an article','articles.addAction':'Add article','articles.archiveThis':'Archive this article','articles.archiveOnAdd':'Archive on creation','articles.delete':'Delete this article',
+    'competitive.tracked':'Tracked competitors','competitive.countries':'France · Spain · Brazil','competitive.franceBrands':'French retailers','competitive.franceMarket':'French market',
+    'competitive.spainBrands':'Spanish retailers','competitive.spainMarket':'Spanish market','competitive.brazilBrands':'Brazilian retailers','competitive.brazilMarket':'Brazilian market',
+    'competitive.articles':'Indexed articles','competitive.teamFeeds':'feeds and team additions','competitive.title':'Competitive intelligence · retailer profiles','competitive.competitors':'Competitors',
+    'competitive.empty':'No retailer matches the active filters.','competitive.addNews':'Add retailer news','competitive.brandRequired':'Retailer *',
+    'competitive.identity':'Company profile','competitive.news':'News','competitive.addToBrand':'Add to this retailer','competitive.feedSource':'Feed source',
+    'competitive.feedDescription':'Google News / specialist press multi-source aggregation','common.all':'All','common.cancel':'Cancel','common.save':'Save','common.publish':'Publish','common.description':'Description',
+    'details.editDescription':'Edit the entered description','details.riskCategory':'Risk category - Carrefour risk universe','details.classification':'Classification',
+    'ai.title':'AI summary','ai.language':'Language','ai.languageLabel':'AI summary language','ai.generate':'Generate with AI','ai.generating':'Generating…','ai.edit':'Edit AI summary',
+    'ai.point1':'Point 1','ai.point2':'Point 2','ai.point3':'Point 3','ai.keyFigures':'Key figures','ai.generateAfterAdd':'Generate an AI summary after adding','ai.summaryLanguage':'AI summary language',
+    'recommendation.title':'Reading recommendation','recommendation.label':'Recommendation','recommendation.standard':'Read','recommendation.essential':'Essential',
+    'vote.like':'Like','vote.add':'Like this article','vote.remove':'Remove your like','comments.title':'Comments','comments.placeholder':'Add a comment…',
+    'form.articleUrl':'Article URL *','form.title':'Title *','form.titlePlaceholder':'Article title','form.commentOptional':'Comment (optional)','form.commentPlaceholder':'Add a comment for the team…',
+    'categories.all':'All categories','filters.active':'Active filters','filters.noneCategory':'No category selected','filters.allGeographies':'All geographies',
+    'feed.title':'Watch','feed.empty':'No articles match this filter.','articles.one':'article','articles.many':'articles','archive.badge':'Archived','archive.by':'Archived by','article.addedBadge':'Added',
+    'date.now':'Just now','date.minutes':'{count} min ago','date.hours':'{count} hr ago','sync.at':'Synced {time}',
+    'competitive.modeCarrefour':'Google News, official communications and Overview sources.','competitive.modeBrands':'Select a retailer to view details.',
+    'competitive.noNews':'No recent news','competitive.noRecent':'No recent news.','competitive.open':'Open detailed profile →','competitive.teamAdd':'team addition',
+    'competitive.scope':'Scope','competitive.coverage':'Coverage','competitive.revenue':'Revenue','competitive.marketShare':'Market share','competitive.stores':'Stores',
+    'competitive.founded':'Founded','competitive.hq':'Headquarters','competitive.listed':'Publicly listed','competitive.officialSite':'Official website','competitive.sources':'Sources',
+    'competitive.yes':'Yes','competitive.no':'No','competitive.groupWatch':'Carrefour Group watch','competitive.directFr':'Direct competitor in France','competitive.directEs':'Direct competitor in Spain','competitive.directBr':'Direct competitor in Brazil',
+    'competitive.read':'Read article ↗','competitive.delete':'Delete','competitive.teamAddition':'Team addition','details.readArticle':'Read article ↗','details.sourceDescription':'Source description',
+    'details.addedDescription':'Added description','details.noAddedDescription':'No description was added to this article.','details.noSourceDescription':'The source does not provide a usable description.',
+    'ai.none':'No AI summary generated.','ai.searching':'Looking for a shared summary…','comments.none':'No comments.'
+  }
+};
+let UI_LANG='fr';
+function t(key,variables={}){
+  const template=I18N[UI_LANG]?.[key]??I18N.fr[key]??key;
+  return Object.entries(variables).reduce((value,[name,replacement])=>value.replaceAll(`{${name}}`,String(replacement)),template);
+}
+function categoryText(code){const category=RISK_CATEGORIES[code];return UI_LANG==='en'?(category?.labelEn||category?.label):category?.label||'';}
+function applyStaticI18n(){
+  document.documentElement.lang=UI_LANG;
+  document.title=t('document.title');
+  document.querySelectorAll('[data-i18n]').forEach(node=>{node.textContent=t(node.dataset.i18n);});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(node=>{node.placeholder=t(node.dataset.i18nPlaceholder);});
+  document.querySelectorAll('[data-i18n-title]').forEach(node=>{node.title=t(node.dataset.i18nTitle);});
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(node=>{node.setAttribute('aria-label',t(node.dataset.i18nAriaLabel));});
+  const footer=$('sidebarFootText');if(footer)footer.innerHTML=t('sidebar.footer');
+  document.querySelectorAll('[data-ui-lang]').forEach(button=>{const active=button.dataset.uiLang===UI_LANG;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
+}
+function refreshCategoryNavLanguage(){
+  const all=document.querySelector('.nav-cat-all .nlbl');if(all)all.textContent=t('categories.all');
+  document.querySelectorAll('.nav-cat[data-code]:not([data-code="all"])').forEach(node=>{const code=node.dataset.code;const label=node.querySelector('.nlbl');if(label)label.textContent=`${code} · ${categoryText(code)}`;});
+}
+function setInterfaceLanguage(language){
+  UI_LANG=language==='en'?'en':'fr';
+  applyStaticI18n();
+  refreshCategoryNavLanguage();
+  if(typeof ST!=='undefined'){
+    updateFilterUI();
+    applyFilter({preservePage:true});
+    const addCategory=$('addArtCat');
+    if(addCategory){const selected=addCategory.value;addCategory.innerHTML=Object.keys(RISK_CATEGORIES).map(code=>`<option value="${code}">${code} · ${esc(categoryText(code))}</option>`).join('');if(selected)addCategory.value=selected;}
+    if($('addArtRecommendation')?.options.length)fillRecommendationSelect('addArtRecommendation',recommendationOptions(),$('addArtRecommendation').value||'standard');
+    if($('addCompArticleRecommendation')?.options.length)fillRecommendationSelect('addCompArticleRecommendation',recommendationOptions(),$('addCompArticleRecommendation').value||'standard');
+    if($('viewConcurrence')?.classList.contains('active'))renderConcurrence();
+    if($('compPanelOverlay')?.classList.contains('open')&&CC.openCompId)openCompPanel(CC.openCompId);
+    if($('ov')?.classList.contains('open')&&curItem)openDetail(curItem);
+  }
+}
+
 /* =========================================
    RÉFÉRENTIEL OFFICIEL CARREFOUR
    ─────────────────────────────────────────
@@ -893,17 +1029,17 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
    11 catégories de risques (A→K), qui constituent le seul niveau présenté.
    ========================================= */
 const RISK_CATEGORIES = {
-  A:{label:'Environnement des affaires',short:'Environnement des affaires',ico:'rv-cat-a',color:'#2563EB'},
-  B:{label:'Lois & réglementations',short:'Lois & réglementations',ico:'rv-cat-b',color:'#7C3AED'},
-  C:{label:'Stratégie & organisation',short:'Stratégie & organisation',ico:'rv-cat-c',color:'#0891B2'},
-  D:{label:'Modèle commercial & expérience clients',short:'Modèle commercial & expérience clients',ico:'rv-cat-d',color:'#0D9488'},
-  E:{label:'Maîtrise des actifs et de l\'expansion immobiliers',short:'Maîtrise des actifs et de l\'expansion immobiliers',ico:'rv-cat-e',color:'#65A30D'},
-  F:{label:'Maîtrise de la chaîne d\'approvisionnement',short:'Maîtrise de la chaîne d\'approvisionnement',ico:'rv-cat-f',color:'#CA8A04'},
-  G:{label:'Qualité, conformité & sécurité des produits',short:'Qualité, conformité & sécurité des produits',ico:'rv-cat-g',color:'#EA580C'},
-  H:{label:'Gestion des SI',short:'Gestion des SI',ico:'rv-cat-h',color:'#DC2626'},
-  I:{label:'Sécurité des personnes, des produits & des propriétés',short:'Sécurité des personnes, des produits & des propriétés',ico:'rv-cat-i',color:'#BE185D'},
-  J:{label:'Gestion des Ressources Humaines',short:'Gestion des Ressources Humaines',ico:'rv-cat-j',color:'#9333EA'},
-  K:{label:'Finance',short:'Finance',ico:'rv-cat-k',color:'#1E40AF'},
+  A:{label:'Environnement des affaires',labelEn:'Business environment',short:'Environnement des affaires',icon:'assets/risk-categories/A.png',color:'#2563EB'},
+  B:{label:'Lois & réglementations',labelEn:'Laws & regulations',short:'Lois & réglementations',icon:'assets/risk-categories/B.png',color:'#7C3AED'},
+  C:{label:'Stratégie & organisation',labelEn:'Strategy & organisation',short:'Stratégie & organisation',icon:'assets/risk-categories/C.png',color:'#0891B2'},
+  D:{label:'Modèle commercial & expérience clients',labelEn:'Business model & customer experience',short:'Modèle commercial & expérience clients',icon:'assets/risk-categories/D.png',color:'#0D9488'},
+  E:{label:'Maîtrise des actifs et de l\'expansion immobiliers',labelEn:'Asset & property expansion management',short:'Maîtrise des actifs et de l\'expansion immobiliers',icon:'assets/risk-categories/E.png',color:'#65A30D'},
+  F:{label:'Maîtrise de la chaîne d\'approvisionnement',labelEn:'Supply chain management',short:'Maîtrise de la chaîne d\'approvisionnement',icon:'assets/risk-categories/F.png',color:'#CA8A04'},
+  G:{label:'Qualité, conformité & sécurité des produits',labelEn:'Product quality, compliance & safety',short:'Qualité, conformité & sécurité des produits',icon:'assets/risk-categories/G.png',color:'#EA580C'},
+  H:{label:'Gestion des SI',labelEn:'Information systems management',short:'Gestion des SI',icon:'assets/risk-categories/H.png',color:'#DC2626'},
+  I:{label:'Sécurité des personnes, des produits & des propriétés',labelEn:'People, product & property safety',short:'Sécurité des personnes, des produits & des propriétés',icon:'assets/risk-categories/I.png',color:'#BE185D'},
+  J:{label:'Gestion des Ressources Humaines',labelEn:'Human resources management',short:'Gestion des Ressources Humaines',icon:'assets/risk-categories/J.png',color:'#9333EA'},
+  K:{label:'Finance',labelEn:'Finance',short:'Finance',icon:'assets/risk-categories/K.png',color:'#1E40AF'},
 };
 
 const RISK_REGISTRY = [
@@ -1219,6 +1355,8 @@ async function bootstrapAuth() {
    ========================================= */
 function switchView(view){
   const selected=['concurrence','risks'].includes(view)?view:'risks';
+  document.body.classList.toggle('view-concurrence',selected==='concurrence');
+  if(selected==='concurrence')setMobileFiltersOpen(false);
   document.querySelectorAll('.view-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.view===selected));
   document.querySelectorAll('.view-content').forEach(node=>node.classList.remove('active'));
   const viewMap={concurrence:'viewConcurrence',risks:'viewRisks'};
@@ -1446,11 +1584,12 @@ function canonicalUrlKey(url){
 function corroborationHtml(it){
   if (!it.corroboration || it.corroboration < 2) return '';
   const by = Array.isArray(it.corroboratedBy) ? it.corroboratedBy.join(', ') : '';
-  return `<span class="ccorrob" title="Repris par : ${esc(by)}">🔗 recoupé ×${it.corroboration}</span>`;
+  return `<span class="ccorrob" title="${esc(UI_LANG==='en'?'Covered by':'Repris par')} : ${esc(by)}">🔗 ${esc(UI_LANG==='en'?'corroborated':'recoupé')} ×${it.corroboration}</span>`;
 }
-function relDate(d){if(!(d instanceof Date)||isNaN(d))return'—';const m=Math.floor((Date.now()-d)/60000);if(m < -5)return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'});if(m<2)return"À l'instant";if(m<60)return`Il y a ${m} min`;if(m<1440)return`Il y a ${Math.floor(m/60)} h`;return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'});}
-function publicationDate(d){if(!(d instanceof Date)||isNaN(d))return'—';return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});}
-function fullDate(d){if(!(d instanceof Date)||isNaN(d))return'—';return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function dateLocale(){return UI_LANG==='en'?'en-GB':'fr-FR';}
+function relDate(d){if(!(d instanceof Date)||isNaN(d))return'—';const m=Math.floor((Date.now()-d)/60000);if(m < -5)return d.toLocaleDateString(dateLocale(),{day:'2-digit',month:'short',year:'numeric'});if(m<2)return t('date.now');if(m<60)return t('date.minutes',{count:m});if(m<1440)return t('date.hours',{count:Math.floor(m/60)});return d.toLocaleDateString(dateLocale(),{day:'2-digit',month:'short',year:'numeric'});}
+function publicationDate(d){if(!(d instanceof Date)||isNaN(d))return'—';return d.toLocaleDateString(dateLocale(),{day:'2-digit',month:'long',year:'numeric'});}
+function fullDate(d){if(!(d instanceof Date)||isNaN(d))return'—';return d.toLocaleDateString(dateLocale(),{weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});}
 function toast(msg,t='ok'){const tc=$('toasts');const el=document.createElement('div');el.className=`toast ${t}`;el.innerHTML=`<span>${t==='ok'?'✅':t==='warn'?'⚠️':'❌'}</span><span>${msg}</span>`;tc.appendChild(el);setTimeout(()=>el.remove(),5000);}
 
 /* Traduction ES/PT -> FR, sans clé API.
@@ -1541,12 +1680,13 @@ function queueFrenchTranslation(item, field, text){
 }
 
 function requestFrenchTranslation(item, includeDescription = false){
-  if (!item || !TRANSLATION_LANGS.has(item.lang)) return;
+  if (UI_LANG!=='fr'||!item || !TRANSLATION_LANGS.has(item.lang)) return;
   queueFrenchTranslation(item, 'titleFR', item.title);
   if (includeDescription && item.desc) queueFrenchTranslation(item, 'descFR', item.desc);
 }
 
 function translatedTitleHtml(item, primaryClass){
+  if(UI_LANG==='en')return `<div class="${primaryClass}">${esc(item.title)}</div>`;
   if (!TRANSLATION_LANGS.has(item.lang)) return `<div class="${primaryClass}">${esc(item.title)}</div>`;
   const primary = item.titleFR ? item.titleFR : item.translationFailed ? item.title : 'Traduction française en cours…';
   return `<div class="${primaryClass} ct-primary">${esc(primary)}</div><div class="ctfr">Original ${item.lang.toUpperCase()} · ${esc(item.title)}</div>`;
@@ -2307,6 +2447,9 @@ function matchesActiveFilters(item){
 }
 
 function sharedArticleKey(item){ return String(item?.id || item?.link || ''); }
+function displaySource(item){return item?.shared&&item?.addedBy?`${UI_LANG==='en'?'Added by':'Ajouté par'} ${item.addedBy}`:(item?.source||'');}
+function aiSummaryKey(articleId,language='fr'){return `${String(articleId||'')}|${language==='en'?'en':'fr'}`;}
+function selectedAiSummaryLanguage(){return $('dpAiLanguage')?.value==='en'?'en':'fr';}
 
 function articleListSignature(items){
   return (items || []).map(item => [
@@ -2343,11 +2486,8 @@ function applySharedClassification(item){
   }
 }
 
-const RECOMMENDATION_OPTIONS = [
-  ['standard','À lire'],
-  ['essential','Incontournable'],
-];
-const RECOMMENDATION_LABELS = Object.fromEntries(RECOMMENDATION_OPTIONS);
+function recommendationOptions(){return [['standard',t('recommendation.standard')],['essential',t('recommendation.essential')]];}
+function recommendationLabel(value){return t(value==='essential'?'recommendation.essential':'recommendation.standard');}
 const RECOMMENDATION_RANKS = {standard:1,essential:2};
 function articleEngagementSort(a,b){
   return (b.voteCount||0)-(a.voteCount||0)
@@ -2438,12 +2578,14 @@ function applySharedState(){
     else{
       curItem=current||curItem;
       const articleId=sharedArticleKey(curItem);
-      const remoteVersion=SHARED.aiSummaryVersions.get(articleId);
+      const language=selectedAiSummaryLanguage();
+      const summaryKey=aiSummaryKey(articleId,language);
+      const remoteVersion=SHARED.aiSummaryVersions.get(summaryKey);
       const localVersion=curItem.aiSummaryMeta?.updated_at||curItem.aiSummaryMeta?.generated_at||null;
       const expectedVersion=remoteVersion?.updated_at||remoteVersion?.generated_at||null;
       if(!remoteVersion){
-        SHARED.aiSummaries.delete(articleId);AI_SUMMARIES.cache.delete(articleId);applySharedAiSummary(curItem);
-      }else if(expectedVersion!==localVersion)void loadCachedArticleAiSummary(curItem);
+        SHARED.aiSummaries.delete(summaryKey);AI_SUMMARIES.cache.delete(summaryKey);applySharedAiSummary(curItem,language);
+      }else if(curItem.aiSummaryLanguage!==language||expectedVersion!==localVersion)void loadCachedArticleAiSummary(curItem,language);
       if($('dpDescEditor')?.hidden&&$('dpAiEditor')?.hidden)renderDetailDescription(curItem);
       renderClassificationEditor(curItem);
       renderEngagementEditor(curItem);
@@ -2475,10 +2617,10 @@ async function syncSharedData(initial=false){
       SHARED.overrides=new Map((data.overrides||[]).map(item=>[item.article_id,item]));
       SHARED.engagements=new Map((data.engagements||[]).map(item=>[item.article_id,item]));
       SHARED.votes=new Map((data.votes||[]).map(item=>[item.article_id,item]));
-      SHARED.aiSummaryVersions=new Map((data.aiSummaryVersions||[]).map(item=>[item.article_id,item]));
+      SHARED.aiSummaryVersions=new Map((data.aiSummaryVersions||[]).map(item=>[aiSummaryKey(item.article_id,item.language||'fr'),item]));
       SHARED.articles=data.articles||[];
       applySharedState();
-      set('upt',`Synchro ${new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`);
+      set('upt',t('sync.at',{time:new Date().toLocaleTimeString(dateLocale(),{hour:'2-digit',minute:'2-digit'})}));
     }
     SHARED.feedRevision=nextFeedRevision;
     if(feedChanged)scheduleCentralReload(nextFeedRevision);
@@ -2716,7 +2858,7 @@ function applyFilter({preservePage=false}={}){
       if (i.source.toLowerCase().includes(q)) return true;
       if ((i.desc||'').toLowerCase().includes(q)) return true;
       // recherche par catégorie (ex: "supply chain" matche cat F)
-      if (i.catCode && (RISK_CATEGORIES[i.catCode]?.label||'').toLowerCase().includes(q)) return true;
+      if (i.catCode && categoryText(i.catCode).toLowerCase().includes(q)) return true;
       return false;
     });
   }
@@ -2726,13 +2868,13 @@ function applyFilter({preservePage=false}={}){
   ST.filtered=items;
   const totalPages=Math.max(1,Math.ceil(items.length/ST.perPage));
   ST.page=preservePage?Math.min(Math.max(1,ST.page),totalPages):1;
-  set('resCnt',items.length?`${items.length} articles`:''); render();
+  set('resCnt',items.length?`${items.length} ${t(items.length===1?'articles.one':'articles.many')}`:''); render();
 }
 
 function render(){
   const feed=$('feed'),items=ST.filtered,total=items.length;
   const tp=Math.ceil(total/ST.perPage),start=(ST.page-1)*ST.perPage,page=items.slice(start,start+ST.perPage);
-  if(!total){feed.innerHTML='<div class="empty"><div class="ico">🔍</div><p>Aucun article pour ce filtre.</p></div>';$('pager').innerHTML='';return;}
+  if(!total){feed.innerHTML=`<div class="empty"><div class="ico">🔍</div><p>${esc(t('feed.empty'))}</p></div>`;$('pager').innerHTML='';return;}
   let html='';
   page.forEach((it,i)=>html+=rCard(it,start+i));
   feed.innerHTML=html;
@@ -2750,17 +2892,17 @@ function rCard(it,idx){
   // Badge catégorie officielle A→K (lettre + icône — libellé complet en infobulle)
   const catC = it.catCode && RISK_CATEGORIES[it.catCode];
   const catBadge = catC
-    ? `<span class="ccat" title="${esc(catC.label)}"><i class="rv-fi ${catC.ico}" aria-hidden="true"></i> ${esc(it.catCode)} · ${esc(catC.label)}</span>`
+    ? `<span class="ccat" title="${esc(categoryText(it.catCode))}"><img class="category-icon" src="${esc(catC.icon)}" alt="" aria-hidden="true">${esc(it.catCode)} · ${esc(categoryText(it.catCode))}</span>`
     : `<span class="ccat">${esc(it.label||'')}</span>`;
-  const customBadge = it.custom ? `<span class="ccorrob" title="Ajouté manuellement par ${esc(it.addedBy||'')}"><i class="rv-fi rv-added" aria-hidden="true"></i> Ajouté</span>` : '';
-  const recommendation=`<span class="recommendation-badge ${esc(it.recommendation||'standard')}">${esc(RECOMMENDATION_LABELS[it.recommendation]||'À lire')}</span>`;
-  const archiveBadge=it.archived?'<span class="archive-badge">Archivé</span>':'';
+  const customBadge = it.custom ? `<span class="ccorrob" title="${esc(t('article.addedBadge'))} · ${esc(it.addedBy||'')}"><i class="rv-fi rv-added" aria-hidden="true"></i> ${esc(t('article.addedBadge'))}</span>` : '';
+  const recommendation=`<span class="recommendation-badge ${esc(it.recommendation||'standard')}">${esc(recommendationLabel(it.recommendation))}</span>`;
+  const archiveBadge=it.archived?`<span class="archive-badge">${esc(t('archive.badge'))}</span>`:'';
   const archiveAttribution=it.archived&&it.archivedBy&&it.archivedAt
-    ? `<div class="archive-attribution">Archivé par <strong>${esc(it.archivedBy)}</strong> · <time datetime="${esc(it.archivedAt)}">${esc(fmtCommentDate(it.archivedAt))}</time></div>`
+    ? `<div class="archive-attribution">${esc(t('archive.by'))} <strong>${esc(it.archivedBy)}</strong> · <time datetime="${esc(it.archivedAt)}">${esc(fmtCommentDate(it.archivedAt))}</time></div>`
     : '';
   const summary = it.desc ? `<div class="cde">${esc(it.desc)}</div>` : '';
-  const voteLabel=it.votedByMe?'Retirer votre J’aime':'J’aime cet article';
-  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}${archiveAttribution}</div><div class="cdate">${relDate(it.date)}</div></div>`;
+  const voteLabel=it.votedByMe?t('vote.remove'):t('vote.add');
+  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(displaySource(it))}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}${archiveAttribution}</div><div class="cdate">${relDate(it.date)}</div></div>`;
 }
 
 function renderPager(cur,tot){
@@ -2768,7 +2910,7 @@ function renderPager(cur,tot){
   let h=cur>1?`<div class="pg" data-p="${cur-1}">‹</div>`:'';
   for(let i=Math.max(1,cur-2);i<=Math.min(tot,cur+2);i++) h+=`<div class="pg${i===cur?' active':''}" data-p="${i}">${i}</div>`;
   if(cur<tot) h+=`<div class="pg" data-p="${cur+1}">›</div>`;
-  h+=`<span class="pginfo">${ST.filtered.length} articles · p.${cur}/${tot}</span>`;
+  h+=`<span class="pginfo">${ST.filtered.length} ${esc(t(ST.filtered.length===1?'articles.one':'articles.many'))} · p.${cur}/${tot}</span>`;
   p.innerHTML=h;
   p.querySelectorAll('.pg').forEach(b=>b.addEventListener('click',()=>{ST.page=+b.dataset.p;render();window.scrollTo({top:0,behavior:'smooth'});}));
 }
@@ -2778,11 +2920,27 @@ function renderPager(cur,tot){
    ========================================= */
 let curItem=null;
 let detailReturnCompId=null;
-function countryLabel(code){return{FR:'France',ES:'Espagne',BR:'Brésil',MONDE:'Monde'}[code]||code||'Monde';}
+function countryLabel(code){return{FR:t('geo.france'),ES:t('geo.spain'),BR:t('geo.brazil'),MONDE:t('geo.world')}[code]||code||t('geo.world');}
+function localizedMetric(value){
+  const text=String(value||'');if(UI_LANG!=='en')return text;
+  return text
+    .replace(/Groupe suivi/gi,'Group watch')
+    .replace(/Présence multiformat/gi,'Multi-format presence')
+    .replace(/magasins France/gi,'stores in France')
+    .replace(/magasins/gi,'stores')
+    .replace(/réseau intégré/gi,'integrated network')
+    .replace(/estimation post-cessions/gi,'post-disposal estimate')
+    .replace(/août/gi,'Aug.').replace(/sept\./gi,'Sep.');
+}
+function localizedSegment(value){
+  const segment=String(value||'').split(' / ')[0];if(UI_LANG!=='en')return segment;
+  const translations={'Proximité urbaine':'Urban convenience','Super urbain premium':'Premium urban supermarket','Super (leader national)':'Supermarket (national leader)','Groupe Carrefour':'Carrefour Group'};
+  return translations[segment]||segment;
+}
 function fmtCommentDate(ts){
   const date=new Date(ts);
   if(isNaN(date))return '—';
-  return date.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  return date.toLocaleDateString(dateLocale(),{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
 const AI_SUMMARIES={cache:new Map(),pending:new Map(),loading:new Map()};
@@ -2815,80 +2973,91 @@ function aiSummaryBullets(record){
   }catch{return null;}
 }
 
-function applySharedAiSummary(item){
+function applySharedAiSummary(item,language=selectedAiSummaryLanguage()){
   if(!item)return;
   const articleId=sharedArticleKey(item);
-  const record=SHARED.aiSummaries.get(articleId);
+  const summaryKey=aiSummaryKey(articleId,language);
+  const record=SHARED.aiSummaries.get(summaryKey);
   const bullets=aiSummaryBullets(record);
   if(bullets){
     item.aiSummaryBullets=[...bullets];
     item.aiSummaryMeta=record;
+    item.aiSummaryLanguage=language;
     item.aiSummaryError='';
-    AI_SUMMARIES.cache.set(articleId,[...bullets]);
+    AI_SUMMARIES.cache.set(summaryKey,[...bullets]);
   }else if(!item.aiSummaryLoading){
     item.aiSummaryBullets=null;
     item.aiSummaryMeta=null;
-    AI_SUMMARIES.cache.delete(articleId);
+    item.aiSummaryLanguage=language;
+    AI_SUMMARIES.cache.delete(summaryKey);
   }
 }
 
-async function loadCachedArticleAiSummary(item){
+async function loadCachedArticleAiSummary(item,language=selectedAiSummaryLanguage()){
   if(!item)return null;
   const articleId=sharedArticleKey(item);
   if(!articleId)return null;
-  const known=SHARED.aiSummaries.get(articleId);
+  const summaryKey=aiSummaryKey(articleId,language);
+  const known=SHARED.aiSummaries.get(summaryKey);
   if(aiSummaryBullets(known)){
-    applySharedAiSummary(item);
+    applySharedAiSummary(item,language);
     if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(curItem);
     return item.aiSummaryBullets;
   }
+  item.aiSummaryLanguage=language;
+  item.aiSummaryBullets=null;
+  item.aiSummaryMeta=null;
   item.aiSummaryChecking=true;
   if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(curItem);
-  let pending=AI_SUMMARIES.loading.get(articleId);
+  let pending=AI_SUMMARIES.loading.get(summaryKey);
   if(!pending){
-    pending=apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`).then(data=>data.summary);
-    AI_SUMMARIES.loading.set(articleId,pending);
+    pending=apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary?lang=${language}`).then(data=>data.summary);
+    AI_SUMMARIES.loading.set(summaryKey,pending);
   }
   try{
     const record=await pending;
-    SHARED.aiSummaries.set(articleId,{...record,bullets_json:JSON.stringify(record.bullets)});
-    SHARED.aiSummaryVersions.set(articleId,{article_id:articleId,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
-    applySharedAiSummary(item);
+    const saved={...record,language,bullets_json:JSON.stringify(record.bullets)};
+    SHARED.aiSummaries.set(summaryKey,saved);
+    SHARED.aiSummaryVersions.set(summaryKey,{article_id:articleId,language,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
+    applySharedAiSummary(item,language);
   }catch(error){
     if(error.status===404){
-      SHARED.aiSummaries.delete(articleId);SHARED.aiSummaryVersions.delete(articleId);AI_SUMMARIES.cache.delete(articleId);
+      SHARED.aiSummaries.delete(summaryKey);SHARED.aiSummaryVersions.delete(summaryKey);AI_SUMMARIES.cache.delete(summaryKey);
       item.aiSummaryBullets=null;item.aiSummaryMeta=null;
     }else item.aiSummaryCheckError='Le résumé enregistré ne peut pas être chargé pour le moment.';
   }finally{
     item.aiSummaryChecking=false;
-    if(AI_SUMMARIES.loading.get(articleId)===pending)AI_SUMMARIES.loading.delete(articleId);
+    if(AI_SUMMARIES.loading.get(summaryKey)===pending)AI_SUMMARIES.loading.delete(summaryKey);
     if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(curItem);
   }
   return item.aiSummaryBullets||null;
 }
 
-async function requestArticleAiSummary(item){
+async function requestArticleAiSummary(item,language=selectedAiSummaryLanguage()){
   if(!item)return null;
   const articleId=sharedArticleKey(item);
+  const summaryKey=aiSummaryKey(articleId,language);
   if(!articleId||!item.link){
     item.aiSummaryError='Le lien de cet article ne permet pas de générer un résumé.';
     if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(item);
     return null;
   }
-  if(AI_SUMMARIES.cache.has(articleId)){
-    item.aiSummaryBullets=AI_SUMMARIES.cache.get(articleId);
+  if(AI_SUMMARIES.cache.has(summaryKey)){
+    item.aiSummaryBullets=AI_SUMMARIES.cache.get(summaryKey);
+    item.aiSummaryLanguage=language;
     item.aiSummaryLoading=false;
     item.aiSummaryError='';
     if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(item);
     return item.aiSummaryBullets;
   }
   item.aiSummaryLoading=true;
+  item.aiSummaryLanguage=language;
   item.aiSummaryError='';
   if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(item);
-  let pending=AI_SUMMARIES.pending.get(articleId);
+  let pending=AI_SUMMARIES.pending.get(summaryKey);
   if(!pending){
     pending=(async()=>{
-      const requestBody={url:item.link,title:item.title,...(!item.custom&&item.desc?{description:item.desc}:{})};
+      const requestBody={url:item.link,title:item.title,language,...(!item.custom&&item.desc?{description:item.desc}:{})};
       try{
         return await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{
           method:'POST',body:JSON.stringify(requestBody),signal:AbortSignal.timeout(90000),
@@ -2904,16 +3073,16 @@ async function requestArticleAiSummary(item){
       if(!Array.isArray(data.bullets)||data.bullets.length!==4)throw new Error('Le résumé reçu est incomplet.');
       const bullets=data.bullets.map(value=>String(value||'').trim()).filter(Boolean);
       if(bullets.length!==4)throw new Error('Le résumé reçu est incomplet.');
-      AI_SUMMARIES.cache.set(articleId,bullets);
+      AI_SUMMARIES.cache.set(summaryKey,bullets);
       const record={
-        article_id:articleId,bullets,bullets_json:JSON.stringify(bullets),source_url:item.link,
+        article_id:articleId,language,bullets,bullets_json:JSON.stringify(bullets),source_url:item.link,
         generated_at:data.generatedAt||new Date().toISOString(),updated_by:data.updatedBy||null,updated_at:data.updatedAt||null,
       };
-      SHARED.aiSummaries.set(articleId,record);
-      SHARED.aiSummaryVersions.set(articleId,{article_id:articleId,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
+      SHARED.aiSummaries.set(summaryKey,record);
+      SHARED.aiSummaryVersions.set(summaryKey,{article_id:articleId,language,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
       return record;
     });
-    AI_SUMMARIES.pending.set(articleId,pending);
+    AI_SUMMARIES.pending.set(summaryKey,pending);
   }
   try{
     const record=await pending;
@@ -2925,7 +3094,7 @@ async function requestArticleAiSummary(item){
     item.aiSummaryError=error.message||'Le résumé par IA est momentanément indisponible.';
   }finally{
     item.aiSummaryLoading=false;
-    if(AI_SUMMARIES.pending.get(articleId)===pending)AI_SUMMARIES.pending.delete(articleId);
+    if(AI_SUMMARIES.pending.get(summaryKey)===pending)AI_SUMMARIES.pending.delete(summaryKey);
     if(curItem&&sharedArticleKey(curItem)===articleId&&detailDescriptionEditorClosed())renderDetailDescription(curItem);
   }
   return item.aiSummaryBullets||null;
@@ -2934,20 +3103,21 @@ async function requestArticleAiSummary(item){
 function renderDetailDescription(item){
   if(!item)return;
   const owner=item.shared&&item.addedBy===SHARED.displayName;
-  const needsTranslation=TRANSLATION_LANGS.has(item.lang);
-  const summary=Array.isArray(item.aiSummaryBullets)&&item.aiSummaryBullets.length===4?item.aiSummaryBullets:null;
+  const language=selectedAiSummaryLanguage();
+  const needsTranslation=UI_LANG==='fr'&&TRANSLATION_LANGS.has(item.lang);
+  const summary=item.aiSummaryLanguage===language&&Array.isArray(item.aiSummaryBullets)&&item.aiSummaryBullets.length===4?item.aiSummaryBullets:null;
   $('dpAiEdit').style.display=summary?'grid':'none';
   $('dpDescEdit').style.display=owner?'grid':'none';
-  const knownSummary=SHARED.aiSummaryVersions.has(sharedArticleKey(item));
+  const knownSummary=SHARED.aiSummaryVersions.has(aiSummaryKey(sharedArticleKey(item),language));
   $('dpAiGenerate').style.display=(summary||item.aiSummaryChecking||knownSummary)?'none':'inline-flex';
   $('dpAiGenerate').disabled=!!item.aiSummaryLoading;
-  $('dpAiGenerate').querySelector('span').textContent=item.aiSummaryLoading?'Génération en cours…':'Générer par IA';
+  $('dpAiGenerate').querySelector('span').textContent=item.aiSummaryLoading?t('ai.generating'):t('ai.generate');
   $('dpDescEditor').hidden=true;
   $('dpAiEditor').hidden=true;
   $('dpManualDesc').hidden=false;
   $('dpDesc').hidden=false;
-  $('dpDescLabel').textContent=item.custom?'Description ajoutée':'Description de la source';
-  const emptyDescription=item.custom?"Aucune description n’a été ajoutée à cet article.":"La source ne fournit pas de description exploitable.";
+  $('dpDescLabel').textContent=item.custom?t('details.addedDescription'):t('details.sourceDescription');
+  const emptyDescription=item.custom?t('details.noAddedDescription'):t('details.noSourceDescription');
   const fallback=needsTranslation
     ? (item.descFR||(item.desc?'Traduction française en cours…':emptyDescription))
     : (item.desc||emptyDescription);
@@ -2956,15 +3126,17 @@ function renderDetailDescription(item){
   if(summary){
     $('dpDesc').innerHTML=`<ul class="dp-ai-summary">${summary.map(bullet=>`<li>${esc(bullet)}</li>`).join('')}</ul>`;
   }else if(item.aiSummaryLoading){
-    $('dpDesc').innerHTML='<div class="dp-ai-loading">Résumé par IA en cours…</div>';
+    $('dpDesc').innerHTML=`<div class="dp-ai-loading">${esc(t('ai.generating'))}</div>`;
   }else if(item.aiSummaryError){
     $('dpDesc').innerHTML=`<div class="dp-ai-error">${esc(item.aiSummaryError)}</div>`;
   }else{
-    $('dpDesc').textContent=item.aiSummaryChecking?'Recherche du résumé partagé…':'Aucun résumé IA généré.';
+    $('dpDesc').textContent=item.aiSummaryChecking?t('ai.searching'):t('ai.none');
   }
   const meta=item.aiSummaryMeta;
   $('dpAiMeta').textContent=summary
-    ? (meta?.updated_by?`Résumé IA corrigé par ${meta.updated_by} · ${fmtCommentDate(meta.updated_at)}`:`Résumé IA généré · ${fmtCommentDate(meta?.generated_at)}`)
+    ? (meta?.updated_by
+      ? `${UI_LANG==='en'?'AI summary edited by':'Résumé IA corrigé par'} ${meta.updated_by} · ${fmtCommentDate(meta.updated_at)}`
+      : `${UI_LANG==='en'?'AI summary generated':'Résumé IA généré'} · ${fmtCommentDate(meta?.generated_at)}`)
     : '';
   if(needsTranslation&&item.desc){$('dpDescFR').textContent=`Original ${item.lang.toUpperCase()} · ${item.desc}`;$('dpDescFR').style.display='block';}
   else $('dpDescFR').style.display='none';
@@ -2972,33 +3144,34 @@ function renderDetailDescription(item){
 
 function openDetail(it){
   curItem=it;
+  $('dpAiLanguage').value=UI_LANG==='en'?'en':'fr';
   detailReturnCompId=it.competitorId&&COMPETITORS_BY_ID[it.competitorId]?it.competitorId:null;
   $('dpBackToComp').style.display=detailReturnCompId?'inline-flex':'none';
   $('dpDeleteZone').style.display=it.shared?'block':'none';
   requestFrenchTranslation(it, true);
-  $('dpChip').textContent=RECOMMENDATION_LABELS[it.recommendation]||'À lire';
+  $('dpChip').textContent=recommendationLabel(it.recommendation);
   $('dpChip').className=`dpchip recommendation ${it.recommendation||'standard'}`;
-  const needsTranslation = TRANSLATION_LANGS.has(it.lang);
+  const needsTranslation = UI_LANG==='fr'&&TRANSLATION_LANGS.has(it.lang);
   $('dpTitle').textContent=needsTranslation ? (it.titleFR || (it.translationFailed ? it.title : 'Traduction française en cours…')) : it.title;
   if (needsTranslation) { $('dpTitleFR').textContent=`Original ${it.lang.toUpperCase()} · ${it.title}`; $('dpTitleFR').style.display='block'; }
   else $('dpTitleFR').style.display='none';
-  $('dpMeta').innerHTML=`<span class="dmi">${esc(it.source)}</span><span class="dmi">${fullDate(it.date)}</span><a href="${esc(it.link||'#')}" target="_blank" rel="noopener" class="dp-source-link">Lire l'article ↗</a><span class="dmi">${flag(it.pays)} ${esc(countryLabel(it.pays))}</span>${it.lang!=='fr'?`<span class="dmi">Original ${it.lang.toUpperCase()}</span>`:''}`;
+  $('dpMeta').innerHTML=`<span class="dmi">${esc(displaySource(it))}</span><span class="dmi">${fullDate(it.date)}</span><a href="${esc(it.link||'#')}" target="_blank" rel="noopener" class="dp-source-link">${esc(t('details.readArticle'))}</a><span class="dmi">${flag(it.pays)} ${esc(countryLabel(it.pays))}</span>${it.lang!=='fr'?`<span class="dmi">Original ${it.lang.toUpperCase()}</span>`:''}`;
   renderDetailDescription(it);
 
   renderClassificationEditor(it);
   renderEngagementEditor(it);
   renderSharedComments(it);
   $('ov').classList.add('open');
-  void loadCachedArticleAiSummary(it);
+  void loadCachedArticleAiSummary(it,selectedAiSummaryLanguage());
 }
 
 function renderClassificationEditor(item){
   if(!item)return;
   const catSelect=$('dpCatSelect');
-  catSelect.innerHTML=Object.entries(RISK_CATEGORIES).map(([code,cat])=>`<option value="${code}">${code} · ${esc(cat.label)}</option>`).join('');
+  catSelect.innerHTML=Object.keys(RISK_CATEGORIES).map(code=>`<option value="${code}">${code} · ${esc(categoryText(code))}</option>`).join('');
   catSelect.value=item.catCode||'A';
   const override=item.classificationOverride||SHARED.overrides.get(sharedArticleKey(item));
-  $('dpClassMeta').textContent=override?`Modifié par ${override.updated_by} · ${fmtCommentDate(override.updated_at)}`:'Classement automatique';
+  $('dpClassMeta').textContent=override?`${UI_LANG==='en'?'Edited by':'Modifié par'} ${override.updated_by} · ${fmtCommentDate(override.updated_at)}`:(UI_LANG==='en'?'Automatic classification':'Classement automatique');
 }
 
 $('dpClassSave').addEventListener('click',async()=>{
@@ -3031,20 +3204,20 @@ function articleSnapshot(item){
 
 function renderEngagementEditor(item){
   if(!item)return;
-  fillRecommendationSelect('dpRecommendation',RECOMMENDATION_OPTIONS,item.recommendation||'standard');
+  fillRecommendationSelect('dpRecommendation',recommendationOptions(),item.recommendation||'standard');
   $('dpArchived').checked=!!item.archived;
-  $('dpChip').textContent=RECOMMENDATION_LABELS[item.recommendation]||'À lire';
+  $('dpChip').textContent=recommendationLabel(item.recommendation);
   $('dpChip').className=`dpchip recommendation ${item.recommendation||'standard'}`;
   $('dpVoteCount').textContent=String(item.voteCount||0);
   $('dpVote').classList.toggle('active',!!item.votedByMe);
   $('dpVote').setAttribute('aria-pressed',String(!!item.votedByMe));
-  const voteLabel=item.votedByMe?'Retirer votre J’aime':'J’aime cet article';
+  const voteLabel=item.votedByMe?t('vote.remove'):t('vote.add');
   $('dpVote').setAttribute('aria-label',voteLabel);
   $('dpVote').title=voteLabel;
   const state=item.engagement||SHARED.engagements.get(sharedArticleKey(item));
   $('dpEngagementMeta').textContent=item.archived&&item.archivedBy&&item.archivedAt
-    ? `Archivé par ${item.archivedBy} · ${fmtCommentDate(item.archivedAt)}`
-    : state?.updated_by?`Mis à jour par ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:'Aucune qualification enregistrée';
+    ? `${t('archive.by')} ${item.archivedBy} · ${fmtCommentDate(item.archivedAt)}`
+    : state?.updated_by?`${UI_LANG==='en'?'Updated by':'Mis à jour par'} ${state.updated_by} · ${fmtCommentDate(state.updated_at)}`:(UI_LANG==='en'?'No saved qualification':'Aucune qualification enregistrée');
 }
 
 $('dpEngagementSave').addEventListener('click',async()=>{
@@ -3083,7 +3256,7 @@ function renderSharedComments(item){
     const date=`${fmtCommentDate(comment.updated_at||comment.created_at)}${comment.updated_at?' · modifié':''}`;
     const actions=own?`<span class="dp-comment-actions"><button class="dp-comment-action" data-comment-edit="${esc(comment.id)}" title="Modifier" aria-label="Modifier le commentaire"><i class="rv-fi rv-comment-edit" aria-hidden="true"></i></button><button class="dp-comment-action delete" data-comment-delete="${esc(comment.id)}" title="Supprimer" aria-label="Supprimer le commentaire"><i class="rv-fi rv-comment-delete" aria-hidden="true"></i></button></span>`:'';
     return `<div class="dp-shared-comment" data-comment-id="${esc(comment.id)}"><div class="dp-shared-comment-meta"><span class="dp-shared-comment-author">${esc(comment.author)}</span><span class="dp-shared-comment-meta-right"><span>${esc(date)}</span>${actions}</span></div><div class="dp-shared-comment-body">${esc(comment.body)}</div></div>`;
-  }).join(''):'<div class="dpcomment-empty">Aucun commentaire.</div>';
+  }).join(''):`<div class="dpcomment-empty">${esc(t('comments.none'))}</div>`;
   host.querySelectorAll('[data-comment-edit]').forEach(button=>button.addEventListener('click',()=>startSharedCommentEdit(item,button.dataset.commentEdit)));
   host.querySelectorAll('[data-comment-delete]').forEach(button=>button.addEventListener('click',()=>deleteSharedComment(item,button.dataset.commentDelete)));
   host.scrollTop=host.scrollHeight;
@@ -3107,10 +3280,17 @@ $('dpAiEdit').addEventListener('click',()=>{
 });
 $('dpDescCancel').addEventListener('click',()=>renderDetailDescription(curItem));
 $('dpAiEditCancel').addEventListener('click',()=>renderDetailDescription(curItem));
+$('dpAiLanguage').addEventListener('change',()=>{
+  if(!curItem)return;
+  const language=selectedAiSummaryLanguage();
+  applySharedAiSummary(curItem,language);
+  renderDetailDescription(curItem);
+  void loadCachedArticleAiSummary(curItem,language);
+});
 $('dpAiGenerate').addEventListener('click',async()=>{
   if(!curItem||curItem.aiSummaryLoading)return;
   const button=$('dpAiGenerate');button.disabled=true;
-  const bullets=await requestArticleAiSummary(curItem);
+  const bullets=await requestArticleAiSummary(curItem,selectedAiSummaryLanguage());
   toast(bullets?'Résumé IA généré.':(curItem.aiSummaryError||'Génération impossible.'),bullets?'ok':'warn');
   button.disabled=false;
 });
@@ -3119,14 +3299,17 @@ $('dpAiEditSave').addEventListener('click',async()=>{
   const bullets=[...document.querySelectorAll('[data-ai-bullet]')].map(field=>field.value.trim());
   if(bullets.some(value=>!value)){toast('Les quatre points du résumé sont obligatoires.','warn');return;}
   const articleId=sharedArticleKey(curItem);
+  const language=selectedAiSummaryLanguage();
+  const summaryKey=aiSummaryKey(articleId,language);
   const button=$('dpAiEditSave');button.disabled=true;
   try{
-    const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{method:'PUT',body:JSON.stringify({bullets})});
-    const record={...data.summary,bullets_json:JSON.stringify(data.summary.bullets)};
-    SHARED.aiSummaries.set(articleId,record);
-    SHARED.aiSummaryVersions.set(articleId,{article_id:articleId,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
-    AI_SUMMARIES.cache.set(articleId,[...data.summary.bullets]);
+    const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/ai-summary`,{method:'PUT',body:JSON.stringify({bullets,language})});
+    const record={...data.summary,language,bullets_json:JSON.stringify(data.summary.bullets)};
+    SHARED.aiSummaries.set(summaryKey,record);
+    SHARED.aiSummaryVersions.set(summaryKey,{article_id:articleId,language,generated_at:record.generated_at,updated_by:record.updated_by,updated_at:record.updated_at});
+    AI_SUMMARIES.cache.set(summaryKey,[...data.summary.bullets]);
     curItem.aiSummaryBullets=[...data.summary.bullets];curItem.aiSummaryMeta=record;curItem.aiSummaryError='';
+    curItem.aiSummaryLanguage=language;
     renderDetailDescription(curItem);
     toast('Résumé IA modifié.','ok');
   }catch(error){toast(error.message||'Modification impossible.','err');}
@@ -3220,11 +3403,12 @@ $('dpArticleDelete').addEventListener('click',async()=>{
 function populateAddArticleCatSelect(){
   const sel = $('addArtCat');
   if (!sel || sel.options.length) return;
-  sel.innerHTML = Object.keys(RISK_CATEGORIES).map(code => `<option value="${code}">${code} · ${esc(RISK_CATEGORIES[code].label)}</option>`).join('');
+  sel.innerHTML = Object.keys(RISK_CATEGORIES).map(code => `<option value="${code}">${code} · ${esc(categoryText(code))}</option>`).join('');
 }
 function openAddArticleModal(){
   populateAddArticleCatSelect();
-  fillRecommendationSelect('addArtRecommendation',RECOMMENDATION_OPTIONS,'standard');
+  fillRecommendationSelect('addArtRecommendation',recommendationOptions(),'standard');
+  $('addArtAiLanguage').value=UI_LANG==='en'?'en':'fr';
   $('addArtAi').checked=false;
   $('addArtArchived').checked=false;
   $('addArticleOv').classList.add('open');
@@ -3237,6 +3421,7 @@ $('addArtSubmit')?.addEventListener('click', async () => {
   const title = $('addArtTitle').value.trim();
   const comment = $('addArtComment').value.trim();
   const generateAi=$('addArtAi').checked;
+  const aiLanguage=$('addArtAiLanguage').value==='en'?'en':'fr';
   const catCode = $('addArtCat').value;
   const recommendation=$('addArtRecommendation').value;
   const archived=$('addArtArchived').checked;
@@ -3254,7 +3439,7 @@ $('addArtSubmit')?.addEventListener('click', async () => {
     if(generateAi){
       toast('Article ajouté. Génération du résumé IA…','ok');
       const item=ST.all.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc:''};
-      const bullets=await requestArticleAiSummary(item);
+      const bullets=await requestArticleAiSummary(item,aiLanguage);
       toast(bullets?'Article ajouté et résumé par IA.':(item.aiSummaryError||'Article ajouté, mais le résumé IA est indisponible.'),bullets?'ok':'warn');
     }else toast('Article ajouté.','ok');
   }catch(error){err.textContent=error.message||'Ajout impossible.';err.style.display='block';}
@@ -3270,7 +3455,8 @@ function populateAddCompetitorSelect(){
 }
 function openAddCompetitorArticleModal(competitorId=''){
   populateAddCompetitorSelect();
-  fillRecommendationSelect('addCompArticleRecommendation',RECOMMENDATION_OPTIONS,'standard');
+  fillRecommendationSelect('addCompArticleRecommendation',recommendationOptions(),'standard');
+  $('addCompArticleAiLanguage').value=UI_LANG==='en'?'en':'fr';
   if(competitorId&&COMPETITORS_BY_ID[competitorId])$('addCompArticleCompetitor').value=competitorId;
   $('addCompArticleAi').checked=false;
   $('addCompArticleArchived').checked=false;
@@ -3288,6 +3474,7 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
   const recommendation=$('addCompArticleRecommendation').value;
   const archived=$('addCompArticleArchived').checked;
   const generateAi=$('addCompArticleAi').checked;
+  const aiLanguage=$('addCompArticleAiLanguage').value==='en'?'en':'fr';
   const errorHost=$('addCompArticleErr');
   if(!competitorId||!url||!title){errorHost.textContent='Enseigne, URL et titre sont obligatoires.';errorHost.style.display='block';return;}
   try{const parsed=new URL(url);if(!['http:','https:'].includes(parsed.protocol))throw new Error();}
@@ -3305,7 +3492,7 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
     if(generateAi){
       toast(`Article ajouté à ${COMPETITORS_BY_ID[competitorId].name}. Génération du résumé IA…`,'ok');
       const item=CC.items.find(entry=>sharedArticleKey(entry)===data.article.id)||{id:data.article.id,link:url,title,desc:''};
-      const bullets=await requestArticleAiSummary(item);
+      const bullets=await requestArticleAiSummary(item,aiLanguage);
       toast(bullets?'Article ajouté et résumé par IA.':(item.aiSummaryError||'Article ajouté, mais le résumé IA est indisponible.'),bullets?'ok':'warn');
     }else toast(`Article ajouté à ${COMPETITORS_BY_ID[competitorId].name}.`,'ok');
   }catch(error){errorHost.textContent=error.message||'Ajout impossible.';errorHost.style.display='block';}
@@ -3541,8 +3728,8 @@ function applyCCFilter(allTiles){
   if(CC.mode==='competitors'&&CC.pays!=='all')filtered=filtered.filter(t=>t.pays===CC.pays);
   $('ccCountryFilters').style.display=CC.mode==='competitors'?'inline-flex':'none';
   $('ccModeDescription').textContent=CC.mode==='carrefour'
-    ? 'Google News, communication officielle et sources de la Vue globale.'
-    : 'Cliquez sur une enseigne pour voir le détail.';
+    ? t('competitive.modeCarrefour')
+    : t('competitive.modeBrands');
   // Tri
   if (CC.sort === 'recent') {
     filtered.sort((a,b) => b.latestAt - a.latestAt || b.items.length - a.items.length || a.name.localeCompare(b.name));
@@ -3568,32 +3755,32 @@ function renderCCGrid(){
   }
   if (empty) empty.style.display = 'none';
 
-  grid.innerHTML = CC.filtered.map(t => {
-    const total = t.items.length;
+  grid.innerHTML = CC.filtered.map(tile => {
+    const total = tile.items.length;
     const alertsRow = total
-      ? `<span class="comp-article-count">${total} article${total>1?'s':''}</span>${t.customCount?`<span class="comp-added-pill">${t.customCount} ajout${t.customCount>1?'s':''} équipe</span>`:''}`
-      : `<span style="font-size:.66rem;color:var(--t4);font-style:italic">Aucune actualité récente</span>`;
-    const news = t.items.slice(0, 3).map(it => {
+      ? `<span class="comp-article-count">${total} ${esc(t(total===1?'articles.one':'articles.many'))}</span>${tile.customCount?`<span class="comp-added-pill">${tile.customCount} ${esc(t('competitive.teamAdd'))}${tile.customCount>1&&UI_LANG==='fr'?'s':''}</span>`:''}`
+      : `<span style="font-size:.66rem;color:var(--t4);font-style:italic">${esc(t('competitive.noNews'))}</span>`;
+    const news = tile.items.slice(0, 3).map(it => {
       requestFrenchTranslation(it);
-      return `<div class="comp-news-item" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="Ouvrir l'analyse de cet article"><div class="comp-news-copy"><span class="comp-news-marker" aria-hidden="true"></span>${translatedTitleHtml(it, 'comp-news-title')}</div><span class="comp-news-date">${relDate(it.date)}</span></div>`;
-    }).join('') || `<div class="comp-news-empty">Pas d'actualité récente.</div>`;
+      return `<div class="comp-news-item" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="${esc(UI_LANG==='en'?'Open this article analysis':"Ouvrir l'analyse de cet article")}"><div class="comp-news-copy"><span class="comp-news-marker" aria-hidden="true"></span>${translatedTitleHtml(it, 'comp-news-title')}</div><span class="comp-news-date">${relDate(it.date)}</span></div>`;
+    }).join('') || `<div class="comp-news-empty">${esc(t('competitive.noRecent'))}</div>`;
 
-    return `<article class="comp-card" data-comp-id="${esc(t.id)}">
+    return `<article class="comp-card" data-comp-id="${esc(tile.id)}">
       <div class="comp-card-head">
-        <div class="comp-logo" data-brand="${esc(t.id)}"><img src="${esc(t.logoSrc)}" alt="Logo ${esc(t.name)}" loading="lazy" decoding="async"></div>
+        <div class="comp-logo" data-brand="${esc(tile.id)}"><img src="${esc(tile.logoSrc)}" alt="${esc(UI_LANG==='en'?'Logo of':'Logo')} ${esc(tile.name)}" loading="lazy" decoding="async"></div>
         <div style="flex:1;min-width:0">
-          <div class="comp-name">${esc(t.name)}</div>
-          <div class="comp-pays-row"><span class="cflag">${flag(t.pays)}</span><span>${esc(countryLabel(t.pays))}</span></div>
+          <div class="comp-name">${esc(tile.name)}</div>
+          <div class="comp-pays-row"><span class="cflag">${flag(tile.pays)}</span><span>${esc(countryLabel(tile.pays))}</span></div>
         </div>
-        <span class="comp-seg">${esc(t.segment.split(' / ')[0])}</span>
+        <span class="comp-seg">${esc(localizedSegment(tile.segment))}</span>
       </div>
       <div class="comp-stats">
-        <div class="comp-stat"><span class="comp-stat-lbl">${t.isCarrefour?'Périmètre':t.pays==='BR'?'Chiffre d\'affaires':'Parts marché'}</span><span class="comp-stat-val">${esc(t.marketShare)}</span></div>
-        <div class="comp-stat"><span class="comp-stat-lbl">${t.isCarrefour?'Couverture':'Magasins'}</span><span class="comp-stat-val">${esc(t.stores)}</span></div>
+        <div class="comp-stat"><span class="comp-stat-lbl">${esc(tile.isCarrefour?t('competitive.scope'):tile.pays==='BR'?t('competitive.revenue'):t('competitive.marketShare'))}</span><span class="comp-stat-val">${esc(localizedMetric(tile.marketShare))}</span></div>
+        <div class="comp-stat"><span class="comp-stat-lbl">${esc(tile.isCarrefour?t('competitive.coverage'):t('competitive.stores'))}</span><span class="comp-stat-val">${esc(localizedMetric(tile.stores))}</span></div>
       </div>
       <div class="comp-alerts-tot">${alertsRow}</div>
       <div class="comp-news">${news}</div>
-      <div class="comp-cta">Ouvrir la fiche détaillée →</div>
+      <div class="comp-cta">${esc(t('competitive.open'))}</div>
     </article>`;
   }).join('');
 
@@ -3639,51 +3826,51 @@ function openCompPanel(compId){
   set('compName', c.name);
   const compLogo = $('compLogo');
   compLogo.dataset.brand = c.id;
-  compLogo.innerHTML = `<img src="${esc(c.logoSrc)}" alt="Logo ${esc(c.name)}">`;
-  set('compRole',c.isCarrefour?'Veille du Groupe Carrefour':c.pays==='FR'?'Concurrent direct France':c.pays==='ES'?'Concurrent direct Espagne':'Concurrent direct Brésil');
+  compLogo.innerHTML = `<img src="${esc(c.logoSrc)}" alt="${esc(UI_LANG==='en'?'Logo of':'Logo')} ${esc(c.name)}">`;
+  set('compRole',c.isCarrefour?t('competitive.groupWatch'):c.pays==='FR'?t('competitive.directFr'):c.pays==='ES'?t('competitive.directEs'):t('competitive.directBr'));
   // Facts
   // La part de marché est affichée avec sa source publique (lien) quand disponible.
   // Sémantique : "% du marché" pour FR/ES, "CA en R$" pour BR (ranking ABRAS).
   const marketShareCell = c.marketShareSource
-    ? `${esc(c.marketShare)}<br><a href="${esc(c.marketShareSource)}" target="_blank" rel="noopener" style="color:var(--blue);font-size:.7rem;font-weight:500;text-decoration:none">↗ Voir source${c.marketShareDate ? ' · ' + esc(c.marketShareDate) : ''}</a>`
-    : esc(c.marketShare);
+    ? `${esc(localizedMetric(c.marketShare))}<br><a href="${esc(c.marketShareSource)}" target="_blank" rel="noopener" style="color:var(--blue);font-size:.7rem;font-weight:500;text-decoration:none">↗ ${esc(UI_LANG==='en'?'View source':'Voir source')}${c.marketShareDate ? ' · ' + esc(c.marketShareDate) : ''}</a>`
+    : esc(localizedMetric(c.marketShare));
   const facts = c.isCarrefour ? [
-    ['Périmètre','Groupe Carrefour'],
-    ['Sources','Google News · communication officielle · Vue globale'],
-    ['Fondation',c.founded],
-    ['Siège',c.hq],
-    ['Coté en bourse',`Oui (${c.ticker})`],
-    ['Site officiel',`<a href="${esc(c.site)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">carrefour.com ↗</a>`],
+    [t('competitive.scope'),'Groupe Carrefour'],
+    [t('competitive.sources'),UI_LANG==='en'?'Google News · official communications · Overview':'Google News · communication officielle · Vue globale'],
+    [t('competitive.founded'),c.founded],
+    [t('competitive.hq'),c.hq],
+    [t('competitive.listed'),`${t('competitive.yes')} (${c.ticker})`],
+    [t('competitive.officialSite'),`<a href="${esc(c.site)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">carrefour.com ↗</a>`],
   ] : [
-    ['Pays', `${flag(c.pays)} ${esc(countryLabel(c.pays))}`],
-    ['Segment', c.segment],
-    [c.pays === 'BR' ? 'Chiffre d\'affaires' : 'Parts de marché', marketShareCell],
-    ['Magasins', c.stores],
-    ['Fondation', c.founded],
-    ['Siège', c.hq],
-    ['Coté en bourse', c.listed ? `Oui (${c.ticker || '—'})` : 'Non'],
-    ['Site officiel', `<a href="${esc(c.site)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">${esc(c.site.replace(/^https?:\/\//,''))} ↗</a>`],
+    [UI_LANG==='en'?'Country':'Pays', `${flag(c.pays)} ${esc(countryLabel(c.pays))}`],
+    [UI_LANG==='en'?'Segment':'Segment', localizedSegment(c.segment)],
+    [c.pays === 'BR' ? t('competitive.revenue') : t('competitive.marketShare'), marketShareCell],
+    [t('competitive.stores'), localizedMetric(c.stores)],
+    [t('competitive.founded'), c.founded],
+    [t('competitive.hq'), c.hq],
+    [t('competitive.listed'), c.listed ? `${t('competitive.yes')} (${c.ticker || '—'})` : t('competitive.no')],
+    [t('competitive.officialSite'), `<a href="${esc(c.site)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">${esc(c.site.replace(/^https?:\/\//,''))} ↗</a>`],
   ];
   $('compFacts').innerHTML = facts.map(([l, v]) => `<div class="comp-fact"><span class="fl">${esc(l)}</span><span class="fv">${v}</span></div>`).join('');
   $('compDesc').textContent = c.desc;
   // Actualités de l'enseigne
   const list = $('compAlertsList');
-  set('compAlertCount',tile.items.length?`· ${tile.items.length} sur 10 max`:'· 0');
+  set('compAlertCount',tile.items.length?`· ${tile.items.length} ${UI_LANG==='en'?'of':'sur'} 10 max`:'· 0');
   if (!tile.items.length){
-    list.innerHTML = `<div style="padding:18px 0;font-size:.78rem;color:var(--t4);font-style:italic">Aucune actualité récente détectée. Les flux Google News dédiés se chargent en arrière-plan.</div>`;
+    list.innerHTML = `<div style="padding:18px 0;font-size:.78rem;color:var(--t4);font-style:italic">${esc(UI_LANG==='en'?'No recent news detected. Dedicated Google News feeds are loading in the background.':'Aucune actualité récente détectée. Les flux Google News dédiés se chargent en arrière-plan.')}</div>`;
   } else {
     list.innerHTML = tile.items.slice(0,10).map(it => {
       requestFrenchTranslation(it);
-      const deleteButton=it.custom?`<button class="cp-alert-delete" type="button" data-cc-delete="${esc(it.id)}">Supprimer</button>`:'';
-      return `<article class="cp-alert-card" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="Ouvrir le cadran de cet article">
+      const deleteButton=it.custom?`<button class="cp-alert-delete" type="button" data-cc-delete="${esc(it.id)}">${esc(t('competitive.delete'))}</button>`:'';
+      return `<article class="cp-alert-card" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="${esc(UI_LANG==='en'?'Open this article analysis':"Ouvrir le cadran de cet article")}">
         <div class="cp-alert-inner">
-          ${it.custom?'<div class="cp-alert-added">Ajout de l’équipe</div>':''}
+          ${it.custom?`<div class="cp-alert-added">${esc(t('competitive.teamAddition'))}</div>`:''}
           ${translatedTitleHtml(it, 'cp-alert-title')}
           <div class="cp-alert-meta">
-            <span>📡 ${esc(it.source)}</span>
+            <span>📡 ${esc(displaySource(it))}</span>
             <span>🗓 ${relDate(it.date)}</span>
           </div>
-          <div class="cp-alert-actions"><a href="${esc(it.link || '#')}" target="_blank" rel="noopener" class="cp-alert-link">Lire l’article ↗</a>${deleteButton}</div>
+          <div class="cp-alert-actions"><a href="${esc(it.link || '#')}" target="_blank" rel="noopener" class="cp-alert-link">${esc(t('competitive.read'))}</a>${deleteButton}</div>
         </div>
       </article>`;
     }).join('');
@@ -3774,13 +3961,13 @@ function buildCategoryNav(){
     return (
       `<div class="nav nav-cat active" data-f="cat-${code}" data-code="${code}" role="checkbox" aria-checked="true" tabindex="0">` +
         `<span class="filter-check" aria-hidden="true">✓</span>` +
-        `<span class="nico" aria-hidden="true"><i class="rv-fi ${cat.ico}" style="color:${cat.color}"></i></span>` +
-        `<span class="nlbl">${code} · ${esc(cat.short)}</span>` +
+        `<span class="nico" aria-hidden="true"><img class="category-icon" src="${esc(cat.icon)}" alt=""></span>` +
+        `<span class="nlbl">${code} · ${esc(categoryText(code))}</span>` +
         `<span class="ncnt" id="nc-${code}">—</span>` +
       `</div>`
     );
   }).join('');
-  const allRow = `<div class="nav nav-cat nav-cat-all active" data-code="all" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Toutes les catégories</span><span class="ncnt" id="nc-cat-all">—</span></div>`;
+  const allRow = `<div class="nav nav-cat nav-cat-all active" data-code="all" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">${esc(t('categories.all'))}</span><span class="ncnt" id="nc-cat-all">—</span></div>`;
   // On garde le label existant en tête
   const lbl = wrap.querySelector('.sbl');
   wrap.innerHTML = (lbl ? lbl.outerHTML : '<div class="sbl">Catégories de risques - Univers de risques Carrefour</div>') + allRow + blocks;
@@ -3808,13 +3995,13 @@ function updateFilterUI(){
   });
 
   const selectedCategories=RISK_CATEGORY_CODES.filter(code=>ST.categories.has(code));
-  const categoryLabel=allCategoriesSelected?'Toutes les catégories':selectedCategories.length?`${selectedCategories.length} catégorie${selectedCategories.length>1?'s':''} · ${selectedCategories.join(', ')}`:'Aucune catégorie sélectionnée';
-  set('secTtl','Veille des risques');
-  const scopeLabel={added:'Articles ajoutés',archived:'Articles archivés'}[ST.articleScope]||'';
-  const geoNames={MONDE:'Monde / UE',FR:'France',ES:'Espagne',BR:'Brésil'};
-  const geoLabel=ST.geographies.size?[...ST.geographies].map(code=>geoNames[code]||code).join(', '):'Toutes les géographies';
+  const categoryLabel=allCategoriesSelected?t('categories.all'):selectedCategories.length?`${selectedCategories.length} ${UI_LANG==='en'?(selectedCategories.length>1?'categories':'category'):`catégorie${selectedCategories.length>1?'s':''}`} · ${selectedCategories.join(', ')}`:t('filters.noneCategory');
+  set('secTtl',t('feed.title'));
+  const scopeLabel={added:t('articles.added'),archived:t('articles.archived')}[ST.articleScope]||'';
+  const geoNames={MONDE:UI_LANG==='en'?'World / EU':'Monde / UE',FR:t('geo.france'),ES:t('geo.spain'),BR:t('geo.brazil')};
+  const geoLabel=ST.geographies.size?[...ST.geographies].map(code=>geoNames[code]||code).join(', '):t('filters.allGeographies');
   const host=$('filterState');
-  if(host)host.innerHTML=`<span class="filter-state-label">Filtres actifs</span><span class="filter-pill primary">${esc(categoryLabel)}</span><span class="filter-pill">${esc(geoLabel)}</span>${scopeLabel?`<span class="filter-pill">${esc(scopeLabel)}</span>`:''}`;
+  if(host)host.innerHTML=`<span class="filter-state-label">${esc(t('filters.active'))}</span><span class="filter-pill primary">${esc(categoryLabel)}</span><span class="filter-pill">${esc(geoLabel)}</span>${scopeLabel?`<span class="filter-pill">${esc(scopeLabel)}</span>`:''}`;
 }
 
 function attachNavHandlers(){
@@ -3860,6 +4047,8 @@ $('btnFilters')?.addEventListener('click',()=>setMobileFiltersOpen(!$('sidebar-r
 $('sidebarClose')?.addEventListener('click',()=>setMobileFiltersOpen(false));
 $('sidebarBackdrop')?.addEventListener('click',()=>setMobileFiltersOpen(false));
 
+applyStaticI18n();
+document.querySelectorAll('[data-ui-lang]').forEach(button=>button.addEventListener('click',()=>setInterfaceLanguage(button.dataset.uiLang)));
 buildCategoryNav();
 attachNavHandlers();
 document.querySelectorAll('[data-sort]').forEach(b=>b.addEventListener('click',()=>{

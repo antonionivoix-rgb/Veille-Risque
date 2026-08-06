@@ -17,10 +17,14 @@ ne pas reinitialiser et demander une verification humaine.
 ## Contrats a preserver
 
 - Production utilisateurs : `https://riskveillecrf-824.pages.dev/`.
-- Le bouton `#btnHome` est un lien `href="/"` avec le logo
-  `assets/carrefour-logo.svg` et le texte `Veille Risque`.
+- Le bouton `#btnHome` est un lien `href="/"` avec le paon
+  `assets/brand/peacock.png` et le texte `Veille`.
 - L'etat initial est : Vue globale, Monde, toutes les categories, tous les articles et tri
   `Plus aimes`.
+- La langue initiale est toujours le francais. Le bouton Royaume-Uni traduit l'interface en
+  anglais sans modifier la langue des articles sources.
+- Les resumes IA francais et anglais sont stockes separement dans
+  `article_ai_summaries_i18n`. Ne jamais remplacer une langue par l'autre.
 - Conserver exactement 66 sources globales, 18 sources concurrentielles et 1 source de veille
   Carrefour, sauf demande explicite.
 - Ne jamais supprimer ou reinitialiser les donnees D1, les archives, J'aime, commentaires ou resumes.
