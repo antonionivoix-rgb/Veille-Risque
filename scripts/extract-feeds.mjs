@@ -61,7 +61,7 @@ const outputUrl = new URL('../feeds.generated.json', import.meta.url);
 
 if (process.argv.includes('--check')) {
   const existing = await readFile(outputUrl, 'utf8');
-  if (existing !== output) {
+  if (existing.replaceAll('\r\n', '\n') !== output) {
     throw new Error('feeds.generated.json est désynchronisé ; exécutez npm run build:feeds puis validez le fichier');
   }
   console.log(`${riskFeeds.length} sources globales, ${competitorFeeds.length} sources concurrentielles et ${carrefourFeeds.length} source Carrefour vérifiées`);
