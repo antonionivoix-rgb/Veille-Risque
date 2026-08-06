@@ -174,12 +174,19 @@ test('les filtres restent lisibles sur mobile', async ({ page }) => {
 });
 
 test('interface bilingue, avatars et cartes concurrentielles restent lisibles', async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 768 });
   await login(page, 'Test bilingue');
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
   await expect(page.locator('[data-ui-lang="fr"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('.nav-cat .category-icon')).toHaveCount(11);
   await expect(page.locator('.team-avatar')).toHaveCount(4);
+  await expect(page.locator('.team-tooltip-name')).toHaveText([
+    'Guillaume Litvak',
+    'Chi Buisson',
+    'Antonio Nivoix',
+    'Mathilde Blataj',
+  ]);
   await expect(page.locator('.team-avatar').first()).toHaveAttribute('href', 'mailto:argos@carrefour.com');
   await page.locator('.team-avatar').first().hover();
   await page.waitForTimeout(250);
@@ -201,8 +208,32 @@ test('interface bilingue, avatars et cartes concurrentielles restent lisibles', 
   expect(competitiveStyles.overflow).toBe('visible');
   expect(competitiveStyles.textAlign).toBe('center');
   expect(competitiveStyles.mainMargin).toBe('0px');
+  const compactNewsLayout = await page.locator('.comp-news-item').first().evaluate(node => {
+    const copy = node.querySelector(':scope > .comp-news-copy');
+    const marker = node.querySelector(':scope > .comp-news-marker');
+    const date = node.querySelector(':scope > .comp-news-date');
+    const copyRect = copy.getBoundingClientRect();
+    const childRects = [...copy.children].map(child => child.getBoundingClientRect());
+    return {
+      itemDisplay: getComputedStyle(node).display,
+      copyDirection: getComputedStyle(copy).flexDirection,
+      markerIsSibling: Boolean(marker),
+      dateIsSibling: Boolean(date),
+      copyWidth: copyRect.width,
+      childWidths: childRects.map(rect => rect.width),
+      childrenStacked: childRects.every((rect, index) => index === 0 || rect.top >= childRects[index - 1].bottom - 1),
+    };
+  });
+  expect(compactNewsLayout.itemDisplay).toBe('grid');
+  expect(compactNewsLayout.copyDirection).toBe('column');
+  expect(compactNewsLayout.markerIsSibling).toBe(true);
+  expect(compactNewsLayout.dateIsSibling).toBe(true);
+  expect(compactNewsLayout.copyWidth).toBeGreaterThan(200);
+  expect(compactNewsLayout.childWidths.every(width => width > 200)).toBe(true);
+  expect(compactNewsLayout.childrenStacked).toBe(true);
   const mercadona = page.locator('.comp-card[data-comp-id="mercadona"]');
   await expect(mercadona).toBeVisible();
+  await expect(mercadona.locator('.comp-name')).toHaveText('Mercadona');
   const mercadonaStyles = await mercadona.evaluate(node => {
     const name = node.querySelector('.comp-name');
     const segment = node.querySelector('.comp-seg');
@@ -221,6 +252,12 @@ test('interface bilingue, avatars et cartes concurrentielles restent lisibles', 
   expect(mercadonaStyles.segmentWordBreak).toBe('normal');
   expect(mercadonaStyles.cardWidth).toBeGreaterThanOrEqual(300);
   expect(mercadonaStyles.nameWidth).toBeGreaterThan(80);
+  await mercadona.scrollIntoViewIfNeeded();
+  await page.evaluate(() => window.scrollBy(0, -80));
+  await page.waitForTimeout(800);
+  await expect(mercadona).toHaveAttribute('data-comp-id', 'mercadona');
+  await expect(mercadona.locator('.comp-name')).toHaveText('Mercadona');
+  await mercadona.screenshot({ path: 'test-results/mercadona-small-french.png' });
 
   await page.locator('[data-ui-lang="en"]').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
