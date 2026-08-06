@@ -62,6 +62,13 @@ RiskVeille propose un point d'entrée unique pour rendre cette matière plus lis
 
 ## Ce que permet la plateforme
 
+### Utiliser l'interface en français ou en anglais
+
+L'interface démarre toujours en français. Les drapeaux français et britannique de l'en-tête
+permettent de basculer immédiatement les menus, filtres, dates, cadrans et fiches concurrentielles
+en français ou en anglais. Ce choix ne modifie pas le texte original des articles. Les avatars de
+l'équipe ouvrent l'adresse partagée `argos@carrefour.com`.
+
 ### Comprendre rapidement la situation
 
 Dans l'onglet « Vue globale », un bandeau « État du monde » présente les
@@ -141,17 +148,20 @@ résumé a déjà été produit, RiskVeille l'affiche depuis l'espace commun san
 Le cadran conserve deux zones distinctes : la description disponible ou ajoutée par l'équipe, puis
 le résumé par IA. En l'absence de résumé, un bouton « Générer par IA » est proposé. Seul un clic
 volontaire sur ce bouton lance la lecture du contenu accessible sur le site de la source et la
-production d'une synthèse en français.
+production d'une synthèse dans la langue choisie dans le menu « Langue du résumé IA ».
 
 Lorsque la génération aboutit, la synthèse comporte quatre points : trois idées centrales, puis
 les chiffres, montants, pourcentages ou dates clés lorsqu'ils existent. Le résultat est conservé
-dans l'espace commun afin que les autres utilisateurs le retrouvent sans nouvel appel à l'IA. Tout
+dans l'espace commun afin que les autres utilisateurs le retrouvent sans nouvel appel à l'IA. Les
+versions française et anglaise sont conservées séparément : générer ou corriger l'une n'écrase
+jamais l'autre. Tout
 utilisateur connecté peut ensuite corriger séparément ces quatre points. La correction, son auteur
 et sa date apparaissent sur les autres ordinateurs en moins de cinq secondes et ne consomment pas
 de neurones supplémentaires.
 
 Lors de l'ajout manuel d'un article, une case permet de demander la génération juste après
-l'enregistrement. Elle est décochée par défaut afin de réserver le quota aux articles choisis par
+l'enregistrement et un menu choisit alors le français ou l'anglais. La case est décochée par
+défaut afin de réserver le quota aux articles choisis par
 l'équipe. La description éventuellement saisie par un membre reste visible à côté du résumé IA,
 mais elle n'est jamais envoyée au modèle et n'influence donc pas sa synthèse. Elle peut être
 modifiée sans supprimer ni recalculer le résumé existant.

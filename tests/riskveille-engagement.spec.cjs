@@ -19,8 +19,8 @@ test('le bouton Carrefour restaure la vue initiale', async ({ page }) => {
   await login(page, 'Test accueil');
   const home = page.locator('#btnHome');
 
-  await expect(home).toContainText('Veille Risque');
-  await expect(home.locator('.h-logo-primary')).toHaveAttribute('src', 'assets/carrefour-logo.svg');
+  await expect(home).toContainText('Veille');
+  await expect(home.locator('.h-logo-primary')).toHaveAttribute('src', 'assets/brand/peacock.png');
   await expect(home).toHaveAttribute('href', '/');
 
   await page.locator('.nav-geo[data-geo="MONDE"]').click();
@@ -29,6 +29,7 @@ test('le bouton Carrefour restaure la vue initiale', async ({ page }) => {
   await page.locator('[data-sort="recent"]').click();
   await page.locator('#searchInput').fill('test filtre');
   await page.locator('#tabConcurrence').click();
+  await expect(page.locator('#sidebar-risks')).toBeHidden();
   await Promise.all([
     page.waitForEvent('framenavigated'),
     home.click(),
@@ -59,6 +60,7 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#addArtDesc')).toHaveCount(0);
   await expect(page.locator('#addArtRecommendation option')).toHaveCount(2);
   await expect(page.locator('#addArtRecommendation option')).toHaveText(['À lire', 'Incontournable']);
+  await expect(page.locator('#addArtAiLanguage option')).toHaveText(['Français', 'English']);
   await page.locator('#addArtUrl').fill(`https://example.com/riskveille/${Date.now()}`);
   await page.locator('#addArtTitle').fill(title);
   await page.locator('#addArtComment').fill('Commentaire créé avec l’article.');
@@ -80,6 +82,7 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#dpRecommendation')).toHaveValue('essential');
   await expect(page.locator('#dpEngagementMeta')).toContainText('Test engagement');
   await expect(page.locator('#dpSharedComments')).toContainText('Commentaire créé avec l’article.');
+  await expect(page.locator('#dpAiLanguage option')).toHaveText(['Français', 'English']);
 
   await page.locator('#dpVote').click();
   await expect(page.locator('#dpVoteCount')).toHaveText('1');
@@ -144,6 +147,59 @@ test('les filtres restent lisibles sur mobile', async ({ page }) => {
   await expect(page.locator('#sidebar-risks')).toHaveClass(/mobile-open/);
   await expect(page.locator('.nav-geo[data-geo="MONDE"]')).toBeVisible();
   await expect(page.locator('.nav-article[data-scope="archived"]')).toBeVisible();
+  await expect(page.locator('[data-ui-lang="fr"]')).toBeVisible();
+  await expect(page.locator('.team-avatar')).toHaveCount(4);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.waitForTimeout(350);
   await page.screenshot({ path: 'test-results/engagement-mobile.png', fullPage: true });
+  await page.locator('#sidebarClose').click();
+  await page.locator('#tabConcurrence').click();
+  await expect(page.locator('#sidebar-risks')).toBeHidden();
+  await expect(page.locator('.comp-card').first()).toBeVisible({ timeout: 20000 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: 'test-results/competitive-mobile.png', fullPage: true });
+});
+
+test('interface bilingue, avatars et cartes concurrentielles restent lisibles', async ({ page }) => {
+  await login(page, 'Test bilingue');
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
+  await expect(page.locator('[data-ui-lang="fr"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.nav-cat .category-icon')).toHaveCount(11);
+  await expect(page.locator('.team-avatar')).toHaveCount(4);
+  await expect(page.locator('.team-avatar').first()).toHaveAttribute('href', 'mailto:argos@carrefour.com');
+  await page.locator('.team-avatar').first().hover();
+  await page.waitForTimeout(250);
+  const tooltip = await page.locator('.team-avatar').first().evaluate(node => ({
+    content: getComputedStyle(node, '::after').content,
+    opacity: getComputedStyle(node, '::after').opacity,
+  }));
+  expect(tooltip.content).toContain('argos@carrefour.com');
+  expect(tooltip.opacity).toBe('1');
+
+  await page.locator('#tabConcurrence').click();
+  await expect(page.locator('#sidebar-risks')).toBeHidden();
+  await expect(page.locator('.comp-card').first()).toBeVisible({ timeout: 20000 });
+  const competitiveStyles = await page.locator('.comp-news-title').first().evaluate(node => ({
+    lineClamp: getComputedStyle(node).webkitLineClamp,
+    overflow: getComputedStyle(node).overflow,
+    textAlign: getComputedStyle(node).textAlign,
+    mainMargin: getComputedStyle(document.querySelector('.main')).marginLeft,
+  }));
+  expect(competitiveStyles.lineClamp).toBe('none');
+  expect(competitiveStyles.overflow).toBe('visible');
+  expect(competitiveStyles.textAlign).toBe('center');
+  expect(competitiveStyles.mainMargin).toBe('0px');
+
+  await page.locator('[data-ui-lang="en"]').click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('#tabRisks')).toHaveText('Overview');
+  await expect(page.locator('#tabConcurrence')).toHaveText('Competitive intelligence');
+  await expect(page.locator('#ccModeDescription')).toHaveText('Select a retailer to view details.');
+  await expect(page.locator('[data-ui-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
+  await page.screenshot({ path: 'test-results/bilingual-competitive-desktop.png', fullPage: true });
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
+  await expect(page.locator('#tabRisks')).toHaveText('Vue globale');
 });
