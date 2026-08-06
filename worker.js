@@ -474,6 +474,7 @@ function validCatCode(value) {
 }
 
 const COMPETITOR_IDS = new Set([
+  'carrefour',
   'leclerc', 'auchan', 'lidl-fr', 'intermarche', 'casino', 'aldi-fr', 'monoprix', 'franprix', 'systeme-u',
   'mercadona', 'dia', 'lidl-es', 'eroski', 'alcampo',
   'assai', 'gpa', 'grupo-mateus', 'cencosud-br',
@@ -483,7 +484,7 @@ function validCompetitorId(value) {
   return COMPETITOR_IDS.has(String(value || ''));
 }
 
-const RECOMMENDATIONS = new Set(['standard', 'recommended', 'essential']);
+const RECOMMENDATIONS = new Set(['standard', 'essential']);
 
 function cleanRecommendation(value) {
   const recommendation = cleanText(value, 24);
@@ -851,7 +852,7 @@ async function handleApi(request, env, ctx) {
     const archived = body?.archived === true ? 1 : 0;
     if (!articleUrl || !title) return json(request, { error: 'Titre et URL sont obligatoires.' }, 400);
     if (competitorId && !isCompetitorArticle) return json(request, { error: 'Enseigne invalide.' }, 400);
-    if (!isCompetitorArticle && !validCatCode(body?.catCode)) return json(request, { error: 'Famille de risques invalide.' }, 400);
+    if (!isCompetitorArticle && !validCatCode(body?.catCode)) return json(request, { error: 'Catégorie de risques invalide.' }, 400);
     try { new URL(articleUrl); } catch { return json(request, { error: 'URL invalide.' }, 400); }
     const id = `custom:${crypto.randomUUID()}`;
     const createdAt = new Date().toISOString();

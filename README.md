@@ -40,7 +40,7 @@ L'icône de fermeture est créée par
 [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) et publiée sur
 [Flaticon](https://www.flaticon.com/free-icon/close_1828778).
 
-Les pictogrammes de navigation, d'ajout d'article, de commentaire et des familles de risques
+Les pictogrammes de navigation, d'ajout d'article, de commentaire et des catégories de risques
 utilisent la bibliothèque [Flaticon UIcons](https://www.flaticon.com/uicons) de Freepik Company.
 Les drapeaux sont fournis par [FlagCDN](https://flagcdn.com/).
 
@@ -70,31 +70,31 @@ restent intégrés à la même veille : ils ne constituent ni une catégorie ni 
 
 ### Explorer et filtrer la veille risques
 
-Les articles sont rapprochés des onze grandes familles A à K du référentiel de risques Carrefour.
-Ils peuvent être filtrés par famille, pays, présence d'un ajout manuel, archivage ou mot-clé.
-Les familles et géographies peuvent être cochées ou décochées, puis combinées avec le filtre
+Les articles sont rapprochés des onze grandes catégories A à K de l'univers de risques Carrefour.
+Ils peuvent être filtrés par catégorie, pays, présence d'un ajout manuel, archivage ou mot-clé.
+Les catégories et géographies peuvent être cochées ou décochées, puis combinées avec le filtre
 d'articles. La vue Monde est sélectionnée par défaut et l'état de la sélection reste visible.
 
-Les résultats peuvent être ordonnés par nombre de votes ou date récente. Chaque article
+Les résultats peuvent être ordonnés par nombre de J’aime ou date récente. Chaque article
 affiche sa source, sa date et renvoie vers la publication originale. RiskVeille s'arrête
-volontairement au niveau des familles A à K afin de conserver une lecture simple et cohérente dans
+volontairement au niveau des catégories A à K afin de conserver une lecture simple et cohérente dans
 toute la plateforme.
 
 ### Travailler à plusieurs
 
-Un utilisateur peut commenter un article, corriger sa famille de risques, choisir une recommandation
-de lecture, voter ou ajouter manuellement un article. Lors de l'ajout, il renseigne le lien, le titre,
-la famille et, s'il le souhaite, un commentaire initial. Le filtre « Articles ajoutés » permet
+Un utilisateur peut commenter un article, corriger sa catégorie de risques, choisir une recommandation
+de lecture, ajouter un J’aime ou ajouter manuellement un article. Lors de l'ajout, il renseigne le lien, le titre,
+la catégorie et, s'il le souhaite, un commentaire initial. Le filtre « Articles ajoutés » permet
 ensuite de retrouver uniquement ces contributions.
 
-Dans le cadran détaillé, la famille reste modifiable. La recommandation de lecture utilise trois
-valeurs simples : « À lire », « Recommandé » et « Incontournable ». Chaque utilisateur peut ajouter
-un vote positif ; les articles les plus votés remontent dans la liste.
+Dans le cadran détaillé, la catégorie reste modifiable. La recommandation de lecture utilise deux
+valeurs simples : « À lire » et « Incontournable ». Chaque utilisateur peut ajouter un J’aime ; les
+articles les plus aimés remontent dans la liste.
 
 Les commentaires peuvent être corrigés ou supprimés par leur auteur. Tout utilisateur connecté
 peut supprimer un article ajouté manuellement, quel que soit son auteur. Ces changements sont
 enregistrés dans un espace commun et apparaissent sur les autres ordinateurs en moins de cinq
-secondes. Les familles, recommandations et votes sont conservés sans être recalculés lors de
+secondes. Les catégories, recommandations et J’aime sont conservés sans être recalculés lors de
 l'actualisation des flux. Un article archivé est enregistré avec un instantané durable afin de
 rester disponible dans « Articles archivés », même après sa disparition des flux courants.
 
@@ -103,7 +103,7 @@ rester disponible dans « Articles archivés », même après sa disparition des
 La veille ne se limite pas aux événements qui citent directement Carrefour. Une évolution du prix
 du pétrole, une tension commerciale, une décision monétaire ou un conflit géopolitique peut avoir
 des conséquences indirectes sur les coûts, la consommation, les approvisionnements ou les pays
-d'activité du Groupe. Ces articles sont classés et évalués avec les mêmes familles et niveaux que
+d'activité du Groupe. Ces articles sont classés et évalués avec les mêmes catégories et niveaux que
 le reste de la veille.
 
 ### Suivre la concurrence
@@ -113,14 +113,19 @@ Espagne et au Brésil. Il permet de suivre les mouvements de magasins, les rappr
 résultats et les changements de positionnement. Chaque enseigne dispose d'une fiche identifiable
 par son logo et ses principales données publiques.
 
+Un sous-onglet Carrefour rassemble séparément les résultats Google News, la communication
+officielle du Groupe et les articles des sources globales qui citent Carrefour. Carrefour n'est pas
+compté dans les indicateurs de concurrents. Chaque fiche affiche au maximum les dix articles les
+plus aimés, puis les départage par recommandation de lecture et par date.
+
 La veille concurrentielle ne donne pas de note numérique aux actualités : elles sont présentées
 par date, sans suggérer une gravité artificielle. Un membre de l'équipe peut ajouter un article à
 l'enseigne concernée depuis cet espace. L'ajout apparaît sur les autres ordinateurs en moins de
 cinq secondes et peut être supprimé par tout utilisateur connecté.
 
 Chaque actualité concurrentielle ouvre le même cadran d'analyse que la veille risques, sur le côté
-droit de l'écran. L'équipe peut y préciser la famille de risques et la recommandation de lecture,
-voter, archiver, puis échanger dans les commentaires. Ces corrections et commentaires
+droit de l'écran. L'équipe peut y préciser la catégorie de risques et la recommandation de lecture,
+ajouter un J’aime, archiver, puis échanger dans les commentaires. Ces corrections et commentaires
 apparaissent sur les autres ordinateurs en moins de cinq secondes.
 
 ### Lire les contenus espagnols et portugais
@@ -244,7 +249,8 @@ sont publiés par Cloudflare et peuvent évoluer.
 ## Une méthode de veille explicite
 
 RiskVeille s'appuie actuellement sur **66 sources globales en français, anglais, espagnol et
-portugais**, complétées par **18 flux Google News dédiés aux concurrents**.
+portugais**, complétées par **18 flux Google News dédiés aux concurrents** et **1 flux Google News
+dédié à Carrefour**.
 Elles comprennent notamment :
 
 - des organismes officiels et des régulateurs ;
@@ -271,23 +277,23 @@ La collecte centrale recherche de nouvelles publications toutes les cinq minutes
 à jour est disponible, la liste évolue discrètement en arrière-plan : la page ne se vide pas,
 aucun message répétitif n'interrompt la lecture et l'utilisateur conserve ses filtres, sa page de
 résultats et l'article qu'il consulte. La synchronisation des commentaires, classements,
-recommandations, votes, archives et ajouts reste indépendante et continue de les faire apparaître sur les autres
+recommandations, J’aime, archives et ajouts reste indépendante et continue de les faire apparaître sur les autres
 ordinateurs en moins de cinq secondes. Le bouton d'actualisation reste disponible lorsqu'un
 utilisateur souhaite demander immédiatement une nouvelle collecte.
 
 ## Comment les articles sont ordonnés
 
 RiskVeille utilise un mécanisme collectif lisible. Un utilisateur choisit une recommandation de
-lecture et peut voter une fois pour un article. Le mode « Plus recommandés » classe d'abord les
-articles par nombre de votes, puis par recommandation et par date. Le mode « Récents » conserve
+lecture et peut ajouter un J’aime par article. Le mode « Plus aimés » classe d'abord les articles par
+nombre de J’aime, puis par recommandation et par date. Le mode « Récents » conserve
 une lecture strictement chronologique.
 
 ## Parcours conseillé pour une démonstration
 
-1. Ouvrir « Vue globale » et combiner plusieurs familles avec une ou plusieurs zones géographiques.
+1. Ouvrir « Vue globale » et combiner plusieurs catégories avec une ou plusieurs zones géographiques.
 2. Ouvrir un article pour présenter la source, le classement et la recommandation modifiables, puis
    déclencher volontairement le résumé en quatre points si l'article n'en possède pas encore.
-3. Voter pour un article et montrer son repositionnement dans la liste.
+3. Ajouter un J’aime à un article et montrer son repositionnement dans la liste.
 4. Archiver un article puis le retrouver dans « Articles archivés ».
 5. Ajouter un article avec un commentaire initial ou passer à la veille concurrentielle.
 
@@ -298,7 +304,7 @@ d'analyse et l'utilité collective de l'outil.
 
 La crédibilité du projet repose aussi sur ses limites :
 
-- une recommandation ou un vote reflète l'intérêt de lecture de l'équipe, pas une évaluation
+- une recommandation ou un J’aime reflète l'intérêt de lecture de l'équipe, pas une évaluation
   officielle de l'impact pour Carrefour ;
 - une information importante doit toujours être relue dans sa source originale et recoupée ;
 - le filtrage réduit le bruit mais ne peut supprimer tous les faux positifs ni garantir qu'aucun

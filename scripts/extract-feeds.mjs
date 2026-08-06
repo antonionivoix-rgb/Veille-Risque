@@ -38,9 +38,24 @@ for (const match of competitorBlock.matchAll(competitorPattern)) {
   });
 }
 
+const carrefourBlock = html.slice(
+  html.indexOf('const CARREFOUR_WATCH = {'),
+  html.indexOf('\n};', html.indexOf('const CARREFOUR_WATCH = {')),
+);
+const carrefourMatch = carrefourBlock.match(/id:'([^']+)'[\s\S]*?name:'((?:\\'|[^'])*)'[\s\S]*?pays:'(FR)'[\s\S]*?rssQ:'((?:\\'|[^'])*)'/);
+if (!carrefourMatch) throw new Error('Flux de veille Carrefour introuvable');
+const [, carrefourId, carrefourName, carrefourCountry, carrefourQuery] = carrefourMatch;
+const carrefourLocale = locales[carrefourCountry];
+const carrefourFeeds = [{
+  id:`${carrefourId}-watch-news`,
+  name:`Veille ${carrefourName.replaceAll("\\'", "'")} — Google News`,
+  url:`https://news.google.com/rss/search?q=${carrefourQuery}&hl=${carrefourLocale.lang}&gl=${carrefourCountry}&ceid=${carrefourLocale.ceid}`,
+}];
+
 if (riskFeeds.length !== 66) throw new Error(`66 sources globales attendues, ${riskFeeds.length} extraites`);
 if (competitorFeeds.length !== 18) throw new Error(`18 sources concurrentielles attendues, ${competitorFeeds.length} extraites`);
-const feeds = [...riskFeeds, ...competitorFeeds];
+if (carrefourFeeds.length !== 1) throw new Error(`1 source Carrefour attendue, ${carrefourFeeds.length} extraite`);
+const feeds = [...riskFeeds, ...competitorFeeds, ...carrefourFeeds];
 const output = JSON.stringify(feeds, null, 2) + '\n';
 const outputUrl = new URL('../feeds.generated.json', import.meta.url);
 
@@ -49,8 +64,8 @@ if (process.argv.includes('--check')) {
   if (existing !== output) {
     throw new Error('feeds.generated.json est désynchronisé ; exécutez npm run build:feeds puis validez le fichier');
   }
-  console.log(`${riskFeeds.length} sources globales et ${competitorFeeds.length} sources concurrentielles vérifiées`);
+  console.log(`${riskFeeds.length} sources globales, ${competitorFeeds.length} sources concurrentielles et ${carrefourFeeds.length} source Carrefour vérifiées`);
 } else {
   await writeFile(outputUrl, output);
-  console.log(`${riskFeeds.length} sources globales et ${competitorFeeds.length} sources concurrentielles exportées`);
+  console.log(`${riskFeeds.length} sources globales, ${competitorFeeds.length} sources concurrentielles et ${carrefourFeeds.length} source Carrefour exportées`);
 }

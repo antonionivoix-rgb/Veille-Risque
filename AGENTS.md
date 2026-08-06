@@ -19,10 +19,11 @@ ne pas reinitialiser et demander une verification humaine.
 - Production utilisateurs : `https://riskveillecrf-824.pages.dev/`.
 - Le bouton `#btnHome` est un lien `href="/"` avec le logo
   `assets/carrefour-logo.svg` et le texte `Veille Risque`.
-- L'etat initial est : Vue globale, Monde, toutes les familles, tous les articles et tri
-  `Plus recommandes`.
-- Conserver exactement 66 sources globales et 18 sources concurrentielles, sauf demande explicite.
-- Ne jamais supprimer ou reinitialiser les donnees D1, les archives, votes, commentaires ou resumes.
+- L'etat initial est : Vue globale, Monde, toutes les categories, tous les articles et tri
+  `Plus aimes`.
+- Conserver exactement 66 sources globales, 18 sources concurrentielles et 1 source de veille
+  Carrefour, sauf demande explicite.
+- Ne jamais supprimer ou reinitialiser les donnees D1, les archives, J'aime, commentaires ou resumes.
 - Ne jamais placer un jeton GitHub ou Cloudflare dans un fichier, un commit, un log ou un message.
 
 ## Validation obligatoire

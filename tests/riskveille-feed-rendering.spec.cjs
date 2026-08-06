@@ -21,8 +21,12 @@ test('les articles des sources centrales sont affiches', async ({ page }) => {
   const feedResponse = await feedResponsePromise;
   expect(feedResponse.ok()).toBeTruthy();
   const snapshot = await feedResponse.json();
-  const globalSources = snapshot.sources.filter(source => !source.id.startsWith('competitor-'));
+  const globalSources = snapshot.sources.filter(source => !source.id.startsWith('competitor-') && source.id !== 'carrefour-watch-news');
+  const competitorSources = snapshot.sources.filter(source => source.id.startsWith('competitor-'));
+  const carrefourSources = snapshot.sources.filter(source => source.id === 'carrefour-watch-news');
   expect(globalSources.length).toBe(66);
+  expect(competitorSources.length).toBe(18);
+  expect(carrefourSources.length).toBe(1);
   expect(globalSources.some(source => Array.isArray(source.items) && source.items.length > 0)).toBeTruthy();
 
   await expect.poll(async () => page.locator('#feed .card').count(), { timeout: 45000 }).toBeGreaterThan(0);
