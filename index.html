@@ -14,7 +14,7 @@
 .rv-alert::before{content:"\fbde"}.rv-macro::before{content:"\f705"}.rv-added::before,.rv-add-article::before{content:"\f117"}
 .rv-comment-edit::before{content:"\f49b"}.rv-comment-delete::before{content:"\fe17"}
 .rv-ai::before{content:"\f8e1"}
-.rv-upvote::before{content:"\f19f"}
+.rv-like::before{content:"\fd94"}.rv-archive::before{content:"\f16d"}
 .rv-cat-a::before{content:"\f702"}.rv-cat-b::before{content:"\fb97"}.rv-cat-c::before{content:"\fd03"}.rv-cat-d::before{content:"\fbfc"}.rv-cat-e::before{content:"\f7ce"}.rv-cat-f::before{content:"\fe40"}.rv-cat-g::before{content:"\f34b"}.rv-cat-h::before{content:"\f82d"}.rv-cat-i::before{content:"\fbdb"}.rv-cat-j::before{content:"\fea6"}.rv-cat-k::before{content:"\f494"}.rv-all::before{content:"\f16c"}
 :root{
   --blue:#1D4ED8;--blue-d:#1E3A8A;--blue-l:#EFF6FF;--blue-xl:#F0F7FF;
@@ -160,7 +160,7 @@ header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;backgrou
 .nav.active::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:3px;background:var(--blue);border-radius:0 3px 3px 0}
 .nico{width:17px;text-align:center;font-size:.8rem;flex-shrink:0;line-height:1;opacity:.92;display:inline-flex;align-items:center;justify-content:center}
 .nico .rv-fi{font-size:1rem}
-.nav[data-f="added"] .rv-fi{color:#C4B5FD}
+.nav-article[data-scope="added"] .rv-fi{color:#60A5FA}.nav-article[data-scope="archived"] .rv-fi{color:#FBBF24}
 .nav-flag,.filter-flag,.flag-img{display:block;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.16)}
 .nav-flag{width:18px;height:12px}.filter-flag{width:18px;height:12px;display:inline-block;vertical-align:-2px;margin-right:4px}.flag-img{width:18px;height:12px}
 .cflag{display:inline-flex;align-items:center;justify-content:center;min-width:18px}
@@ -389,9 +389,9 @@ body.dark .dpcl img{filter:invert(1);opacity:.86}
 .cflag{font-size:.72rem}
 .clng{font-size:.57rem;padding:1px 6px;border-radius:4px;background:#EFF6FF;color:#3B82F6;font-weight:600}
 .recommendation-badge,.archive-badge{font-size:.57rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--surf3);color:var(--t3);border:1px solid var(--bd)}
-.recommendation-badge.recommended{background:#ECFDF5;color:#047857;border-color:#A7F3D0}.recommendation-badge.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}.archive-badge{background:#F3F4F6;color:#4B5563}
+.recommendation-badge.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}.archive-badge{background:#F3F4F6;color:#4B5563}
 .vote-button{border:1px solid var(--bd);background:var(--surf2);color:var(--t3);border-radius:7px;cursor:pointer;font-family:var(--sans);transition:color var(--ease),border-color var(--ease),background var(--ease)}
-.vote-button:hover,.vote-button.active{color:#C2410C;border-color:#FDBA74;background:#FFF7ED}.card-vote{width:40px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.68rem}.card-vote strong{font-size:.76rem}.vote-arrow{display:inline-flex;align-items:center;justify-content:center;font-size:1rem;line-height:1}.detail-vote .vote-arrow{font-size:.92rem}
+.vote-button:hover,.vote-button.active{color:#C2410C;border-color:#FDBA74;background:#FFF7ED}.card-vote{width:40px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.68rem}.card-vote strong{font-size:.76rem}.vote-like{display:inline-flex;align-items:center;justify-content:center;font-size:1rem;line-height:1}.detail-vote .vote-like{font-size:.92rem}
 .ctfr{font-size:.7rem;color:var(--t4);line-height:1.4;margin:2px 0 4px;font-style:italic;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .cti{font-size:.85rem;font-weight:500;color:var(--t1);line-height:1.48;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cde{font-size:.74rem;color:var(--t3);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -437,7 +437,7 @@ body.dark .backbtn img{filter:invert(1);opacity:.86}
 .dpscttl{font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t4);margin-bottom:10px}
 .dpsc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.dpsc-head .dpscttl{margin-bottom:0}
 .dp-engagement-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;margin-bottom:11px}.dp-engagement-grid>label:first-child{display:flex;flex-direction:column;gap:6px;font-size:.68rem;font-weight:700;color:var(--t3)}.archive-option{display:flex;align-items:center;gap:8px;min-height:34px;font-size:.72rem;font-weight:700;color:var(--t2);cursor:pointer}.archive-option input{width:17px;height:17px;accent-color:var(--blue)}.detail-vote{min-height:32px;padding:5px 10px;display:inline-flex;align-items:center;gap:5px;font-size:.67rem;font-weight:700}
-.dpchip.recommendation{background:var(--surf3);color:var(--t2);border:1px solid var(--bd)}.dpchip.recommendation.recommended{background:#ECFDF5;color:#047857;border-color:#A7F3D0}.dpchip.recommendation.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
+.dpchip.recommendation{background:var(--surf3);color:var(--t2);border:1px solid var(--bd)}.dpchip.recommendation.essential{background:#FFF7ED;color:#C2410C;border-color:#FED7AA}
 .dpdesc{font-size:.86rem;color:var(--t2);line-height:1.72;margin-bottom:16px}
 .dpdesc.unavailable{padding:12px 14px;background:var(--high-bg);color:var(--high);border:1px solid var(--high-bd);border-radius:6px}
 .dp-ai-summary{display:flex;flex-direction:column;gap:9px;margin:0;padding-left:20px}.dp-ai-summary li{padding-left:3px;line-height:1.62}.dp-ai-summary li::marker{color:var(--blue)}
@@ -615,7 +615,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
     <div class="sbg">
       <div class="sbl">Articles</div>
       <div class="nav nav-article" data-scope="added" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-added"></i></span><span class="nlbl">Articles ajoutés</span><span class="ncnt" id="nc-added">—</span></div>
-      <div class="nav nav-article" data-scope="archived" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Articles archivés</span><span class="ncnt" id="nc-archived">—</span></div>
+      <div class="nav nav-article" data-scope="archived" role="checkbox" aria-checked="false" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-archive"></i></span><span class="nlbl">Articles archivés</span><span class="ncnt" id="nc-archived">—</span></div>
     </div>
     <div class="sdiv"></div>
     <div class="sbg" id="geoNavWrap">
@@ -627,11 +627,11 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
     </div>
     <div class="sdiv"></div>
     <div class="sbg" id="catNavWrap">
-      <div class="sbl">Familles de risques · Référentiel Carrefour</div>
-      <!-- Les 11 familles A à K sont injectées ici par JavaScript. -->
+      <div class="sbl">Catégories de risques - Univers de risques Carrefour</div>
+      <!-- Les 11 catégories A à K sont injectées ici par JavaScript. -->
     </div>
     <div class="sbfoot">
-      <p><strong>RiskVeille v14</strong> · référentiel de risques Carrefour<br>11 familles A→K<br>66 sources globales · 18 flux concurrents<br>4 langues · analyse automatisée</p>
+      <p><strong>RiskVeille v14</strong> · univers de risques Carrefour<br>11 catégories A→K<br>66 sources globales · 18 flux concurrents · 1 flux Carrefour<br>4 langues · analyse automatisée</p>
     </div>
   </aside>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -655,7 +655,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
               <span class="sttl" id="secTtl">Alertes risques + Signaux macro</span>
               <span class="rcnt" id="resCnt"></span>
               <div class="sgrp">
-                <button class="sbtn active" data-sort="votes">Plus recommandés</button>
+                <button class="sbtn active" data-sort="votes">Plus aimés</button>
                 <button class="sbtn" data-sort="recent">Récents</button>
               </div>
               <button class="sbtn mobile-filter-btn" id="btnFilters" aria-controls="sidebar-risks" aria-expanded="false">Filtres</button>
@@ -687,11 +687,15 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
         <section class="comp-bar">
           <div class="comp-bar-left">
             <span class="comp-bar-title">Veille concurrentielle · fiches enseigne</span>
-            <span class="comp-bar-sub">Cliquez sur une enseigne pour voir le détail.</span>
+            <span class="comp-bar-sub" id="ccModeDescription">Cliquez sur une enseigne pour voir le détail.</span>
           </div>
           <div class="comp-bar-right">
-            <button class="sbtn active article-add-action" id="btnAddCompArticle" style="margin-right:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter un article</span></button>
             <div class="sgrp">
+              <button class="sbtn active" data-cc-mode="competitors">Concurrents</button>
+              <button class="sbtn" data-cc-mode="carrefour">Carrefour</button>
+            </div>
+            <button class="sbtn active article-add-action" id="btnAddCompArticle" style="margin-right:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span>Ajouter un article</span></button>
+            <div class="sgrp" id="ccCountryFilters">
               <button class="sbtn active" data-cc-pays="all">Tous (<span id="cc-cnt-all">—</span>)</button>
               <button class="sbtn" data-cc-pays="FR"><img class="filter-flag" src="assets/flags/fr.png" alt="">France (<span id="cc-cnt-FR">—</span>)</button>
               <button class="sbtn" data-cc-pays="ES"><img class="filter-flag" src="assets/flags/es.png" alt="">Espagne (<span id="cc-cnt-ES">—</span>)</button>
@@ -752,7 +756,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <div class="dp-description-actions"><button class="sbtn" id="dpAiEditCancel" type="button">Annuler</button><button class="sbtn active" id="dpAiEditSave" type="button">Enregistrer</button></div>
     </div>
     <section class="dp-shared-section" id="dpClassification">
-      <div class="dpsection-label">Famille de risques</div>
+      <div class="dpsection-label">Catégorie de risques - Univers de risques Carrefour</div>
       <div class="dp-class-grid">
         <label>Classement<select class="dpti" id="dpCatSelect"></select></label>
       </div>
@@ -769,7 +773,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       </div>
       <div class="dp-shared-actions">
         <button class="sbtn active" id="dpEngagementSave">Enregistrer</button>
-        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false" title="Recommander cet article"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><span id="dpVoteCount">0</span><span>vote</span></button>
+        <button class="vote-button detail-vote" id="dpVote" type="button" aria-pressed="false" title="J’aime cet article"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><span id="dpVoteCount">0</span><span>J’aime</span></button>
       </div>
       <div class="dp-shared-meta" id="dpEngagementMeta"></div>
     </section>
@@ -802,7 +806,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <label class="addart-lbl">Commentaire (optionnel)</label>
       <textarea id="addArtComment" class="addart-input" rows="2" maxlength="1200" placeholder="Ajouter un commentaire pour l'équipe…"></textarea>
       <label class="addart-ai-option"><input type="checkbox" id="addArtAi"><i class="rv-fi rv-ai" aria-hidden="true"></i><span>Générer un résumé par IA après l'ajout</span></label>
-      <label class="addart-lbl">Famille de risques</label>
+      <label class="addart-lbl">Catégorie de risques - Univers de risques Carrefour</label>
       <select id="addArtCat" class="addart-input"></select>
       <label class="addart-lbl">Recommandation de lecture</label>
       <select id="addArtRecommendation" class="addart-input"></select>
@@ -886,7 +890,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
    RÉFÉRENTIEL OFFICIEL CARREFOUR
    ─────────────────────────────────────────
    Taxonomie issue du document interne Risques & Catégories :
-   11 familles de risques (A→K), qui constituent le seul niveau présenté.
+   11 catégories de risques (A→K), qui constituent le seul niveau présenté.
    ========================================= */
 const RISK_CATEGORIES = {
   A:{label:'Environnement des affaires',short:'Environnement des affaires',ico:'rv-cat-a',color:'#2563EB'},
@@ -1721,7 +1725,7 @@ function scheduleCentralReload(revision){
 }
 
 async function fetchFeedData(feedUrl, timeoutMs = 6000, direct = false) {
-  const source=SOURCES.find(item=>item.url===feedUrl)||COMPETITOR_FEEDS.find(item=>item.url===feedUrl);
+  const source=SOURCES.find(item=>item.url===feedUrl)||WATCH_FEEDS.find(item=>item.url===feedUrl);
   if(!source)return fetchFallbackFeedData(feedUrl,timeoutMs,direct);
   const snapshot=await loadCentralFeeds();
   const record=snapshot.byId.get(source.id);
@@ -1822,6 +1826,26 @@ const KW = [
    - query RSS Google News dédiée
    - ID groupe / propriétaire si cotation indirecte (ex: Atacadão = Carrefour BR)
    ========================================= */
+const CARREFOUR_WATCH = {
+  id:'carrefour',
+  logoSrc:'assets/carrefour-logo.svg',
+  name:'Carrefour',
+  pays:'FR',
+  segment:'Groupe Carrefour',
+  marketShare:'Groupe suivi',
+  stores:'Présence multiformat',
+  founded:'1959',
+  hq:'Massy, France',
+  site:'https://www.carrefour.com',
+  desc:'Actualités du Groupe Carrefour issues de Google News, de la communication officielle et des sources de la Vue globale.',
+  keywords:['carrefour','atacadão','atacadao','carrefour market','carrefour brasil','carrefour españa'],
+  rssQ:'Carrefour+groupe+OR+Carrefour+retail',
+  listed:true,
+  ticker:'CA.PA',
+  isCarrefour:true,
+  officialSourceIds:['cf-newsroom'],
+};
+
 const COMPETITOR_REGISTRY = [
   // ── FRANCE ────────────────────────────────────────────────────────────
   {
@@ -2180,7 +2204,8 @@ const COMPETITOR_REGISTRY = [
   },
 ];
 
-const COMPETITORS_BY_ID = Object.fromEntries(COMPETITOR_REGISTRY.map(c => [c.id, c]));
+const WATCH_REGISTRY = [CARREFOUR_WATCH, ...COMPETITOR_REGISTRY];
+const COMPETITORS_BY_ID = Object.fromEntries(WATCH_REGISTRY.map(c => [c.id, c]));
 const COMPETITOR_FEED_LOCALES = {
   FR:{lang:'fr',ceid:'FR:fr'},
   ES:{lang:'es',ceid:'ES:es'},
@@ -2196,6 +2221,13 @@ const COMPETITOR_FEEDS = COMPETITOR_REGISTRY.map(competitor=>({
   url:competitorFeedUrl(competitor),
   competitorId:competitor.id,
 }));
+const CARREFOUR_WATCH_FEED = {
+  id:'carrefour-watch-news',
+  name:'Veille Carrefour — Google News',
+  url:competitorFeedUrl(CARREFOUR_WATCH),
+  competitorId:CARREFOUR_WATCH.id,
+};
+const WATCH_FEEDS = [CARREFOUR_WATCH_FEED, ...COMPETITOR_FEEDS];
 
 const REL_WORDS = ['carrefour','atacadão','carrefour market','grande distribution','hypermarché','supermarché','supermercado','varejo','distribution alimentaire','approvisionnement','fournisseur','rupture stock','supply chain','logistique','rappel produit','contamination','listeria','salmonelle','e.coli','intoxication alimentaire','EFSA','rgpd','CNIL','directive européenne','loi alimentation','CSRD','réglementation','inflation alimentaire','pouvoir achat','prix alimentaires','indice prix','cyberattaque','ransomware','violation données','data breach','inondation','enchente','seca','sequía','perturbation logistique','grève','huelga','plan social','licenciement','parts de marché','consommation ménages','INSEE','Circana'];
 const TRUSTED_PUBLISHER_DOMAINS = [
@@ -2262,7 +2294,7 @@ function matchesCategoryFilter(item){
 
 function matchesArticleScope(item){
   if(ST.articleScope==='archived')return item.archived===true;
-  if(ST.articleScope==='added')return item.archived!==true&&item.shared===true;
+  if(ST.articleScope==='added')return item.shared===true;
   return item.archived!==true;
 }
 
@@ -2313,11 +2345,15 @@ function applySharedClassification(item){
 
 const RECOMMENDATION_OPTIONS = [
   ['standard','À lire'],
-  ['recommended','Recommandé'],
   ['essential','Incontournable'],
 ];
 const RECOMMENDATION_LABELS = Object.fromEntries(RECOMMENDATION_OPTIONS);
-const RECOMMENDATION_RANKS = {standard:1,recommended:2,essential:3};
+const RECOMMENDATION_RANKS = {standard:1,essential:2};
+function articleEngagementSort(a,b){
+  return (b.voteCount||0)-(a.voteCount||0)
+    ||(RECOMMENDATION_RANKS[b.recommendation]||1)-(RECOMMENDATION_RANKS[a.recommendation]||1)
+    ||new Date(b.date)-new Date(a.date);
+}
 
 function srNormalize(value){
   return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -2395,8 +2431,9 @@ function applySharedState(){
   ST.all.forEach(applySharedOverrides);
   rebuildCCItems();
   if(curItem){
-    const current=ST.all.find(item=>sharedArticleKey(item)===sharedArticleKey(curItem))
-      ||CC.items.find(item=>sharedArticleKey(item)===sharedArticleKey(curItem));
+    const current=curItem.competitorId
+      ? CC.items.find(item=>competitorItemKey(item)===competitorItemKey(curItem))
+      : ST.all.find(item=>sharedArticleKey(item)===sharedArticleKey(curItem));
     if(curItem.shared&&!current){$('ov').classList.remove('open');curItem=null;}
     else{
       curItem=current||curItem;
@@ -2642,7 +2679,7 @@ function updateCounts(){
   cats.forEach(k => { catCounts[k] = categoryOptions.filter(i => i.catCode === k).length; });
   const c={
     all:active.length,
-    added:n(i=>!i.archived&&i.shared===true&&matchesCategoryFilter(i)&&matchesGeoFilter(i)),
+    added:n(i=>i.shared===true&&matchesCategoryFilter(i)&&matchesGeoFilter(i)),
     archived:n(i=>i.archived===true&&matchesCategoryFilter(i)&&matchesGeoFilter(i)),
     FR:n(i=>!i.archived&&i.pays==='FR'&&matchesCategoryFilter(i)),ES:n(i=>!i.archived&&i.pays==='ES'&&matchesCategoryFilter(i)),BR:n(i=>!i.archived&&i.pays==='BR'&&matchesCategoryFilter(i)),MON:n(i=>!i.archived&&i.pays==='MONDE'&&matchesCategoryFilter(i)),
     ...catCounts,
@@ -2671,7 +2708,7 @@ function renderMacroPanel(){
 function applyFilter({preservePage=false}={}){
   let items=ST.all.filter(matchesActiveFilters);
   // La recherche textuelle s'applique toujours.
-  // Elle couvre le titre, la source, la description et la famille A à K.
+  // Elle couvre le titre, la source, la description et la catégorie A à K.
   if(ST.search){
     const q=ST.search.toLowerCase();
     items=items.filter(i=>{
@@ -2684,9 +2721,8 @@ function applyFilter({preservePage=false}={}){
     });
   }
 
-  const voteSort=(a,b)=>(b.voteCount||0)-(a.voteCount||0)||(RECOMMENDATION_RANKS[b.recommendation]||1)-(RECOMMENDATION_RANKS[a.recommendation]||1)||b.date-a.date;
   if(ST.sort==='recent')items.sort((a,b)=>b.date-a.date||(b.voteCount||0)-(a.voteCount||0));
-  else items.sort(voteSort);
+  else items.sort(articleEngagementSort);
   ST.filtered=items;
   const totalPages=Math.max(1,Math.ceil(items.length/ST.perPage));
   ST.page=preservePage?Math.min(Math.max(1,ST.page),totalPages):1;
@@ -2723,8 +2759,8 @@ function rCard(it,idx){
     ? `<div class="archive-attribution">Archivé par <strong>${esc(it.archivedBy)}</strong> · <time datetime="${esc(it.archivedAt)}">${esc(fmtCommentDate(it.archivedAt))}</time></div>`
     : '';
   const summary = it.desc ? `<div class="cde">${esc(it.desc)}</div>` : '';
-  const voteLabel=it.votedByMe?'Retirer votre vote':'Recommander cet article';
-  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-arrow" aria-hidden="true"><i class="rv-fi rv-upvote"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}${archiveAttribution}</div><div class="cdate">${relDate(it.date)}</div></div>`;
+  const voteLabel=it.votedByMe?'Retirer votre J’aime':'J’aime cet article';
+  return `<div class="card" data-idx="${idx}" data-id="${esc(it.id)}"><button class="vote-button card-vote${it.votedByMe?' active':''}" data-vote="${idx}" type="button" aria-label="${voteLabel}" title="${voteLabel}" aria-pressed="${it.votedByMe?'true':'false'}"><span class="vote-like" aria-hidden="true"><i class="rv-fi rv-like"></i></span><strong>${it.voteCount||0}</strong></button><div><div class="cm"><span class="csrc">${esc(it.source)}</span>${catBadge}<span class="cflag">${flag(it.pays)}</span>${it.lang !== 'fr' ? `<span class="clng">${it.lang.toUpperCase()}</span>` : ''}${recommendation}${archiveBadge}${customBadge}${corroborationHtml(it)}</div>${translatedTitleHtml(it, 'cti')}${summary}${archiveAttribution}</div><div class="cdate">${relDate(it.date)}</div></div>`;
 }
 
 function renderPager(cur,tot){
@@ -3002,7 +3038,7 @@ function renderEngagementEditor(item){
   $('dpVoteCount').textContent=String(item.voteCount||0);
   $('dpVote').classList.toggle('active',!!item.votedByMe);
   $('dpVote').setAttribute('aria-pressed',String(!!item.votedByMe));
-  const voteLabel=item.votedByMe?'Retirer votre vote':'Recommander cet article';
+  const voteLabel=item.votedByMe?'Retirer votre J’aime':'J’aime cet article';
   $('dpVote').setAttribute('aria-label',voteLabel);
   $('dpVote').title=voteLabel;
   const state=item.engagement||SHARED.engagements.get(sharedArticleKey(item));
@@ -3034,7 +3070,7 @@ async function toggleArticleVote(item){
     SHARED.votes.set(articleId,vote);applySharedEngagement(item);
     if(curItem&&sharedArticleKey(curItem)===articleId)renderEngagementEditor(curItem);
     applyFilter({preservePage:true});
-  }catch(error){toast(error.message||'Vote impossible.','err');}
+  }catch(error){toast(error.message||'J’aime impossible.','err');}
 }
 
 $('dpVote').addEventListener('click',()=>void toggleArticleVote(curItem));
@@ -3230,7 +3266,7 @@ function populateAddCompetitorSelect(){
   const select=$('addCompArticleCompetitor');
   if(!select||select.options.length)return;
   const countryNames={FR:'France',ES:'Espagne',BR:'Brésil'};
-  select.innerHTML=COMPETITOR_REGISTRY.map(competitor=>`<option value="${esc(competitor.id)}">${esc(competitor.name)} · ${countryNames[competitor.pays]||competitor.pays}</option>`).join('');
+  select.innerHTML=WATCH_REGISTRY.map(competitor=>`<option value="${esc(competitor.id)}">${esc(competitor.name)} · ${competitor.isCarrefour?'Groupe suivi':countryNames[competitor.pays]||competitor.pays}</option>`).join('');
 }
 function openAddCompetitorArticleModal(competitorId=''){
   populateAddCompetitorSelect();
@@ -3241,7 +3277,7 @@ function openAddCompetitorArticleModal(competitorId=''){
   $('addCompArticleErr').style.display='none';
   $('addCompArticleOv').classList.add('open');
 }
-$('btnAddCompArticle')?.addEventListener('click',()=>openAddCompetitorArticleModal(CC.openCompId||''));
+$('btnAddCompArticle')?.addEventListener('click',()=>openAddCompetitorArticleModal(CC.openCompId||(CC.mode==='carrefour'?'carrefour':'')));
 $('addCompArticleCl')?.addEventListener('click',()=>$('addCompArticleOv').classList.remove('open'));
 $('addCompArticleOv')?.addEventListener('click',event=>{if(event.target.id==='addCompArticleOv')$('addCompArticleOv').classList.remove('open');});
 $('addCompArticleSubmit')?.addEventListener('click',async()=>{
@@ -3279,20 +3315,19 @@ $('addCompArticleSubmit')?.addEventListener('click',async()=>{
 /* =========================================
    VEILLE CONCURRENTIELLE — FICHES ENSEIGNE
    ─────────────────────────────────────────
-   1) On extrait des articles "concurrent" depuis ST.all (déjà collecté pour la
-      Vue globale), en cherchant les keywords de chaque enseigne du
-      COMPETITOR_REGISTRY.
-   2) On charge en parallèle un flux Google News dédié par concurrent
-      (CC_DEDICATED_FEEDS) pour densifier — utile quand un concurrent n'apparaît
-      pas dans les articles agrégés.
+   1) On extrait depuis ST.all les articles des sources de la Vue globale qui
+      mentionnent une enseigne suivie ou Carrefour.
+   2) On charge en parallèle les flux Google News dédiés et, pour Carrefour,
+      les publications de la communication officielle.
    3) On ajoute les liens partagés par l'équipe, puis on déduplique et on trie
-      les actualités par date, sans notation numérique propre aux concurrents.
+      les actualités selon les J’aime et la recommandation de lecture.
    ========================================= */
 const CC = {
   /** Liste agrégée des articles concurrents (un article peut être attaché à plusieurs enseignes) */
   items: [],
   /** État de l'UI */
   filtered: [],
+  mode: 'competitors',
   pays: 'all',
   sort: 'recent',
   openCompId: null,
@@ -3303,8 +3338,8 @@ const CC = {
   sourceRefreshAttempts: 0,
 };
 
-/** Lance le chargement des flux Google News dédiés à chaque concurrent
- *  (1 flux par concurrent, ciblé sur son nom + pays).
+/** Lance le chargement des flux dédiés à chaque entité suivie.
+ *  Carrefour complète Google News avec les sources officielles déclarées.
  *  N'est appelé qu'une fois la vue Concurrence ouverte, pour ne pas alourdir
  *  le chargement initial. */
 /* Matching robuste d'un concurrent dans un texte.
@@ -3330,7 +3365,7 @@ async function loadDedicatedCompetitorFeeds(){
   let missingSourceIds=[];
   try{
     const snapshot=await loadCentralFeeds(true);
-    missingSourceIds=COMPETITOR_FEEDS.filter(source=>{
+    missingSourceIds=WATCH_FEEDS.filter(source=>{
       const record=snapshot.byId.get(source.id);
       return !record||(!record.items?.length&&!record.lastSuccessAt);
     }).map(source=>source.id);
@@ -3341,35 +3376,38 @@ async function loadDedicatedCompetitorFeeds(){
       await Promise.all(batches.map(sourceIds=>apiFetch('/api/refresh',{method:'POST',body:JSON.stringify({sourceIds})})));
     }
   }catch{}
-  const tasks = COMPETITOR_REGISTRY.map(async (c) => {
-    const url = competitorFeedUrl(c);
-    try {
-      const data = await fetchFeedData(url, 7000);
-      const CUTOFF = Date.now() - 35 * 24 * 3600 * 1000;
-      const out = [];
-      for (const it of (data.items || [])) {
-        if (out.length >= 15) break;
-        const title = stripHTML(it.title); if (!title) continue;
-        const date = it.pubDate ? new Date(it.pubDate) : new Date();
-        if (isNaN(date.getTime()) || date.getTime() < CUTOFF) continue;
-        const desc = stripHTML(it.description || it.content || '').substring(0, 280);
-        // Filtrage par limite de mots (plus tolérant qu'avant)
-        if (!matchCompetitor(title + ' ' + desc, c)) continue;
-        out.push({
-          id: it.link || (c.id + Math.random()),
-          title, link: it.link, date, desc,
-          source: 'Google News · ' + c.name,
-          competitorId: c.id,
-          competitorName: c.name,
-          pays: c.pays,
-          lang: c.pays === 'ES' ? 'es' : c.pays === 'BR' ? 'pt' : 'fr',
-          custom:false,
-        });
-      }
-      return out;
-    } catch (e) {
-      return [];
+  const tasks = WATCH_REGISTRY.map(async (c) => {
+    const definitions=[{
+      url:competitorFeedUrl(c),source:`Google News · ${c.name}`,requireMatch:true,
+    }];
+    for(const sourceId of (c.officialSourceIds||[])){
+      const source=SOURCES.find(entry=>entry.id===sourceId);
+      if(source)definitions.push({url:source.url,source:source.name,requireMatch:false});
     }
+    const batches=await Promise.all(definitions.map(async definition=>{
+      try{
+        const data=await fetchFeedData(definition.url,7000);
+        const cutoff=Date.now()-35*24*3600*1000;
+        const out=[];
+        for(const it of (data.items||[])){
+          if(out.length>=25)break;
+          const title=stripHTML(it.title);if(!title)continue;
+          const date=it.pubDate?new Date(it.pubDate):new Date();
+          if(isNaN(date.getTime())||date.getTime()<cutoff)continue;
+          const desc=stripHTML(it.description||it.content||'').substring(0,280);
+          if(definition.requireMatch&&!matchCompetitor(`${title} ${desc}`,c))continue;
+          const articleId=it.link||stableIntelId({source:definition.source,title,publishedAt:it.pubDate});
+          out.push({
+            id:articleId,competitorViewId:`${articleId}|${c.id}`,
+            title,link:it.link,date,desc,source:definition.source,
+            competitorId:c.id,competitorName:c.name,pays:c.pays,
+            lang:c.pays==='ES'?'es':c.pays==='BR'?'pt':'fr',custom:false,
+          });
+        }
+        return out;
+      }catch{return [];}
+    }));
+    return batches.flat();
   });
   const results = await Promise.all(tasks);
   CC.dedicated = results.flat();
@@ -3384,17 +3422,17 @@ async function loadDedicatedCompetitorFeeds(){
   }
 }
 
-/** Extrait depuis ST.all les articles qui parlent d'un concurrent. */
+/** Extrait depuis ST.all les articles qui parlent d'une entité suivie. */
 function extractCompetitorArticlesFromAll(allItems){
   const out = [];
   for (const item of allItems) {
     const txt = item.title + ' ' + (item.desc || '');
-    // Quel(s) concurrent(s) mentionné(s) ?
-    const matched = COMPETITOR_REGISTRY.filter(c => matchCompetitor(txt, c));
+    const matched = WATCH_REGISTRY.filter(c => matchCompetitor(txt, c));
     if (!matched.length) continue;
     for (const c of matched) {
       out.push({
-        id: item.id + '|' + c.id,
+        id:item.id,
+        competitorViewId:`${item.id}|${c.id}`,
         title: item.title,
         link: item.link,
         date: item.date,
@@ -3420,11 +3458,15 @@ function sharedCompetitorRecordToItem(record){
   const competitor=COMPETITORS_BY_ID[record.competitor_id];
   if(!competitor)return null;
   return {
-    id:record.id,title:record.title,link:record.url,desc:record.summary||'',date:new Date(record.created_at),
+    id:record.id,competitorViewId:`${record.id}|${competitor.id}`,title:record.title,link:record.url,desc:record.summary||'',date:new Date(record.created_at),
     source:`Ajouté par ${record.author}`,competitorId:competitor.id,competitorName:competitor.name,
     pays:competitor.pays,lang:'fr',custom:true,shared:true,addedBy:record.author,
     manualClassification:manualClassificationFromRecord(record)||SHARED.overrides.get(String(record.id)),
   };
+}
+
+function competitorItemKey(item){
+  return String(item?.competitorViewId||`${sharedArticleKey(item)}|${item?.competitorId||''}`);
 }
 
 /** Adds the fields required by the shared analysis panel. */
@@ -3462,16 +3504,18 @@ function rebuildCCItems(){
 /** Construit la structure agrégée par enseigne. */
 function buildCompetitorTiles(){
   const byId = {};
-  for (const c of COMPETITOR_REGISTRY) byId[c.id] = { ...c, items: [], customCount:0, latestAt:0 };
+  for (const c of WATCH_REGISTRY) byId[c.id] = { ...c, items: [], customCount:0, latestAt:0 };
   for (const it of CC.items){
     const slot = byId[it.competitorId];
     if (!slot) continue;
     slot.items.push(it);
-    if(it.custom)slot.customCount++;
     slot.latestAt=Math.max(slot.latestAt,new Date(it.date).getTime()||0);
   }
-  // Tri interne des articles : date desc
-  Object.values(byId).forEach(s => s.items.sort((a,b) => b.date - a.date));
+  Object.values(byId).forEach(slot=>{
+    slot.items.sort(articleEngagementSort);
+    slot.items=slot.items.slice(0,10);
+    slot.customCount=slot.items.filter(item=>item.custom).length;
+  });
   return Object.values(byId);
 }
 
@@ -3479,12 +3523,13 @@ function renderConcurrence(){
   rebuildCCItems();
   const tiles = buildCompetitorTiles();
   // KPIs globaux
-  set('cc-total-comp', COMPETITOR_REGISTRY.length);
-  ['FR','ES','BR'].forEach(p => set('cc-total-' + p, tiles.filter(t => t.pays === p).length));
-  set('cc-tot', CC.items.length);
+  const competitorTiles=tiles.filter(tile=>!tile.isCarrefour);
+  set('cc-total-comp', competitorTiles.length);
+  ['FR','ES','BR'].forEach(p => set('cc-total-' + p, competitorTiles.filter(t => t.pays === p).length));
+  set('cc-tot', competitorTiles.reduce((total,tile)=>total+tile.items.length,0));
   // Compteurs par pays sur les boutons
-  set('cc-cnt-all', tiles.length);
-  ['FR','ES','BR'].forEach(p => set('cc-cnt-' + p, tiles.filter(t => t.pays === p).length));
+  set('cc-cnt-all', competitorTiles.length);
+  ['FR','ES','BR'].forEach(p => set('cc-cnt-' + p, competitorTiles.filter(t => t.pays === p).length));
 
   applyCCFilter(tiles);
 }
@@ -3492,8 +3537,12 @@ function renderConcurrence(){
 function applyCCFilter(allTiles){
   // allTiles peut être passé en argument ou recalculé
   const tiles = allTiles || buildCompetitorTiles();
-  let filtered = tiles;
-  if (CC.pays !== 'all') filtered = filtered.filter(t => t.pays === CC.pays);
+  let filtered=CC.mode==='carrefour'?tiles.filter(tile=>tile.isCarrefour):tiles.filter(tile=>!tile.isCarrefour);
+  if(CC.mode==='competitors'&&CC.pays!=='all')filtered=filtered.filter(t=>t.pays===CC.pays);
+  $('ccCountryFilters').style.display=CC.mode==='competitors'?'inline-flex':'none';
+  $('ccModeDescription').textContent=CC.mode==='carrefour'
+    ? 'Google News, communication officielle et sources de la Vue globale.'
+    : 'Cliquez sur une enseigne pour voir le détail.';
   // Tri
   if (CC.sort === 'recent') {
     filtered.sort((a,b) => b.latestAt - a.latestAt || b.items.length - a.items.length || a.name.localeCompare(b.name));
@@ -3526,7 +3575,7 @@ function renderCCGrid(){
       : `<span style="font-size:.66rem;color:var(--t4);font-style:italic">Aucune actualité récente</span>`;
     const news = t.items.slice(0, 3).map(it => {
       requestFrenchTranslation(it);
-      return `<div class="comp-news-item" data-cc-detail="${esc(it.id)}" role="button" tabindex="0" aria-label="Ouvrir l'analyse de cet article"><div class="comp-news-copy"><span class="comp-news-marker" aria-hidden="true"></span>${translatedTitleHtml(it, 'comp-news-title')}</div><span class="comp-news-date">${relDate(it.date)}</span></div>`;
+      return `<div class="comp-news-item" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="Ouvrir l'analyse de cet article"><div class="comp-news-copy"><span class="comp-news-marker" aria-hidden="true"></span>${translatedTitleHtml(it, 'comp-news-title')}</div><span class="comp-news-date">${relDate(it.date)}</span></div>`;
     }).join('') || `<div class="comp-news-empty">Pas d'actualité récente.</div>`;
 
     return `<article class="comp-card" data-comp-id="${esc(t.id)}">
@@ -3539,8 +3588,8 @@ function renderCCGrid(){
         <span class="comp-seg">${esc(t.segment.split(' / ')[0])}</span>
       </div>
       <div class="comp-stats">
-        <div class="comp-stat"><span class="comp-stat-lbl">${t.pays === 'BR' ? 'Chiffre d\'affaires' : 'Parts marché'}</span><span class="comp-stat-val">${esc(t.marketShare)}</span></div>
-        <div class="comp-stat"><span class="comp-stat-lbl">Magasins</span><span class="comp-stat-val">${esc(t.stores)}</span></div>
+        <div class="comp-stat"><span class="comp-stat-lbl">${t.isCarrefour?'Périmètre':t.pays==='BR'?'Chiffre d\'affaires':'Parts marché'}</span><span class="comp-stat-val">${esc(t.marketShare)}</span></div>
+        <div class="comp-stat"><span class="comp-stat-lbl">${t.isCarrefour?'Couverture':'Magasins'}</span><span class="comp-stat-val">${esc(t.stores)}</span></div>
       </div>
       <div class="comp-alerts-tot">${alertsRow}</div>
       <div class="comp-news">${news}</div>
@@ -3571,7 +3620,7 @@ function bindCompetitorDetailTriggers(root){
 }
 
 function openCompetitorArticleDetail(articleId){
-  const item=CC.items.find(entry=>sharedArticleKey(entry)===String(articleId));
+  const item=CC.items.find(entry=>competitorItemKey(entry)===String(articleId));
   if(!item)return;
   applySharedOverrides(item);
   closeCompPanel();
@@ -3591,14 +3640,21 @@ function openCompPanel(compId){
   const compLogo = $('compLogo');
   compLogo.dataset.brand = c.id;
   compLogo.innerHTML = `<img src="${esc(c.logoSrc)}" alt="Logo ${esc(c.name)}">`;
-  set('compRole', c.pays === 'FR' ? 'Concurrent direct France' : c.pays === 'ES' ? 'Concurrent direct Espagne' : 'Concurrent direct Brésil');
+  set('compRole',c.isCarrefour?'Veille du Groupe Carrefour':c.pays==='FR'?'Concurrent direct France':c.pays==='ES'?'Concurrent direct Espagne':'Concurrent direct Brésil');
   // Facts
   // La part de marché est affichée avec sa source publique (lien) quand disponible.
   // Sémantique : "% du marché" pour FR/ES, "CA en R$" pour BR (ranking ABRAS).
   const marketShareCell = c.marketShareSource
     ? `${esc(c.marketShare)}<br><a href="${esc(c.marketShareSource)}" target="_blank" rel="noopener" style="color:var(--blue);font-size:.7rem;font-weight:500;text-decoration:none">↗ Voir source${c.marketShareDate ? ' · ' + esc(c.marketShareDate) : ''}</a>`
     : esc(c.marketShare);
-  const facts = [
+  const facts = c.isCarrefour ? [
+    ['Périmètre','Groupe Carrefour'],
+    ['Sources','Google News · communication officielle · Vue globale'],
+    ['Fondation',c.founded],
+    ['Siège',c.hq],
+    ['Coté en bourse',`Oui (${c.ticker})`],
+    ['Site officiel',`<a href="${esc(c.site)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">carrefour.com ↗</a>`],
+  ] : [
     ['Pays', `${flag(c.pays)} ${esc(countryLabel(c.pays))}`],
     ['Segment', c.segment],
     [c.pays === 'BR' ? 'Chiffre d\'affaires' : 'Parts de marché', marketShareCell],
@@ -3612,14 +3668,14 @@ function openCompPanel(compId){
   $('compDesc').textContent = c.desc;
   // Actualités de l'enseigne
   const list = $('compAlertsList');
-  set('compAlertCount', tile.items.length ? `· ${tile.items.length}` : '· 0');
+  set('compAlertCount',tile.items.length?`· ${tile.items.length} sur 10 max`:'· 0');
   if (!tile.items.length){
     list.innerHTML = `<div style="padding:18px 0;font-size:.78rem;color:var(--t4);font-style:italic">Aucune actualité récente détectée. Les flux Google News dédiés se chargent en arrière-plan.</div>`;
   } else {
-    list.innerHTML = tile.items.slice(0, 30).map(it => {
+    list.innerHTML = tile.items.slice(0,10).map(it => {
       requestFrenchTranslation(it);
       const deleteButton=it.custom?`<button class="cp-alert-delete" type="button" data-cc-delete="${esc(it.id)}">Supprimer</button>`:'';
-      return `<article class="cp-alert-card" data-cc-detail="${esc(it.id)}" role="button" tabindex="0" aria-label="Ouvrir le cadran de cet article">
+      return `<article class="cp-alert-card" data-cc-detail="${esc(competitorItemKey(it))}" role="button" tabindex="0" aria-label="Ouvrir le cadran de cet article">
         <div class="cp-alert-inner">
           ${it.custom?'<div class="cp-alert-added">Ajout de l’équipe</div>':''}
           ${translatedTitleHtml(it, 'cp-alert-title')}
@@ -3660,6 +3716,11 @@ $('btnAddCompFromPanel')?.addEventListener('click',()=>{
 });
 
 /** Handlers boutons de tri / pays de la vue Concurrence */
+document.querySelectorAll('[data-cc-mode]').forEach(button=>button.addEventListener('click',()=>{
+  document.querySelectorAll('[data-cc-mode]').forEach(node=>node.classList.toggle('active',node===button));
+  CC.mode=button.dataset.ccMode;
+  applyCCFilter();
+}));
 document.querySelectorAll('[data-cc-sort]').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('[data-cc-sort]').forEach(x => x.classList.remove('active'));
   b.classList.add('active');
@@ -3703,7 +3764,7 @@ function updTime(){const n=new Date();set('upt',`${n.getHours().toString().padSt
 /* =========================================
    Sidebar — Construction dynamique A→K
    ─────────────────────────────────────────
-   Chaque famille est une case à cocher indépendante.
+   Chaque catégorie est une case à cocher indépendante.
    ========================================= */
 function buildCategoryNav(){
   const wrap = $('catNavWrap');
@@ -3719,10 +3780,10 @@ function buildCategoryNav(){
       `</div>`
     );
   }).join('');
-  const allRow = `<div class="nav nav-cat nav-cat-all active" data-code="all" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Toutes les familles</span><span class="ncnt" id="nc-cat-all">—</span></div>`;
+  const allRow = `<div class="nav nav-cat nav-cat-all active" data-code="all" role="checkbox" aria-checked="true" tabindex="0"><span class="filter-check" aria-hidden="true">✓</span><span class="nico" aria-hidden="true"><i class="rv-fi rv-all"></i></span><span class="nlbl">Toutes les catégories</span><span class="ncnt" id="nc-cat-all">—</span></div>`;
   // On garde le label existant en tête
   const lbl = wrap.querySelector('.sbl');
-  wrap.innerHTML = (lbl ? lbl.outerHTML : '<div class="sbl">Familles de risques · Référentiel Carrefour</div>') + allRow + blocks;
+  wrap.innerHTML = (lbl ? lbl.outerHTML : '<div class="sbl">Catégories de risques - Univers de risques Carrefour</div>') + allRow + blocks;
 }
 
 function updateFilterUI(){
@@ -3747,7 +3808,7 @@ function updateFilterUI(){
   });
 
   const selectedCategories=RISK_CATEGORY_CODES.filter(code=>ST.categories.has(code));
-  const categoryLabel=allCategoriesSelected?'Toutes les familles':selectedCategories.length?`${selectedCategories.length} famille${selectedCategories.length>1?'s':''} · ${selectedCategories.join(', ')}`:'Aucune famille sélectionnée';
+  const categoryLabel=allCategoriesSelected?'Toutes les catégories':selectedCategories.length?`${selectedCategories.length} catégorie${selectedCategories.length>1?'s':''} · ${selectedCategories.join(', ')}`:'Aucune catégorie sélectionnée';
   set('secTtl','Veille des risques');
   const scopeLabel={added:'Articles ajoutés',archived:'Articles archivés'}[ST.articleScope]||'';
   const geoNames={MONDE:'Monde / UE',FR:'France',ES:'Espagne',BR:'Brésil'};
@@ -3758,7 +3819,7 @@ function updateFilterUI(){
 
 function attachNavHandlers(){
   const keyboardClick=node=>node?.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();node.click();}});
-  // Les familles se combinent entre elles et avec les autres critères.
+  // Les catégories se combinent entre elles et avec les autres critères.
   document.querySelectorAll('.nav-cat').forEach(n => {
     n.addEventListener('click', () => {
       const code=n.dataset.code||'all';

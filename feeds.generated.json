@@ -418,5 +418,10 @@
     "id": "competitor-cencosud-br",
     "name": "Veille concurrentielle — Cencosud Brasil",
     "url": "https://news.google.com/rss/search?q=%22Cencosud%22+Brasil&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  },
+  {
+    "id": "carrefour-watch-news",
+    "name": "Veille Carrefour — Google News",
+    "url": "https://news.google.com/rss/search?q=Carrefour+groupe+OR+Carrefour+retail&hl=fr&gl=FR&ceid=FR:fr"
   }
 ]

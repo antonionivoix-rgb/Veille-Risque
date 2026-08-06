@@ -1,8 +1,9 @@
 # Registre des sources — RiskVeille
 
 Ce document présente les **66 sources suivies dans Vue globale**, en français, anglais, espagnol et
-portugais. Elles sont regroupées selon les grandes familles du référentiel de risques Carrefour et
-complétées par **18 flux Google News dédiés aux enseignes** dans l'onglet Veille concurrentielle.
+portugais. Elles sont regroupées selon les grandes catégories de l'univers de risques Carrefour et
+complétées par **18 flux Google News dédiés aux enseignes** et **1 flux de veille Carrefour** dans
+l'onglet Veille concurrentielle.
 
 Chaque nom de source renvoie directement au site public de l'organisme, de l'institution ou du
 média concerné. Les adresses techniques utilisées pour collecter les publications sont gérées
@@ -138,9 +139,9 @@ rapport avec le périmètre sont normalement écartés.
 - [Google Actualités](https://news.google.com/) — Veille légère limitée aux conflits, sanctions,
   embargos et bouleversements géopolitiques majeurs
 
-## Familles sans source dédiée
+## Catégories sans source dédiée
 
-Aucune source suffisamment pertinente n'a encore été retenue uniquement pour les familles C
+Aucune source suffisamment pertinente n'a encore été retenue uniquement pour les catégories C
 (Stratégie et organisation), D (Modèle commercial et expérience clients), F (Chaîne
 d'approvisionnement) et J (Ressources humaines). Des articles sur ces sujets apparaissent néanmoins
 dans les sources transversales ou spécialisées existantes. Cette absence est documentée plutôt que

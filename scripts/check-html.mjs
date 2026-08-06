@@ -16,4 +16,22 @@ for (const fragment of requiredHomeFragments) {
   }
 }
 
-console.log("Syntaxe principale et contrat du bouton d'accueil valides");
+const requiredEngagementFragments = [
+  '.rv-like::before{content:"\\fd94"}',
+  '.rv-archive::before{content:"\\f16d"}',
+  "['standard','À lire']",
+  "['essential','Incontournable']",
+  "if(ST.articleScope==='added')return item.shared===true",
+  'slot.items=slot.items.slice(0,10)',
+  "id:'carrefour-watch-news'",
+  "officialSourceIds:['cf-newsroom']",
+  'Catégories de risques - Univers de risques Carrefour',
+];
+for (const fragment of requiredEngagementFragments) {
+  if (!html.includes(fragment)) throw new Error(`Contrat fonctionnel invalide : ${fragment} est absent`);
+}
+if (html.includes("['recommended','Recommandé']") || html.includes('rv-upvote')) {
+  throw new Error('Une ancienne recommandation ou flèche d’upvote subsiste dans l’interface');
+}
+
+console.log("Syntaxe principale et contrats d'interface valides");
