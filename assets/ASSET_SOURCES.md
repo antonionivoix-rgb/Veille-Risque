@@ -2,8 +2,10 @@
 
 Les fichiers de ce dossier ont été fournis par l'équipe projet le 6 août 2026.
 
-- `brand/peacock.png` : paon extrait sans modification de la slide 7 de
+- `brand/peacock.png` : corps du paon extrait de la slide 7 de
   `Template Slides Risques.pptx`.
+- `brand/peacock-complete.png` : groupe complet du paon de la slide 7, avec les sept yeux
+  superposés sur les plumes, exporté directement depuis la présentation en 770 x 643 px.
 - `risk-categories/A.png` à `K.png` : pictogrammes extraits sans modification de la slide 14 de
   la même présentation.
 - `avatars/*.png` : avatars issus du dossier `V4` fourni par l'équipe.

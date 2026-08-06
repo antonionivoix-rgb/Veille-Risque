@@ -20,7 +20,8 @@ test('le bouton Carrefour restaure la vue initiale', async ({ page }) => {
   const home = page.locator('#btnHome');
 
   await expect(home).toContainText('Veille');
-  await expect(home.locator('.h-logo-primary')).toHaveAttribute('src', 'assets/brand/peacock.png');
+  await expect(home.locator('.h-logo-primary')).toHaveAttribute('src', 'assets/brand/peacock-complete.png');
+  await expect(home.locator('.h-logo-primary')).toHaveJSProperty('naturalWidth', 770);
   await expect(home).toHaveAttribute('href', '/');
 
   await page.locator('.nav-geo[data-geo="MONDE"]').click();
@@ -84,8 +85,20 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#dpSharedComments')).toContainText('Commentaire créé avec l’article.');
   await expect(page.locator('#dpAiLanguage option')).toHaveText(['Français', 'English']);
 
+  const voteColorsBefore = await page.locator('#dpVote').evaluate(node => {
+    const style = getComputedStyle(node);
+    return [style.color, style.backgroundColor, style.borderColor];
+  });
   await page.locator('#dpVote').click();
+  await page.mouse.move(0, 0);
   await expect(page.locator('#dpVoteCount')).toHaveText('1');
+  await expect(page.locator('#dpVote')).toHaveAttribute('aria-pressed', 'true');
+  await page.waitForTimeout(250);
+  const voteColorsAfter = await page.locator('#dpVote').evaluate(node => {
+    const style = getComputedStyle(node);
+    return [style.color, style.backgroundColor, style.borderColor];
+  });
+  expect(voteColorsAfter).toEqual(voteColorsBefore);
   await page.reload();
   await expect(page.locator('#viewRisks')).toHaveClass(/active/);
   await page.locator('.nav-article[data-scope="archived"]').click();
@@ -170,12 +183,10 @@ test('interface bilingue, avatars et cartes concurrentielles restent lisibles', 
   await expect(page.locator('.team-avatar').first()).toHaveAttribute('href', 'mailto:argos@carrefour.com');
   await page.locator('.team-avatar').first().hover();
   await page.waitForTimeout(250);
-  const tooltip = await page.locator('.team-avatar').first().evaluate(node => ({
-    content: getComputedStyle(node, '::after').content,
-    opacity: getComputedStyle(node, '::after').opacity,
-  }));
-  expect(tooltip.content).toContain('argos@carrefour.com');
-  expect(tooltip.opacity).toBe('1');
+  const firstTooltip = page.locator('.team-avatar').first().locator('.team-tooltip');
+  await expect(firstTooltip.locator('.team-tooltip-name')).toHaveText('Guillaume Litvak');
+  await expect(firstTooltip.locator('.team-tooltip-email')).toHaveText('argos@carrefour.com');
+  await expect(firstTooltip).toHaveCSS('opacity', '1');
 
   await page.locator('#tabConcurrence').click();
   await expect(page.locator('#sidebar-risks')).toBeHidden();
@@ -190,6 +201,26 @@ test('interface bilingue, avatars et cartes concurrentielles restent lisibles', 
   expect(competitiveStyles.overflow).toBe('visible');
   expect(competitiveStyles.textAlign).toBe('center');
   expect(competitiveStyles.mainMargin).toBe('0px');
+  const mercadona = page.locator('.comp-card[data-comp-id="mercadona"]');
+  await expect(mercadona).toBeVisible();
+  const mercadonaStyles = await mercadona.evaluate(node => {
+    const name = node.querySelector('.comp-name');
+    const segment = node.querySelector('.comp-seg');
+    return {
+      nameWritingMode: getComputedStyle(name).writingMode,
+      nameWordBreak: getComputedStyle(name).wordBreak,
+      segmentWritingMode: getComputedStyle(segment).writingMode,
+      segmentWordBreak: getComputedStyle(segment).wordBreak,
+      cardWidth: node.getBoundingClientRect().width,
+      nameWidth: name.getBoundingClientRect().width,
+    };
+  });
+  expect(mercadonaStyles.nameWritingMode).toBe('horizontal-tb');
+  expect(mercadonaStyles.nameWordBreak).toBe('normal');
+  expect(mercadonaStyles.segmentWritingMode).toBe('horizontal-tb');
+  expect(mercadonaStyles.segmentWordBreak).toBe('normal');
+  expect(mercadonaStyles.cardWidth).toBeGreaterThanOrEqual(300);
+  expect(mercadonaStyles.nameWidth).toBeGreaterThan(80);
 
   await page.locator('[data-ui-lang="en"]').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
