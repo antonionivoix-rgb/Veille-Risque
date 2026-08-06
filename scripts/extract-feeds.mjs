@@ -58,14 +58,15 @@ if (carrefourFeeds.length !== 1) throw new Error(`1 source Carrefour attendue, $
 const feeds = [...riskFeeds, ...competitorFeeds, ...carrefourFeeds];
 const output = JSON.stringify(feeds, null, 2) + '\n';
 const outputUrl = new URL('../feeds.generated.json', import.meta.url);
+const existing = await readFile(outputUrl, 'utf8');
 
 if (process.argv.includes('--check')) {
-  const existing = await readFile(outputUrl, 'utf8');
   if (existing.replaceAll('\r\n', '\n') !== output) {
     throw new Error('feeds.generated.json est désynchronisé ; exécutez npm run build:feeds puis validez le fichier');
   }
   console.log(`${riskFeeds.length} sources globales, ${competitorFeeds.length} sources concurrentielles et ${carrefourFeeds.length} source Carrefour vérifiées`);
 } else {
-  await writeFile(outputUrl, output);
+  const platformOutput = existing.includes('\r\n') ? output.replaceAll('\n', '\r\n') : output;
+  await writeFile(outputUrl, platformOutput);
   console.log(`${riskFeeds.length} sources globales, ${competitorFeeds.length} sources concurrentielles et ${carrefourFeeds.length} source Carrefour exportées`);
 }
