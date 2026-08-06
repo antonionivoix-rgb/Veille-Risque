@@ -40,8 +40,10 @@ L'icône de fermeture est créée par
 [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) et publiée sur
 [Flaticon](https://www.flaticon.com/free-icon/close_1828778).
 
-Les pictogrammes de navigation, d'ajout d'article, de commentaire et des catégories de risques
-utilisent la bibliothèque [Flaticon UIcons](https://www.flaticon.com/uicons) de Freepik Company.
+Le bouton d'accueil utilise le paon complet de la slide 7 du support graphique Argos, avec les
+sept yeux présents sur ses plumes. Les pictogrammes de navigation, d'ajout d'article, de commentaire
+et des catégories de risques utilisent la bibliothèque
+[Flaticon UIcons](https://www.flaticon.com/uicons) de Freepik Company.
 Les drapeaux sont fournis par [FlagCDN](https://flagcdn.com/).
 
 ## Le besoin auquel répond RiskVeille
@@ -66,8 +68,9 @@ RiskVeille propose un point d'entrée unique pour rendre cette matière plus lis
 
 L'interface démarre toujours en français. Les drapeaux français et britannique de l'en-tête
 permettent de basculer immédiatement les menus, filtres, dates, cadrans et fiches concurrentielles
-en français ou en anglais. Ce choix ne modifie pas le texte original des articles. Les avatars de
-l'équipe ouvrent l'adresse partagée `argos@carrefour.com`.
+en français ou en anglais. Ce choix ne modifie pas le texte original des articles. Au survol ou au
+focus, chaque avatar affiche le nom du membre et l'adresse partagée sur deux lignes distinctes. Un
+clic ouvre un nouveau message vers `argos@carrefour.com`.
 
 ### Comprendre rapidement la situation
 
@@ -96,7 +99,8 @@ ensuite de retrouver uniquement ces contributions.
 
 Dans le cadran détaillé, la catégorie reste modifiable. La recommandation de lecture utilise deux
 valeurs simples : « À lire » et « Incontournable ». Chaque utilisateur peut ajouter un J’aime ; les
-articles les plus aimés remontent dans la liste.
+articles les plus aimés remontent dans la liste. Le bouton conserve la même palette visuelle après
+le clic afin que l'état actif ne se transforme pas en cartouche jaune ou orange.
 
 Les commentaires peuvent être corrigés ou supprimés par leur auteur. Tout utilisateur connecté
 peut supprimer un article ajouté manuellement, quel que soit son auteur. Ces changements sont

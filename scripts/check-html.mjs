@@ -9,7 +9,7 @@ new Function(`'use strict';${match[1]}`);
 
 const requiredHomeFragments = [
   '<a class="h-brand" id="btnHome" href="/"',
-  'src="assets/brand/peacock.png"',
+  'src="assets/brand/peacock-complete.png"',
   '<span class="h-name">Veille</span>',
 ];
 for (const fragment of requiredHomeFragments) {
@@ -53,7 +53,7 @@ for (const fragment of requiredGraphicAndLanguageFragments) {
   if (!html.includes(fragment)) throw new Error(`Contrat graphique ou bilingue invalide : ${fragment} est absent`);
 }
 const requiredAssets = [
-  'brand/peacock.png','flags/gb.svg','avatars/guillaume-litvak.png','avatars/chi.png',
+  'brand/peacock-complete.png','flags/gb.svg','avatars/guillaume-litvak.png','avatars/chi.png',
   'avatars/antonio-nivoix.png','avatars/mathilde-blataj.png',
   ...'ABCDEFGHIJK'.split('').map(code=>`risk-categories/${code}.png`),
 ];

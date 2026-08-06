@@ -17,12 +17,16 @@ ne pas reinitialiser et demander une verification humaine.
 ## Contrats a preserver
 
 - Production utilisateurs : `https://riskveillecrf-824.pages.dev/`.
-- Le bouton `#btnHome` est un lien `href="/"` avec le paon
-  `assets/brand/peacock.png` et le texte `Veille`.
+- Le bouton `#btnHome` est un lien `href="/"` avec le paon complet de la slide 7,
+  yeux compris, dans `assets/brand/peacock-complete.png`, et le texte `Veille`.
 - L'etat initial est : Vue globale, Monde, toutes les categories, tous les articles et tri
   `Plus aimes`.
 - La langue initiale est toujours le francais. Le bouton Royaume-Uni traduit l'interface en
   anglais sans modifier la langue des articles sources.
+- Les infobulles des avatars affichent le nom du membre et, sur une ligne separee, l'adresse
+  `argos@carrefour.com`. Chaque avatar reste un lien `mailto:`.
+- L'etat actif d'un bouton J'aime conserve la palette neutre de l'etat initial. Ne pas retablir
+  de fond ou de bordure jaune/orange.
 - Les resumes IA francais et anglais sont stockes separement dans
   `article_ai_summaries_i18n`. Ne jamais remplacer une langue par l'autre.
 - Conserver exactement 66 sources globales, 18 sources concurrentielles et 1 source de veille
