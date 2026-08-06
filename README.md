@@ -21,6 +21,13 @@ version de référence**. Un mot de passe est demandé à
 l'ouverture pour éviter un accès accidentel. Chaque utilisateur indique également son nom afin que
 les commentaires et corrections puissent être attribués.
 
+## Développer à plusieurs
+
+Les contributeurs humains et les agents de code doivent suivre [AGENTS.md](AGENTS.md). Il faut
+partir d'une branche `main` synchronisée, travailler sur une branche dédiée, lancer
+`npm run check`, puis passer par une pull request. Le déploiement Cloudflare ne doit partir que de
+la dernière version validée de `main`.
+
 ## Crédit visuel
 
 L'icône de suppression est créée par [IYAHICON](https://www.flaticon.com/authors/iyahicon) et

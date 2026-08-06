@@ -41,5 +41,16 @@ for (const match of competitorBlock.matchAll(competitorPattern)) {
 if (riskFeeds.length !== 66) throw new Error(`66 sources globales attendues, ${riskFeeds.length} extraites`);
 if (competitorFeeds.length !== 18) throw new Error(`18 sources concurrentielles attendues, ${competitorFeeds.length} extraites`);
 const feeds = [...riskFeeds, ...competitorFeeds];
-await writeFile(new URL('../feeds.generated.json', import.meta.url), JSON.stringify(feeds, null, 2) + '\n');
-console.log(`${riskFeeds.length} sources globales et ${competitorFeeds.length} sources concurrentielles exportées`);
+const output = JSON.stringify(feeds, null, 2) + '\n';
+const outputUrl = new URL('../feeds.generated.json', import.meta.url);
+
+if (process.argv.includes('--check')) {
+  const existing = await readFile(outputUrl, 'utf8');
+  if (existing !== output) {
+    throw new Error('feeds.generated.json est désynchronisé ; exécutez npm run build:feeds puis validez le fichier');
+  }
+  console.log(`${riskFeeds.length} sources globales et ${competitorFeeds.length} sources concurrentielles vérifiées`);
+} else {
+  await writeFile(outputUrl, output);
+  console.log(`${riskFeeds.length} sources globales et ${competitorFeeds.length} sources concurrentielles exportées`);
+}

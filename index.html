@@ -109,7 +109,7 @@ body.dark .bico-dm .ico-sun{display:block!important}
 
 /* HEADER */
 header{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:200;background:var(--sb);display:flex;align-items:center;border-bottom:1px solid var(--sbbd);box-shadow:0 1px 0 var(--sbbd),0 4px 20px rgba(0,0,0,.28)}
-.h-brand{width:var(--sw);flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 18px;height:100%;border:0;border-right:1px solid var(--sbbd);background:transparent;color:inherit;font-family:var(--sans);text-align:left;cursor:pointer;transition:background var(--ease)}
+.h-brand{width:var(--sw);flex-shrink:0;display:flex;align-items:center;gap:10px;padding:0 16px 0 18px;height:100%;border:0;border-right:1px solid var(--sbbd);background:transparent;color:inherit;font-family:var(--sans);text-align:left;text-decoration:none;cursor:pointer;transition:background var(--ease)}
 .h-brand:hover{background:rgba(255,255,255,.065)}
 .h-brand:active{background:rgba(255,255,255,.1)}
 .h-brand:focus-visible{outline:2px solid #60A5FA;outline-offset:-3px;border-radius:0}
@@ -581,11 +581,11 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
 
 <!-- HEADER -->
 <header>
-  <button class="h-brand" id="btnHome" type="button" title="Revenir à la vue initiale" aria-label="Revenir à la vue initiale">
+  <a class="h-brand" id="btnHome" href="/" title="Revenir à la vue initiale" aria-label="Revenir à la vue initiale">
     <img class="h-logo h-logo-primary" src="assets/carrefour-logo.svg" alt="Carrefour">
     <span class="h-divider" aria-hidden="true"></span>
     <span class="h-name">Veille Risque</span>
-  </button>
+  </a>
   <div class="h-center">
     <div class="view-tabs">
       <button class="view-tab active" data-view="risks" id="tabRisks">Vue globale</button>
@@ -3699,28 +3699,6 @@ $('btnDark').addEventListener('click', toggleDark);
    ========================================= */
 function showSkels(){$('feed').innerHTML=Array(5).fill('<div class="skel"></div>').join('');}
 function updTime(){const n=new Date();set('upt',`${n.getHours().toString().padStart(2,'0')}:${n.getMinutes().toString().padStart(2,'0')}`);}
-
-function resetToInitialView(){
-  clearTimeout(st);
-  switchView('risks');
-  ST.articleScope='all';
-  ST.geographies=new Set(['MONDE']);
-  ST.categories=new Set(RISK_CATEGORY_CODES);
-  ST.sort='votes';
-  ST.search='';
-  ST.page=1;
-  $('searchInput').value='';
-  document.querySelectorAll('[data-sort]').forEach(button=>button.classList.toggle('active',button.dataset.sort==='votes'));
-  $('ov').classList.remove('open');
-  curItem=null;detailReturnCompId=null;
-  closeCompPanel();
-  setMobileFiltersOpen(false);
-  updateCounts();
-  applyFilter();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-$('btnHome').addEventListener('click',resetToInitialView);
 
 /* =========================================
    Sidebar — Construction dynamique A→K
