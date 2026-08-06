@@ -60,7 +60,7 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await page.locator('#btnAddArticle').click();
   await expect(page.locator('#addArtDesc')).toHaveCount(0);
   await expect(page.locator('#addArtRecommendation option')).toHaveCount(2);
-  await expect(page.locator('#addArtRecommendation option')).toHaveText(['À lire', 'Incontournable']);
+  await expect(page.locator('#addArtRecommendation option')).toHaveText(['Intéressant', 'Incontournable']);
   await expect(page.locator('#addArtAiLanguage option')).toHaveText(['Français', 'English']);
   await page.locator('#addArtUrl').fill(`https://example.com/riskveille/${Date.now()}`);
   await page.locator('#addArtTitle').fill(title);

@@ -98,7 +98,7 @@ la catégorie et, s'il le souhaite, un commentaire initial. Le filtre « Article
 ensuite de retrouver uniquement ces contributions.
 
 Dans le cadran détaillé, la catégorie reste modifiable. La recommandation de lecture utilise deux
-valeurs simples : « À lire » et « Incontournable ». Chaque utilisateur peut ajouter un J’aime ; les
+valeurs simples : « Intéressant » et « Incontournable ». Chaque utilisateur peut ajouter un J’aime ; les
 articles les plus aimés remontent dans la liste. Le bouton conserve la même palette visuelle après
 le clic afin que l'état actif ne se transforme pas en cartouche jaune ou orange.
 
