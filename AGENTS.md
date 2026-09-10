@@ -20,7 +20,7 @@ ne pas reinitialiser et demander une verification humaine.
 - Le bouton `#btnHome` est un lien `href="/"` avec le paon complet de la slide 7,
   yeux compris, dans `assets/brand/peacock-complete.png`, et le texte `Veille`.
 - L'etat initial est : Vue globale, Monde, toutes les categories, tous les articles et tri
-  `Plus aimes`.
+  `Recents`.
 - La langue initiale est toujours le francais. Le bouton Royaume-Uni traduit l'interface en
   anglais sans modifier la langue des articles sources.
 - Les infobulles des avatars affichent le nom du membre et, sur une ligne separee, l'adresse
