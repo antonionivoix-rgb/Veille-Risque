@@ -722,10 +722,6 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
             <span class="comp-bar-sub" id="ccModeDescription">Cliquez sur une enseigne pour voir le détail.</span>
           </div>
           <div class="comp-bar-right">
-            <div class="sgrp">
-              <button class="sbtn active" data-cc-mode="competitors" data-i18n="competitive.competitors">Concurrents</button>
-              <button class="sbtn" data-cc-mode="carrefour">Carrefour</button>
-            </div>
             <button class="sbtn active article-add-action" id="btnAddCompArticle" style="margin-right:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.add">Ajouter un article</span></button>
             <div class="sgrp" id="ccCountryFilters">
               <button class="sbtn active" data-cc-pays="all"><span data-i18n="common.all">Tous</span> (<span id="cc-cnt-all">—</span>)</button>
@@ -932,7 +928,7 @@ const I18N = {
     'articles.add':'Ajouter un article','articles.addAction':"Ajouter l'article",'articles.archiveThis':'Archiver cet article','articles.archiveOnAdd':"Archiver dès l'ajout",'articles.delete':'Supprimer cet article',
     'competitive.tracked':'Concurrents suivis','competitive.countries':'France · Espagne · Brésil','competitive.franceBrands':'Enseignes France','competitive.franceMarket':'marché français',
     'competitive.spainBrands':'Enseignes Espagne','competitive.spainMarket':'marché espagnol','competitive.brazilBrands':'Enseignes Brésil','competitive.brazilMarket':'marché brésilien',
-    'competitive.articles':'Articles recensés','competitive.teamFeeds':"flux et ajouts de l’équipe",'competitive.title':'Veille concurrentielle · fiches enseigne','competitive.competitors':'Concurrents',
+    'competitive.articles':'Articles recensés','competitive.teamFeeds':"flux et ajouts de l’équipe",'competitive.title':'Veille concurrentielle · fiches enseigne',
     'competitive.empty':'Aucune enseigne ne correspond aux filtres actifs.','competitive.addNews':"Ajouter une actualité d’enseigne",'competitive.brandRequired':'Enseigne *',
     'competitive.identity':"Fiche d'identité",'competitive.news':'Actualités','competitive.addToBrand':'Ajouter à cette enseigne','competitive.feedSource':'Source flux',
     'competitive.feedDescription':'Google News / agrégation multi-sources presse spécialisée','common.all':'Tous','common.cancel':'Annuler','common.save':'Enregistrer','common.publish':'Publier','common.description':'Description',
@@ -945,7 +941,7 @@ const I18N = {
     'categories.all':'Toutes les catégories','filters.active':'Filtres actifs','filters.noneCategory':'Aucune catégorie sélectionnée','filters.allGeographies':'Toutes les géographies',
     'feed.title':'Veille','feed.empty':'Aucun article pour ce filtre.','articles.one':'article','articles.many':'articles','archive.badge':'Archivé','archive.by':'Archivé par','article.addedBadge':'Ajouté',
     'date.now':"À l'instant",'date.minutes':'Il y a {count} min','date.hours':'Il y a {count} h','sync.at':'Synchro {time}',
-    'competitive.modeCarrefour':'Google News, communication officielle et sources de la Vue globale.','competitive.modeBrands':'Cliquez sur une enseigne pour voir le détail.',
+    'competitive.modeBrands':'Cliquez sur une enseigne pour voir le détail.',
     'competitive.noNews':'Aucune actualité récente','competitive.noRecent':'Pas d’actualité récente.','competitive.open':'Ouvrir la fiche détaillée →','competitive.teamAdd':'ajout équipe',
     'competitive.scope':'Périmètre','competitive.coverage':'Couverture','competitive.revenue':"Chiffre d'affaires",'competitive.marketShare':'Parts de marché','competitive.stores':'Magasins',
     'competitive.founded':'Fondation','competitive.hq':'Siège','competitive.listed':'Coté en bourse','competitive.officialSite':'Site officiel','competitive.sources':'Sources',
@@ -965,7 +961,7 @@ const I18N = {
     'articles.add':'Add an article','articles.addAction':'Add article','articles.archiveThis':'Archive this article','articles.archiveOnAdd':'Archive on creation','articles.delete':'Delete this article',
     'competitive.tracked':'Tracked competitors','competitive.countries':'France · Spain · Brazil','competitive.franceBrands':'French retailers','competitive.franceMarket':'French market',
     'competitive.spainBrands':'Spanish retailers','competitive.spainMarket':'Spanish market','competitive.brazilBrands':'Brazilian retailers','competitive.brazilMarket':'Brazilian market',
-    'competitive.articles':'Indexed articles','competitive.teamFeeds':'feeds and team additions','competitive.title':'Competitive intelligence · retailer profiles','competitive.competitors':'Competitors',
+    'competitive.articles':'Indexed articles','competitive.teamFeeds':'feeds and team additions','competitive.title':'Competitive intelligence · retailer profiles',
     'competitive.empty':'No retailer matches the active filters.','competitive.addNews':'Add retailer news','competitive.brandRequired':'Retailer *',
     'competitive.identity':'Company profile','competitive.news':'News','competitive.addToBrand':'Add to this retailer','competitive.feedSource':'Feed source',
     'competitive.feedDescription':'Google News / specialist press multi-source aggregation','common.all':'All','common.cancel':'Cancel','common.save':'Save','common.publish':'Publish','common.description':'Description',
@@ -978,7 +974,7 @@ const I18N = {
     'categories.all':'All categories','filters.active':'Active filters','filters.noneCategory':'No category selected','filters.allGeographies':'All geographies',
     'feed.title':'Watch','feed.empty':'No articles match this filter.','articles.one':'article','articles.many':'articles','archive.badge':'Archived','archive.by':'Archived by','article.addedBadge':'Added',
     'date.now':'Just now','date.minutes':'{count} min ago','date.hours':'{count} hr ago','sync.at':'Synced {time}',
-    'competitive.modeCarrefour':'Google News, official communications and Overview sources.','competitive.modeBrands':'Select a retailer to view details.',
+    'competitive.modeBrands':'Select a retailer to view details.',
     'competitive.noNews':'No recent news','competitive.noRecent':'No recent news.','competitive.open':'Open detailed profile →','competitive.teamAdd':'team addition',
     'competitive.scope':'Scope','competitive.coverage':'Coverage','competitive.revenue':'Revenue','competitive.marketShare':'Market share','competitive.stores':'Stores',
     'competitive.founded':'Founded','competitive.hq':'Headquarters','competitive.listed':'Publicly listed','competitive.officialSite':'Official website','competitive.sources':'Sources',
@@ -3466,7 +3462,7 @@ function openAddCompetitorArticleModal(competitorId=''){
   $('addCompArticleErr').style.display='none';
   $('addCompArticleOv').classList.add('open');
 }
-$('btnAddCompArticle')?.addEventListener('click',()=>openAddCompetitorArticleModal(CC.openCompId||(CC.mode==='carrefour'?'carrefour':'')));
+$('btnAddCompArticle')?.addEventListener('click',()=>openAddCompetitorArticleModal(CC.openCompId||'carrefour'));
 $('addCompArticleCl')?.addEventListener('click',()=>$('addCompArticleOv').classList.remove('open'));
 $('addCompArticleOv')?.addEventListener('click',event=>{if(event.target.id==='addCompArticleOv')$('addCompArticleOv').classList.remove('open');});
 $('addCompArticleSubmit')?.addEventListener('click',async()=>{
@@ -3517,7 +3513,6 @@ const CC = {
   items: [],
   /** État de l'UI */
   filtered: [],
-  mode: 'competitors',
   pays: 'all',
   sort: 'recent',
   openCompId: null,
@@ -3716,10 +3711,10 @@ function renderConcurrence(){
   const competitorTiles=tiles.filter(tile=>!tile.isCarrefour);
   set('cc-total-comp', competitorTiles.length);
   ['FR','ES','BR'].forEach(p => set('cc-total-' + p, competitorTiles.filter(t => t.pays === p).length));
-  set('cc-tot', competitorTiles.reduce((total,tile)=>total+tile.items.length,0));
-  // Compteurs par pays sur les boutons
-  set('cc-cnt-all', competitorTiles.length);
-  ['FR','ES','BR'].forEach(p => set('cc-cnt-' + p, competitorTiles.filter(t => t.pays === p).length));
+  set('cc-tot', tiles.reduce((total,tile)=>total+tile.items.length,0));
+  // Compteurs par pays sur les boutons (le groupe Carrefour est inclu dans la liste filtrée)
+  set('cc-cnt-all', tiles.length);
+  ['FR','ES','BR'].forEach(p => set('cc-cnt-' + p, tiles.filter(t => t.pays === p).length));
 
   applyCCFilter(tiles);
 }
@@ -3727,12 +3722,9 @@ function renderConcurrence(){
 function applyCCFilter(allTiles){
   // allTiles peut être passé en argument ou recalculé
   const tiles = allTiles || buildCompetitorTiles();
-  let filtered=CC.mode==='carrefour'?tiles.filter(tile=>tile.isCarrefour):tiles.filter(tile=>!tile.isCarrefour);
-  if(CC.mode==='competitors'&&CC.pays!=='all')filtered=filtered.filter(t=>t.pays===CC.pays);
-  $('ccCountryFilters').style.display=CC.mode==='competitors'?'inline-flex':'none';
-  $('ccModeDescription').textContent=CC.mode==='carrefour'
-    ? t('competitive.modeCarrefour')
-    : t('competitive.modeBrands');
+  let filtered=tiles.slice();
+  if(CC.pays!=='all')filtered=filtered.filter(t=>t.pays===CC.pays);
+  $('ccModeDescription').textContent=t('competitive.modeBrands');
   // Tri
   if (CC.sort === 'recent') {
     filtered.sort((a,b) => b.latestAt - a.latestAt || b.items.length - a.items.length || a.name.localeCompare(b.name));
@@ -3743,6 +3735,9 @@ function applyCCFilter(allTiles){
   } else {
     filtered.sort((a,b) => a.name.localeCompare(b.name));
   }
+  // La fiche du Groupe Carrefour reste toujours en tête de grille, avant Auchan
+  const cfIndex=filtered.findIndex(t=>t.isCarrefour);
+  if(cfIndex>0){const [cf]=filtered.splice(cfIndex,1);filtered.unshift(cf);}
   CC.filtered = filtered;
   renderCCGrid();
 }
@@ -3906,11 +3901,6 @@ $('btnAddCompFromPanel')?.addEventListener('click',()=>{
 });
 
 /** Handlers boutons de tri / pays de la vue Concurrence */
-document.querySelectorAll('[data-cc-mode]').forEach(button=>button.addEventListener('click',()=>{
-  document.querySelectorAll('[data-cc-mode]').forEach(node=>node.classList.toggle('active',node===button));
-  CC.mode=button.dataset.ccMode;
-  applyCCFilter();
-}));
 document.querySelectorAll('[data-cc-sort]').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('[data-cc-sort]').forEach(x => x.classList.remove('active'));
   b.classList.add('active');

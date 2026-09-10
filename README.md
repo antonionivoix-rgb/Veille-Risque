@@ -124,10 +124,11 @@ Espagne et au Brésil. Il permet de suivre les mouvements de magasins, les rappr
 résultats et les changements de positionnement. Chaque enseigne dispose d'une fiche identifiable
 par son logo et ses principales données publiques.
 
-Un sous-onglet Carrefour rassemble séparément les résultats Google News, la communication
-officielle du Groupe et les articles des sources globales qui citent Carrefour. Carrefour n'est pas
-compté dans les indicateurs de concurrents. Chaque fiche affiche au maximum les dix articles les
-plus aimés, puis les départage par recommandation de lecture et par date.
+La fiche du Groupe Carrefour ouvre la grille des enseignes, en haut à gauche juste avant Auchan :
+elle rassemble les résultats Google News, la communication officielle du Groupe et les articles des
+sources globales qui citent Carrefour. Carrefour n'est pas compté dans les indicateurs de
+concurrents. Chaque fiche affiche au maximum les dix articles les plus aimés, puis les départage par
+recommandation de lecture et par date.
 
 La veille concurrentielle ne donne pas de note numérique aux actualités : elles sont présentées
 par date, sans suggérer une gravité artificielle. Un membre de l'équipe peut ajouter un article à

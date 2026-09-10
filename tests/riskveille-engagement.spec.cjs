@@ -120,7 +120,6 @@ test('la veille Carrefour est plafonnée et partage le menu des archives', async
   await login(page, 'Test Carrefour');
 
   await page.locator('#tabConcurrence').click();
-  await page.locator('[data-cc-mode="carrefour"]').click();
   const carrefourCard = page.locator('.comp-card[data-comp-id="carrefour"]');
   await expect(carrefourCard).toBeVisible({ timeout: 20000 });
   await page.screenshot({ path: 'test-results/carrefour-desktop.png', fullPage: true });
