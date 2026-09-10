@@ -41,7 +41,7 @@ test('le bouton Carrefour restaure la vue initiale', async ({ page }) => {
   await expect(page.locator('.nav-geo[data-geo="FR"]')).toHaveAttribute('aria-checked', 'false');
   await expect(page.locator('.nav-article[data-scope="archived"]')).toHaveAttribute('aria-checked', 'false');
   await expect(page.locator('.nav-cat[data-code="all"]')).toHaveAttribute('aria-checked', 'true');
-  await expect(page.locator('[data-sort="votes"]')).toHaveClass(/active/);
+  await expect(page.locator('[data-sort="recent"]')).toHaveClass(/active/);
   await expect(page.locator('#searchInput')).toHaveValue('');
   await expect(page.locator('#filterState')).not.toContainText('France');
 });

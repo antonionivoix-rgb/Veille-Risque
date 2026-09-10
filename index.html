@@ -687,8 +687,8 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
               <span class="sttl" id="secTtl">Veille</span>
               <span class="rcnt" id="resCnt"></span>
               <div class="sgrp">
-                <button class="sbtn active" data-sort="votes" data-i18n="sort.liked">Plus aimés</button>
-                <button class="sbtn" data-sort="recent" data-i18n="sort.recent">Récents</button>
+                <button class="sbtn" data-sort="votes" data-i18n="sort.liked">Plus aimés</button>
+                <button class="sbtn active" data-sort="recent" data-i18n="sort.recent">Récents</button>
               </div>
               <button class="sbtn mobile-filter-btn" id="btnFilters" aria-controls="sidebar-risks" aria-expanded="false" data-i18n="filters.button">Filtres</button>
               <button class="sbtn article-add-action" id="btnAddArticle" style="margin-left:8px"><i class="rv-fi rv-add-article" aria-hidden="true"></i><span data-i18n="articles.add">Ajouter un article</span></button>
@@ -2421,7 +2421,7 @@ function isRelevant(item, src) {
 const CACHE = new Map();
 const TTL = 20 * 60 * 1000;
 const RISK_CATEGORY_CODES = Object.keys(RISK_CATEGORIES);
-const ST = { all:[], filtered:[], articleScope:'all', geographies:new Set(['MONDE']), categories:new Set(RISK_CATEGORY_CODES), sort:'votes', search:'', page:1, perPage:20, loading:false, online:0, errors:[] };
+const ST = { all:[], filtered:[], articleScope:'all', geographies:new Set(['MONDE']), categories:new Set(RISK_CATEGORY_CODES), sort:'recent', search:'', page:1, perPage:20, loading:false, online:0, errors:[] };
 
 function signalLane(item){
   return item.macro ? 'macro' : 'alert';
