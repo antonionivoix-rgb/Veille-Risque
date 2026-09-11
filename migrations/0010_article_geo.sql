@@ -1,0 +1,1 @@
+ALTER TABLE custom_articles ADD COLUMN pays TEXT NOT NULL DEFAULT 'MONDE';
