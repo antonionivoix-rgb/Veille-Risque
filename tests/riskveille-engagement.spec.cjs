@@ -62,6 +62,8 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#addArtRecommendation option')).toHaveCount(2);
   await expect(page.locator('#addArtRecommendation option')).toHaveText(['Intéressant', 'Incontournable']);
   await expect(page.locator('#addArtAiLanguage option')).toHaveText(['Français', 'English']);
+  await expect(page.locator('#addArtPays option')).toHaveText(['Monde', 'France', 'Espagne', 'Brésil']);
+  await expect(page.locator('#addArtPays')).toHaveValue('MONDE');
   await page.locator('#addArtUrl').fill(`https://example.com/riskveille/${Date.now()}`);
   await page.locator('#addArtTitle').fill(title);
   await page.locator('#addArtComment').fill('Commentaire créé avec l’article.');
@@ -84,6 +86,17 @@ test('archives, recommandations, commentaires et votes persistent', async ({ pag
   await expect(page.locator('#dpEngagementMeta')).toContainText('Test engagement');
   await expect(page.locator('#dpSharedComments')).toContainText('Commentaire créé avec l’article.');
   await expect(page.locator('#dpAiLanguage option')).toHaveText(['Français', 'English']);
+  await expect(page.locator('#dpGeoSelect')).toHaveValue('MONDE');
+  await expect(page.locator('#dpMeta')).toContainText('Monde');
+
+  await page.locator('#dpGeoSelect').selectOption('ES');
+  await page.locator('#dpClassSave').click();
+  await expect(page.locator('#dpMeta')).toContainText('Espagne', { timeout: 10000 });
+  await expect(page.locator('#dpGeoSelect')).toHaveValue('ES');
+  await page.locator('#dpGeoSelect').selectOption('MONDE');
+  await page.locator('#dpClassSave').click();
+  await expect(page.locator('#dpMeta')).toContainText('Monde', { timeout: 10000 });
+  await expect(page.locator('#dpGeoSelect')).toHaveValue('MONDE');
 
   const voteColorsBefore = await page.locator('#dpVote').evaluate(node => {
     const style = getComputedStyle(node);

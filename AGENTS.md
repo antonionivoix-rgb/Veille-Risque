@@ -32,6 +32,9 @@ ne pas reinitialiser et demander une verification humaine.
   colonne de caracteres sur un petit ecran.
 - Les resumes IA francais et anglais sont stockes separement dans
   `article_ai_summaries_i18n`. Ne jamais remplacer une langue par l'autre.
+- Les articles ajoutes manuellement portent une zone geographique (Monde, France, Espagne,
+  Bresil) choisie a l'ajout et modifiable depuis la fiche detail (`/api/articles/:id/geo`).
+  Le pays d'un article de flux source reste celui de son registre.
 - Conserver exactement 66 sources globales, 18 sources concurrentielles et 1 source de veille
   Carrefour, sauf demande explicite.
 - Ne jamais supprimer ou reinitialiser les donnees D1, les archives, J'aime, commentaires ou resumes.

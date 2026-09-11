@@ -787,6 +787,7 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <div class="dpsection-label" data-i18n="details.riskCategory">Catégorie de risques - Univers de risques Carrefour</div>
       <div class="dp-class-grid">
         <label><span data-i18n="details.classification">Classement</span><select class="dpti" id="dpCatSelect"></select></label>
+        <label><span data-i18n="details.geography">Zone géographique</span><select class="dpti" id="dpGeoSelect"></select></label>
       </div>
       <div class="dp-shared-actions">
         <button class="sbtn active" id="dpClassSave" data-i18n="common.save">Enregistrer</button>
@@ -837,6 +838,8 @@ body.dark .ops-brand-mark{box-shadow:0 12px 26px rgba(0,0,0,.4)}
       <div class="addart-ai-language"><label class="addart-lbl" for="addArtAiLanguage" data-i18n="ai.summaryLanguage">Langue du résumé IA</label><select id="addArtAiLanguage" class="addart-input"><option value="fr">Français</option><option value="en">English</option></select></div>
       <label class="addart-lbl" data-i18n="details.riskCategory">Catégorie de risques - Univers de risques Carrefour</label>
       <select id="addArtCat" class="addart-input"></select>
+      <label class="addart-lbl" data-i18n="details.geography">Zone géographique</label>
+      <select id="addArtPays" class="addart-input"></select>
       <label class="addart-lbl" data-i18n="recommendation.title">Recommandation de lecture</label>
       <select id="addArtRecommendation" class="addart-input"></select>
       <label class="addart-ai-option"><input type="checkbox" id="addArtArchived"><span data-i18n="articles.archiveOnAdd">Archiver dès l'ajout</span></label>
@@ -932,7 +935,7 @@ const I18N = {
     'competitive.empty':'Aucune enseigne ne correspond aux filtres actifs.','competitive.addNews':"Ajouter une actualité d’enseigne",'competitive.brandRequired':'Enseigne *',
     'competitive.identity':"Fiche d'identité",'competitive.news':'Actualités','competitive.addToBrand':'Ajouter à cette enseigne','competitive.feedSource':'Source flux',
     'competitive.feedDescription':'Google News / agrégation multi-sources presse spécialisée','common.all':'Tous','common.cancel':'Annuler','common.save':'Enregistrer','common.publish':'Publier','common.description':'Description',
-    'details.editDescription':'Modifier la description saisie','details.riskCategory':'Catégorie de risques - Univers de risques Carrefour','details.classification':'Classement',
+    'details.editDescription':'Modifier la description saisie','details.riskCategory':'Catégorie de risques - Univers de risques Carrefour','details.classification':'Classement','details.geography':'Zone géographique',
     'ai.title':'Résumé par IA','ai.language':'Langue','ai.languageLabel':'Langue du résumé IA','ai.generate':'Générer par IA','ai.generating':'Génération en cours…','ai.edit':'Modifier le résumé IA',
     'ai.point1':'Point 1','ai.point2':'Point 2','ai.point3':'Point 3','ai.keyFigures':'Chiffres clés','ai.generateAfterAdd':"Générer un résumé par IA après l'ajout",'ai.summaryLanguage':'Langue du résumé IA',
     'recommendation.title':'Recommandation de lecture','recommendation.label':'Recommandation','recommendation.standard':'Intéressant','recommendation.essential':'Incontournable',
@@ -965,7 +968,7 @@ const I18N = {
     'competitive.empty':'No retailer matches the active filters.','competitive.addNews':'Add retailer news','competitive.brandRequired':'Retailer *',
     'competitive.identity':'Company profile','competitive.news':'News','competitive.addToBrand':'Add to this retailer','competitive.feedSource':'Feed source',
     'competitive.feedDescription':'Google News / specialist press multi-source aggregation','common.all':'All','common.cancel':'Cancel','common.save':'Save','common.publish':'Publish','common.description':'Description',
-    'details.editDescription':'Edit the entered description','details.riskCategory':'Risk category - Carrefour risk universe','details.classification':'Classification',
+    'details.editDescription':'Edit the entered description','details.riskCategory':'Risk category - Carrefour risk universe','details.classification':'Classification','details.geography':'Geographic area',
     'ai.title':'AI summary','ai.language':'Language','ai.languageLabel':'AI summary language','ai.generate':'Generate with AI','ai.generating':'Generating…','ai.edit':'Edit AI summary',
     'ai.point1':'Point 1','ai.point2':'Point 2','ai.point3':'Point 3','ai.keyFigures':'Key figures','ai.generateAfterAdd':'Generate an AI summary after adding','ai.summaryLanguage':'AI summary language',
     'recommendation.title':'Reading recommendation','recommendation.label':'Recommendation','recommendation.standard':'Interesting','recommendation.essential':'Essential',
@@ -1013,6 +1016,8 @@ function setInterfaceLanguage(language){
     applyFilter({preservePage:true});
     const addCategory=$('addArtCat');
     if(addCategory){const selected=addCategory.value;addCategory.innerHTML=Object.keys(RISK_CATEGORIES).map(code=>`<option value="${code}">${code} · ${esc(categoryText(code))}</option>`).join('');if(selected)addCategory.value=selected;}
+    if($('addArtPays'))fillGeoSelect($('addArtPays'),$('addArtPays').value||'MONDE');
+    if($('dpGeoSelect'))fillGeoSelect($('dpGeoSelect'),curItem?.pays||'MONDE');
     if($('addArtRecommendation')?.options.length)fillRecommendationSelect('addArtRecommendation',recommendationOptions(),$('addArtRecommendation').value||'standard');
     if($('addCompArticleRecommendation')?.options.length)fillRecommendationSelect('addCompArticleRecommendation',recommendationOptions(),$('addCompArticleRecommendation').value||'standard');
     if($('viewConcurrence')?.classList.contains('active'))renderConcurrence();
@@ -2527,7 +2532,7 @@ function sharedRecordToItem(record){
   return {
     id:record.id,title:record.title,link:record.url,desc:record.summary||'',date:new Date(record.created_at),
     source:`Ajouté par ${record.author}`,sourceId:'shared',cat:'custom',catCode:savedClassification?.cat_code||record.cat_code,
-    riskIds:[],sustainability:false,pays:'MONDE',lang:'fr',
+    riskIds:[],sustainability:false,pays:record.pays||'MONDE',lang:'fr',
     label:`${record.cat_code} · ${RISK_CATEGORIES[record.cat_code]?.label||''}`,macro:false,
     corroboration:1,corroboratedBy:[record.author],
     custom:true,shared:true,addedBy:record.author,manualClassification:savedClassification,
@@ -3154,7 +3159,7 @@ function openDetail(it){
   $('dpTitle').textContent=needsTranslation ? (it.titleFR || (it.translationFailed ? it.title : 'Traduction française en cours…')) : it.title;
   if (needsTranslation) { $('dpTitleFR').textContent=`Original ${it.lang.toUpperCase()} · ${it.title}`; $('dpTitleFR').style.display='block'; }
   else $('dpTitleFR').style.display='none';
-  $('dpMeta').innerHTML=`<span class="dmi">${esc(displaySource(it))}</span><span class="dmi">${fullDate(it.date)}</span><a href="${esc(it.link||'#')}" target="_blank" rel="noopener" class="dp-source-link">${esc(t('details.readArticle'))}</a><span class="dmi">${flag(it.pays)} ${esc(countryLabel(it.pays))}</span>${it.lang!=='fr'?`<span class="dmi">Original ${it.lang.toUpperCase()}</span>`:''}`;
+  renderDetailMeta(it);
   renderDetailDescription(it);
 
   renderClassificationEditor(it);
@@ -3164,6 +3169,12 @@ function openDetail(it){
   void loadCachedArticleAiSummary(it,selectedAiSummaryLanguage());
 }
 
+function renderDetailMeta(it){
+  if(!it)return;
+  const pays=it.pays||'MONDE';
+  $('dpMeta').innerHTML=`<span class="dmi">${esc(displaySource(it))}</span><span class="dmi">${fullDate(it.date)}</span><a href="${esc(it.link||'#')}" target="_blank" rel="noopener" class="dp-source-link">${esc(t('details.readArticle'))}</a><span class="dmi">${flag(pays)} ${esc(countryLabel(pays))}</span>${it.lang!=='fr'?`<span class="dmi">Original ${it.lang.toUpperCase()}</span>`:''}`;
+}
+
 function renderClassificationEditor(item){
   if(!item)return;
   const catSelect=$('dpCatSelect');
@@ -3171,6 +3182,13 @@ function renderClassificationEditor(item){
   catSelect.value=item.catCode||'A';
   const override=item.classificationOverride||SHARED.overrides.get(sharedArticleKey(item));
   $('dpClassMeta').textContent=override?`${UI_LANG==='en'?'Edited by':'Modifié par'} ${override.updated_by} · ${fmtCommentDate(override.updated_at)}`:(UI_LANG==='en'?'Automatic classification':'Classement automatique');
+  const geoSelect=$('dpGeoSelect');
+  if(geoSelect){
+    fillGeoSelect(geoSelect,item.pays||'MONDE');
+    const geoEditable=!!item.custom;
+    geoSelect.disabled=!geoEditable;
+    geoSelect.title=geoEditable?'':(UI_LANG==='en'?'Geographic area comes from the source feed.':'La zone géographique provient du flux source.');
+  }
 }
 
 $('dpClassSave').addEventListener('click',async()=>{
@@ -3181,7 +3199,12 @@ $('dpClassSave').addEventListener('click',async()=>{
     const data=await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/classification`,{method:'PUT',body:JSON.stringify({catCode:$('dpCatSelect').value})});
     SHARED.overrides.set(articleId,data.override);
     if(curItem.custom)curItem.manualClassification=data.override;
-    applySharedClassification(curItem);renderClassificationEditor(curItem);updateCounts();applyFilter();
+    const geoSelect=$('dpGeoSelect');
+    if(curItem.custom&&geoSelect&&geoSelect.value&&geoSelect.value!==(curItem.pays||'MONDE')){
+      await apiFetch(`/api/articles/${encodeURIComponent(articleId)}/geo`,{method:'PUT',body:JSON.stringify({pays:geoSelect.value})});
+      curItem.pays=geoSelect.value;
+    }
+    applySharedClassification(curItem);renderClassificationEditor(curItem);renderDetailMeta(curItem);updateCounts();applyFilter();
     toast('Classement enregistré.','ok');
   }catch(error){toast(error.message||'Classement impossible.','err');}
   finally{button.disabled=false;}
@@ -3399,13 +3422,26 @@ $('dpArticleDelete').addEventListener('click',async()=>{
 });
 
 // AJOUTER UN ARTICLE — ajout manuel
+function fillGeoSelect(sel,selected){
+  if(!sel)return;
+  const pairs=[['MONDE',t('geo.world')],['FR',t('geo.france')],['ES',t('geo.spain')],['BR',t('geo.brazil')]];
+  const current=pairs.some(([value])=>value===selected)?selected:'MONDE';
+  sel.innerHTML=pairs.map(([value,label])=>`<option value="${value}">${esc(label)}</option>`).join('');
+  sel.value=current;
+}
 function populateAddArticleCatSelect(){
   const sel = $('addArtCat');
   if (!sel || sel.options.length) return;
   sel.innerHTML = Object.keys(RISK_CATEGORIES).map(code => `<option value="${code}">${code} · ${esc(categoryText(code))}</option>`).join('');
 }
+function populateAddArticlePaysSelect(){
+  const sel=$('addArtPays');
+  if(!sel||sel.options.length)return;
+  fillGeoSelect(sel,'MONDE');
+}
 function openAddArticleModal(){
   populateAddArticleCatSelect();
+  populateAddArticlePaysSelect();
   fillRecommendationSelect('addArtRecommendation',recommendationOptions(),'standard');
   $('addArtAiLanguage').value=UI_LANG==='en'?'en':'fr';
   $('addArtAi').checked=false;
@@ -3422,6 +3458,7 @@ $('addArtSubmit')?.addEventListener('click', async () => {
   const generateAi=$('addArtAi').checked;
   const aiLanguage=$('addArtAiLanguage').value==='en'?'en':'fr';
   const catCode = $('addArtCat').value;
+  const pays = $('addArtPays')?.value || 'MONDE';
   const recommendation=$('addArtRecommendation').value;
   const archived=$('addArtArchived').checked;
   const err = $('addArtErr');
@@ -3430,7 +3467,7 @@ $('addArtSubmit')?.addEventListener('click', async () => {
   err.style.display = 'none';
   const button=$('addArtSubmit');button.disabled=true;
   try{
-    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,comment,catCode,recommendation,archived})});
+    const data=await apiFetch('/api/articles',{method:'POST',body:JSON.stringify({url,title,comment,catCode,recommendation,archived,pays})});
     $('addArtUrl').value = ''; $('addArtTitle').value = ''; $('addArtComment').value = '';
     $('addArtAi').checked=false;
     $('addArticleOv').classList.remove('open');

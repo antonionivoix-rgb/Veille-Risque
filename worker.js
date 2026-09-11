@@ -603,7 +603,7 @@ async function handleApi(request, env, ctx) {
       env.DB.prepare('SELECT id, article_id, author, body, created_at, updated_at FROM comments ORDER BY created_at ASC LIMIT 1000').all(),
       env.DB.prepare('SELECT article_id, cat_code, updated_by, updated_at FROM article_overrides').all(),
       env.DB.prepare(`
-        SELECT ca.id, ca.url, ca.title, ca.summary, ca.cat_code, ca.competitor_id, ca.author, ca.created_at,
+        SELECT ca.id, ca.url, ca.title, ca.summary, ca.cat_code, ca.pays, ca.competitor_id, ca.author, ca.created_at,
           ao.cat_code AS saved_cat_code, ao.updated_by AS classification_updated_by, ao.updated_at AS classification_updated_at
         FROM custom_articles ca
         LEFT JOIN article_overrides ao ON ao.article_id=ca.id
@@ -676,6 +676,18 @@ async function handleApi(request, env, ctx) {
       cat_code=excluded.cat_code, risk_id=NULL, updated_by=excluded.updated_by, updated_at=excluded.updated_at
     `).bind(articleId, body.catCode, session.display_name, updatedAt).run();
     return json(request, { override: { article_id: articleId, cat_code: body.catCode, updated_by: session.display_name, updated_at: updatedAt } });
+  }
+
+  const geoMatch = path.match(/^\/api\/articles\/(.+)\/geo$/);
+  if (geoMatch && request.method === 'PUT') {
+    const articleId = cleanText(decodeURIComponent(geoMatch[1]), 1800);
+    if (!articleId) return json(request, { error: 'Article invalide.' }, 400);
+    const body = await readBody(request);
+    const pays = new Set(['FR', 'ES', 'BR', 'MONDE']).has(body?.pays) ? body.pays : 'MONDE';
+    const existing = await env.DB.prepare('SELECT id FROM custom_articles WHERE id=?').bind(articleId).first();
+    if (!existing) return json(request, { error: 'Cet article n’est pas modifiable (flux source).' }, 404);
+    await env.DB.prepare('UPDATE custom_articles SET pays=? WHERE id=?').bind(pays, articleId).run();
+    return json(request, { articleId, pays });
   }
 
   const engagementMatch = path.match(/^\/api\/articles\/(.+)\/engagement$/);
@@ -867,14 +879,15 @@ async function handleApi(request, env, ctx) {
     try { new URL(articleUrl); } catch { return json(request, { error: 'URL invalide.' }, 400); }
     const id = `custom:${crypto.randomUUID()}`;
     const createdAt = new Date().toISOString();
+    const articlePays = isCompetitorArticle ? 'MONDE' : (new Set(['FR', 'ES', 'BR', 'MONDE']).has(body?.pays) ? body.pays : 'MONDE');
     try {
       const statements = [
-        env.DB.prepare('INSERT INTO custom_articles(id,url,title,summary,cat_code,competitor_id,author,created_at) VALUES(?,?,?,?,?,?,?,?)')
-          .bind(id, articleUrl, title, null, isCompetitorArticle ? 'A' : body.catCode, isCompetitorArticle ? competitorId : null, session.display_name, createdAt),
+        env.DB.prepare('INSERT INTO custom_articles(id,url,title,summary,cat_code,competitor_id,author,created_at,pays) VALUES(?,?,?,?,?,?,?,?,?)')
+          .bind(id, articleUrl, title, null, isCompetitorArticle ? 'A' : body.catCode, isCompetitorArticle ? competitorId : null, session.display_name, createdAt, articlePays),
       ];
       const snapshot = cleanArticleSnapshot({
         title, link: articleUrl, desc: '', date: createdAt, source: `Ajouté par ${session.display_name}`,
-        sourceId: 'shared', catCode: isCompetitorArticle ? 'A' : body.catCode, pays: 'MONDE', lang: 'fr',
+        sourceId: 'shared', catCode: isCompetitorArticle ? 'A' : body.catCode, pays: articlePays, lang: 'fr',
         custom: true, shared: true, addedBy: session.display_name, competitorId: isCompetitorArticle ? competitorId : null,
       }, id);
       statements.push(env.DB.prepare('INSERT INTO article_engagement(article_id,recommendation,archived,snapshot_json,updated_by,updated_at,archived_by,archived_at) VALUES(?,?,?,?,?,?,?,?)')
